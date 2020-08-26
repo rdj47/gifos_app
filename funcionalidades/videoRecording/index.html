@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>videoRecording</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <!--Aquí el video embebido de la webcam -->
+    <div class="video-wrap">
+    <video id="video" playsinline autoplay></video>
+    </div>
+    <!--El elemento canvas -->
+    <div class="controller">
+    <button id="snap">Capture</button>
+    </div>
+    <!--Botón de captura -->
+    <canvas id="canvas" width="640" height="480"></canvas> 
+    <script src="script.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+</body>
+</html>
