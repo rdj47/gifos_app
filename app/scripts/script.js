@@ -7,8 +7,10 @@ console.log("Hola: "+searchInput.value)
 
 searchInput.addEventListener('keyup', function getSuggestions() {
     //searchPhraseActiveStyleActivation();
+    console.log ("##f()## getSuggestions function execution");
     clearSuggestions();
     if (searchInput.value) {
+        console.log("URL solicitada: "+`http://api.giphy.com/v1/gifs/search/tags?q=${searchInput.value}&api_key=${api_key}`);
         let gifAutocomplete = giphyConnection (`http://api.giphy.com/v1/gifs/search/tags?q=${searchInput.value}&api_key=${api_key}`);
         gifAutocomplete.then (response => {
             console.log (response.data[0]);
@@ -53,11 +55,13 @@ moreResultsButton.addEventListener('click', drawMoreResults);
 
 //++++++++++++++++++++++++++++++++++FUNCIONES+++++++++++++++++++++++++++++++++++++++++++++
 async function giphyConnection (url) {
+    console.log ("##f()## giphyConnection function execution");
     try {
         const resp = await fetch(url);
         const info = await resp.json();
+        //console.log (await response.text());
         return info;
-        console.log (await response.text());
+        //console.log (await response.text());
     } catch (err) {
         console.log('fetch failed', err);
     }
@@ -72,6 +76,7 @@ async function giphyConnection (url) {
 
 // searchBarLineDeletion deletes search bar line when number of suggestions is 0.
 function searchBarLineCreation() {
+    console.log ("##f()## searchBarLineCreation function execution");
     try{
         let horizontalBarPrevious = document.getElementById('horizontal-bar');
         if (!horizontalBarPrevious) {
@@ -118,7 +123,7 @@ function changeSearchPhraseStyle() {
 
 // changeSearchPhraseStyleReverse restore initial style of search-phrase tag.
 function changeSearchPhraseStyleReverse() {
-    console.log ("##f()## changeSearchInputStyle function execution");
+    console.log ("##f()## changeSearchPhraseStyleReverse function execution");
     let searchBarInput = document.getElementById('search-phrase-input');
     searchBarInput.style.marginBottom = '13px';
     searchBarInput.style.order= 'unset';
