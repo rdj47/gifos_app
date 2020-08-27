@@ -176,17 +176,17 @@ function drawSuggestions (suggestions) {
         suggestion.classList.remove('hide');
         suggestion.classList.add('active-suggestion');
         //suggestion.secondChild.text="suggestion "+i;
-        suggestion.addEventListener('click', gifSearch);
+        suggestion.addEventListener('click', gifSearch(parrafo[0].textContent));
         let searchBar =  document.getElementsByClassName('search-bar');
         searchBar[0].appendChild(suggestion);
     }
 }
 
 //
-function gifSearch() {
+function gifSearch(searchPhrase) {
     console.log ("##f()## gifSearch function execution");
-    let parrafo = this.getElementsByTagName('p');
-    let searchPhrase = parrafo[0].textContent;
+    //let parrafo = this.getElementsByTagName('p');
+    //let searchPhrase = parrafo[0].textContent;
     displaySuggestionAsSearchPhrase(searchPhrase);
     let q = searchPhrase;
     let limit = 12;
