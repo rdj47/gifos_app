@@ -181,7 +181,7 @@ function drawSuggestions (suggestions) {
         suggestion.classList.remove('hide');
         suggestion.classList.add('active-suggestion');
         //suggestion.secondChild.text="suggestion "+i;
-        suggestion.addEventListener('click', gifSearch(parrafo[0].textContent));
+        suggestion.addEventListener('click', function(){ gifSearch(parrafo[0].textContent);});
         let searchBar =  document.getElementsByClassName('search-bar');
         searchBar[0].appendChild(suggestion);
     }
