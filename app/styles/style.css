@@ -226,15 +226,16 @@ main .search-results {
     font-size: 25px;
     color: #572EE5;
     text-align: center;
-    line-height: 40px; }
+    line-height: 40px;
+    text-transform: capitalize; }
   main .search-results .results {
     padding: 0px 21px 0px 21px; }
-    main .search-results .results .git-card {
+    main .search-results .results .gif-card {
       padding: unset;
       width: 156px;
       height: 120px;
       margin: auto; }
-      main .search-results .results .git-card img {
+      main .search-results .results .gif-card img {
         max-width: 156px;
         max-height: 120px;
         text-align: center;

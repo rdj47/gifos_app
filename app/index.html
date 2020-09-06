@@ -74,11 +74,13 @@
             <h2>Trending</h2>
             <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
         </div>
-        <hr class="search-results-separator">         
-        <div class="search-results">  
-            <h2 class="search-results-title">Mascotas</h2>  
-            <div class="results">
-                <div class="git-card hide">
+        <hr id ="search-results-separator" class="search-results-separator hide">         
+        <div id="search-results" class="search-results hide">  
+            <h2 id="search-results-title" class="search-results-title">Mascotas</h2>
+            <img src="images/icon-busqueda-sin-resultado.svg" id="no-results-icon" class="no-results-icon hide" alt="Ícono de OUCH!">
+            <h3 id="no-results-text" class="no-results-text hide">Intenta con otra búsqueda</h3>
+            <div id="results" class="results hide">
+                <!--<div class="git-card hide">
                     <img src="" alt="GIF">
                 </div>
                 <div class="git-card hide">
@@ -113,12 +115,13 @@
                 </div>
                 <div class="git-card hide">
                     <img src="" alt="">
-                </div>
+                </div>-->
             </div>  
             <div id="more-results" class="more-results hide">
                 <p>VER MÁS</p>
             </div>      
         </div>
+        <div id="maximized" class="maximized"></div>
         <div class="trending-gifos">
             <h2>Trending GIFOS</h2>
             <p>Mira los últimos<br>GIFOS de nuestra comunidad.</p>
