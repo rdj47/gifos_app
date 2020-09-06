@@ -314,6 +314,8 @@ main .maximized {
     main .maximized .maximized-download-border .maximized-download-button {
       width: 19.2px;
       height: 21.1px; }
+  main .maximized .maximized-download-border:hover {
+    opacity: unset; }
 main .trending-gifos {
   padding: 46px 0px 82px 0px;
   width: 100%;
