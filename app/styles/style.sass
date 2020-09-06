@@ -22,7 +22,13 @@
     flex-flow: row wrap
     align-items: flex-start
     justify-content: space-evenly
-    align-content: flex-start  
+    align-content: flex-start
+%flex-row-justify-center
+    display: flex
+    flex-flow: row wrap
+    align-items: center
+    justify-content: center
+    align-content: center  
 %grid-justify-items-center  
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(156px, 1fr))
@@ -207,7 +213,6 @@ main
                     line-height: 22px //Verify Spec 
                     float: left
                     text-transform: capitalize         
-
     .trending-terms
         padding: 31px 0px 45px 0px
         h2
@@ -220,6 +225,7 @@ main
             color: #572EE5
             text-align: center
             line-height: 25px
+            margin: auto
         p
             padding: unset
             width: 225px
@@ -228,12 +234,14 @@ main
             font-size: 14px
             color: #572EE5
             text-align: center
-            line-height: 25px    
+            line-height: 25px
+            margin: auto    
     .search-results-separator
         //display: none
         width: 41.86%
         height: 1px
         background: #9CAFC3 // *Adjust color border
+        margin: auto
     .search-results
         width: 100%
         .search-results-title
@@ -276,12 +284,67 @@ main
                 font-weight: 900
                 margin: 18px 0px 16px 0px
                 
+    .maximized
+        width: 100%
+        .maximized-close-button
+            position: relative
+            margin-top: 64px
+            left: 85.84%
+        .maximized-result-img
+            display: block
+            margin: auto
+            margin-top: 78px
+            width: 85%
+            //min-width: 318px
+            //max-height: 245px
+        .maximized-result-user
+            position: relative
+            margin-top: 14px
+            left: 9.33%
+            font-size: 15px
+            font-weight: 400
+            line-height: 18px
+            color: #000000
+            //text-align: center
+        .maximized-result-title
+            position: relative
+            margin-top: 6px
+            left: 7.87%
+            font-size: 16px
+            font-weight: 900
+            line-height: 19px
+            color: #000000
+            max-width: 50%
+            //text-align: center
+        .maximized-like-button
+            position: relative
+            width: 20px
+            height: 18px
+            float: right
+            top: -31px
+            margin-right: 17.33% 
+        .maximized-download-border
+            @extend %flex-row-justify-center
+            position: relative
+            width: 36px
+            height: 36px
+            float: right
+            top: -40px
+            right: 7.73%
+            opacity: 0.5
+            border: 1px solid #9CAFC3
+            border-radius: 6px
+            .maximized-download-button
+                width: 19.2px
+                height: 21.1px
+
+
     .trending-gifos
-        //padding: 46px 0px 82px 0px
+        padding: 46px 0px 82px 0px
         width: 100%
         background: #F3F5F8
         h2
-            margin: 46px 0 0 0
+            //margin: 46px 0 0 0
             width: 100%
             height: 30px
             font-family: Roboto

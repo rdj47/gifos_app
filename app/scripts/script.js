@@ -2,7 +2,19 @@ console.log(new Date().toString() + " SCRIPT START");
 //API Key for GIPHY
 let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
 
-//Asign 
+//GLOBAL TAGS
+
+let header = document.getElementsByTagName('header');
+//header[0].classList.add('hide');
+let banner = document.getElementById('banner');
+//banner.classList.add('hide');
+let trendingTerms = document.getElementById('trending-terms');
+//trendingTerms.classList.add('hide');
+//searchResultsSeparator.classList.add('hide');
+//searchResults.classList.add('hide');
+
+//header[0].classList.add('hide');
+
 let searchInput= document.getElementById("search-phrase-input");
 console.log("Hola: "+searchInput.value)
 let searchResultsSeparator= document.getElementById("search-results-separator");
@@ -10,13 +22,33 @@ let searchResults= document.getElementById("search-results");
 let searchResultsTitle= document.getElementById("search-results-title");
 let results = document.getElementById('results');
 
+let searchPhraseMG = document.getElementById('search-phrase-mg');
+let searchBarInput = document.getElementById('search-phrase-input');
+searchPhraseMG.addEventListener('click', function() { gifSearch(searchBarInput.value); } );
+
+let searchPhraseClear = document.getElementById('search-phrase-clear');
+searchPhraseClear.addEventListener('click', clearSearchPhrase);
+
+let moreResultsButton = document.getElementById('more-results');
+moreResultsButton.addEventListener('click', drawMoreResults);
+
+//Maximized Area Tags
+let maximizedCloseButton = document.getElementById('maximized-close-button');
+maximizedCloseButton.addEventListener('click', function() { hideContentForMaximizingReverse(); } );
+let maximizedResultImg = document.getElementById('maximized-result-img');
+let maximizedResultUser = document.getElementById('maximized-result-user');
+let maximizedResultTitle = document.getElementById('maximized-result-title');
+
+let trendingGifos = document.getElementById('trending-gifos');
+let footer = document.getElementsByTagName('footer');
+
 searchInput.addEventListener('keyup', function getSuggestions() {
     //searchPhraseActiveStyleActivation();
     console.log (new Date().toString()+" ##f()## getSuggestions function execution");
     clearSuggestions();
     if (searchInput.value) {
-        console.log("URL solicitada: "+`http://api.giphy.com/v1/gifs/search/tags?q=${searchInput.value}&api_key=${api_key}`);
-        let gifAutocomplete = giphyConnection (`http://api.giphy.com/v1/gifs/search/tags?q=${searchInput.value}&api_key=${api_key}`);
+        console.log("URL solicitada: "+`https://api.giphy.com/v1/gifs/search/tags?q=${searchInput.value}&api_key=${api_key}`);
+        let gifAutocomplete = giphyConnection (`https://api.giphy.com/v1/gifs/search/tags?q=${searchInput.value}&api_key=${api_key}`);
         gifAutocomplete.then (response => {
             console.log (response.data[0]);
             console.log ("Object array length: "+ response.data.length);
@@ -51,15 +83,6 @@ searchInput.addEventListener('keyup', function getSuggestions() {
     }    
 });
 
-let searchPhraseMG = document.getElementById('search-phrase-mg');
-let searchBarInput = document.getElementById('search-phrase-input');
-searchPhraseMG.addEventListener('click', function() { gifSearch(searchBarInput.value); } );
-
-let searchPhraseClear = document.getElementById('search-phrase-clear');
-searchPhraseClear.addEventListener('click', clearSearchPhrase);
-
-let moreResultsButton = document.getElementById('more-results');
-moreResultsButton.addEventListener('click', drawMoreResults);
 
 
 //++++++++++++++++++++++++++++++++++FUNCIONES+++++++++++++++++++++++++++++++++++++++++++++
@@ -207,8 +230,8 @@ function gifSearch(searchPhrase) {
     let q = searchPhrase;
     let limit = 12;
     let offset = 0;
-    console.log(`http://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
-    let gifSearch = giphyConnection (`http://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
+    console.log(`https://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
+    let gifSearch = giphyConnection (`https://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
     gifSearch.then (response => {
             console.log (response.data[0]);
             console.log ("Longitud Array Objetos: "+ response.data.length);
@@ -238,8 +261,8 @@ function gifSearchOffset(offsetRequested) {
     let q = searchBarInput.value;
     let limit = 12;
     let offset = offsetRequested;
-    console.log(`http://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
-    let gifSearch = giphyConnection (`http://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
+    console.log(`https://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
+    let gifSearch = giphyConnection (`https://api.giphy.com/v1/gifs/search?q=${q}&limit=${limit}&offset=${offset}&api_key=${api_key}`);
     gifSearch.then (response => {
             console.log (response.data[0]);
             console.log ("Longitud Array Objetos: "+ response.data.length);
@@ -333,6 +356,7 @@ function drawSearchResults (searchResults) {
         console.log(searchResult);  
         let searchResultImg = searchResult.getElementsByTagName('img');
         searchResultImg[0].src=searchResults.data[i].images.fixed_height.url;
+        searchResult.addEventListener('click', function() { maximizeSearchResult(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url); });
         results.appendChild(searchResult);
     }
 }
@@ -410,4 +434,43 @@ function drawMoreResults() {
 /*function drawSearchPhrase(searchPhrase) {    
 }
 function drawResults () {}*/
+
+//maximizeSearchResult
+function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,resultOriginalUrl) {
+    console.log ("##f()## maximizeSearchResult function execution");
+    maximizedResultImg.src="";
+    hideContentForMaximizing();
+    maximizedResultImg.src=resultOriginalUrl;
+    console.log(resultUser);
+    if(resultUser) {
+        maximizedResultUser.textContent=resultUser;
+    } else {
+        maximizedResultUser.textContent="Autor no registrado";
+    }
+    console.log(resultName);
+    maximizedResultTitle.textContent=resultName;
+    maximized.classList.remove('hide');
+}
+
+//hideContentForMaximizing
+function hideContentForMaximizing () {
+    console.log ("##f()## hideContentForMaximizing function execution");
+    header[0].classList.add('hide');
+    banner.style.display='none';
+    trendingTerms.classList.add('hide');
+    searchResultsSeparator.classList.add('hide');
+    searchResults.classList.add('hide');
+    trendingGifos.classList.add('hide');
+}
+
+//hideContentForMaximizingReverse
+function hideContentForMaximizingReverse () {
+    console.log ("##f()## hideContentForMaximizingReverse function execution");
+    header[0].classList.remove('hide');
+    banner.style.display='flex';
+    trendingTerms.classList.remove('hide');
+    searchResultsSeparator.classList.remove('hide');
+    searchResults.classList.remove('hide');
+    trendingGifos.classList.remove('hide');
+}
 
