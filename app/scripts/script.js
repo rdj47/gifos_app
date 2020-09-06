@@ -474,6 +474,7 @@ function hideContentForMaximizing () {
 //hideContentForMaximizingReverse
 function hideContentForMaximizingReverse () {
     console.log ("##f()## hideContentForMaximizingReverse function execution");
+    maximized.classList.add('hide');
     header[0].classList.remove('hide');
     banner.style.display='flex';
     trendingTerms.classList.remove('hide');
