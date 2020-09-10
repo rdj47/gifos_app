@@ -1,46 +1,50 @@
 console.log(new Date().toString() + " SCRIPT START");
+localStorage.removeItem('favorites');
 //API Key for GIPHY
 let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
 
-//GLOBAL TAGS
+//++++ GLOBAL TAGS ++++
 
 let header = document.getElementsByTagName('header');
-//header[0].classList.add('hide');
 let banner = document.getElementById('banner');
-//banner.classList.add('hide');
 let trendingTerms = document.getElementById('trending-terms');
-//trendingTerms.classList.add('hide');
-//searchResultsSeparator.classList.add('hide');
-//searchResults.classList.add('hide');
-
-//header[0].classList.add('hide');
 
 let searchInput= document.getElementById("search-phrase-input");
-console.log("Hola: "+searchInput.value)
+//console.log("Hola: "+searchInput.value)
 let searchResultsSeparator= document.getElementById("search-results-separator");
 let searchResults= document.getElementById("search-results");
 let searchResultsTitle= document.getElementById("search-results-title");
 let results = document.getElementById('results');
-
 let searchPhraseMG = document.getElementById('search-phrase-mg');
 let searchBarInput = document.getElementById('search-phrase-input');
 searchPhraseMG.addEventListener('click', function() { gifSearch(searchBarInput.value); } );
-
 let searchPhraseClear = document.getElementById('search-phrase-clear');
 searchPhraseClear.addEventListener('click', clearSearchPhrase);
 
+// trending-terms area tags
+let trendingTermsResult = document.getElementById('trending-terms-results');
+
+// search-results area tags
 let moreResultsButton = document.getElementById('more-results');
 moreResultsButton.addEventListener('click', drawMoreResults);
 
-//Maximized Area Tags
+// maximized area tags
 let maximizedCloseButton = document.getElementById('maximized-close-button');
 maximizedCloseButton.addEventListener('click', function() { hideContentForMaximizingReverse(); } );
 let maximizedResultImg = document.getElementById('maximized-result-img');
 let maximizedResultUser = document.getElementById('maximized-result-user');
 let maximizedResultTitle = document.getElementById('maximized-result-title');
 let maximizedDownloadBorder = document.getElementById('maximized-download-border');
+let maximizedLikeButton = document.getElementById('maximized-like-button');
 
+// trending-gifos area tags
 let trendingGifos = document.getElementById('trending-gifos');
+
+//favorites area tags
+
+//favorites global array
+let favoritesArray= new Array();
+
 let footer = document.getElementsByTagName('footer');
 
 searchInput.addEventListener('keyup', function getSuggestions() {
@@ -84,9 +88,11 @@ searchInput.addEventListener('keyup', function getSuggestions() {
     }    
 });
 
-
+getTrendingTerms();
 
 //++++++++++++++++++++++++++++++++++FUNCIONES+++++++++++++++++++++++++++++++++++++++++++++
+
+//++++ GIPHY API FETCH FUNCTION ++++
 async function giphyConnection (url) {
     console.log ("##f()## giphyConnection function execution");
     try {
@@ -100,12 +106,7 @@ async function giphyConnection (url) {
     }
 }
 
-// searchPhraseActiveStyleActivation reorganizes search-phrase child nodes and adds clear phrase symbol.
-/*function searchPhraseActiveStyleActivation() {
-    let searchInput = document.getElementById('search-phrase-input');
-    let searchPhraseMG = document.getElementById('search-phrase-mg');
-    let searchPhraseMG = document.getElementById('search-phrase-clear');
-}*/
+//++++ SEARCH RESULTS FUNCTIONS ++++
 
 // searchBarLineDeletion deletes search bar line when number of suggestions is 0.
 function searchBarLineCreation() {
@@ -223,7 +224,7 @@ function drawSuggestions (suggestions) {
     }
 }
 
-//
+// gifSearch
 function gifSearch(searchPhrase) {
     console.log ("##f()## gifSearch function execution");
     displaySuggestionAsSearchPhrase(searchPhrase);
@@ -256,6 +257,7 @@ function gifSearch(searchPhrase) {
     })
 }
 
+// gifSearchOffset
 function gifSearchOffset(offsetRequested) {
     console.log ("##f()## gifSearchOffset function execution");
     let searchBarInput = document.getElementById('search-phrase-input');
@@ -304,6 +306,7 @@ function clearNoResultsAlert() {
     }
 }
 
+// clearPreviousResults
 function clearPreviousResults() {
     console.log ("##f()## clearPreviousResults function execution");   
     if ( results.hasChildNodes() ) {
@@ -318,6 +321,7 @@ function drawSearchResultsAreaTitle (searchResults) {
     console.log ("##f()## drawSearchResultsAreaTitle function execution");
     searchResultsTitle.textContent=searchInput.value;
 }
+
 // drawSuggestions modifies DOM to include GIFs in results area.
 function drawSearchResults (searchResults) {
     console.log ("##f()## drawSearchResults function execution");
@@ -362,6 +366,7 @@ function drawSearchResults (searchResults) {
     }
 }
 
+// drawNoResultsAlert
 function drawNoResultsAlert () {
     console.log ("##f()## drawNoResultsMessage function execution");
     let noResultsIcon = document.getElementById('no-results-icon');
@@ -370,7 +375,7 @@ function drawNoResultsAlert () {
     noResultsText.classList.remove('hide');
 }
 
-//
+// drawMoreResultsButton
 function drawMoreResultsButton (paginationObject) {
     console.log ("##f()## drawMoreResultsButton function execution");
     if (paginationObject.offset==0) {
@@ -398,6 +403,7 @@ function displaySuggestionAsSearchPhrase(suggestion) {
     return suggestion;
 }
 
+// replaceMgByClear
 function replaceMgByClear() {
     console.log ("##f()## replaceMgByClear function execution");
     let searchPhraseMG = document.getElementById('search-phrase-mg');
@@ -406,6 +412,7 @@ function replaceMgByClear() {
     searchPhraseClear.style.display = 'unset';
 }
 
+// replaceMgByClearReverse
 function replaceMgByClearReverse() {
     console.log ("##f()## replaceMgByClearReverse function execution");
     let searchPhraseMG = document.getElementById('search-phrase-mg');
@@ -414,6 +421,7 @@ function replaceMgByClearReverse() {
     searchPhraseClear.style.display = 'none';
 }
 
+// clearSearchPhrase
 function clearSearchPhrase() {
     console.log ("##f()## clearSearchPhrase function execution");
     let searchBarInput = document.getElementById('search-phrase-input');
@@ -424,6 +432,7 @@ function clearSearchPhrase() {
     replaceMgByClearReverse();
 }
 
+// drawMoreResults
 function drawMoreResults() {
     console.log ("##f()## drawMoreResults function execution");
     let moreResultsButton = document.getElementById('more-results');
@@ -432,14 +441,15 @@ function drawMoreResults() {
     gifSearchOffset(newOffset);
     moreResultsButton.setAttribute('offset', newOffset);
 }
-/*function drawSearchPhrase(searchPhrase) {    
-}
-function drawResults () {}*/
 
-//maximizeSearchResult
+//++++ MAXIMIZED FUNCTIONS ++++
+let setFavoriteFunction=0; //
+let downloadFunction=0; //
+// maximizeSearchResult
 function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,resultOriginalUrl) {
     console.log ("##f()## maximizeSearchResult function execution");
     maximizedResultImg.src="";
+    maximizedLikeButton.src="images/icon-fav-hover.svg";  
     hideContentForMaximizing();
     maximizedResultImg.src=resultOriginalUrl;
     console.log(resultUser);
@@ -450,17 +460,21 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     }
     console.log(resultName);
     maximizedResultTitle.textContent=resultName;
-    maximizedDownloadBorder.addEventListener("click", () =>{
+    downloadFunction = function (e) { 
         var x=new XMLHttpRequest();
         x.open("GET", resultOriginalUrl, true);
         x.responseType = 'blob';
         x.onload=function(e){download(x.response, "GIFOS_"+resultId+".gif", "image/gif" ); }
-        x.send();
-    });
+        x.send(); 
+    }
+    maximizedDownloadBorder.addEventListener("click", downloadFunction, true);
+    setFavoriteFunction = function (e) { setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); }
+    queryFavorite(resultId);
+    maximizedLikeButton.addEventListener('click', setFavoriteFunction, true);
     maximized.classList.remove('hide');
 }
 
-//hideContentForMaximizing
+// hideContentForMaximizing
 function hideContentForMaximizing () {
     console.log ("##f()## hideContentForMaximizing function execution");
     header[0].classList.add('hide');
@@ -471,7 +485,7 @@ function hideContentForMaximizing () {
     trendingGifos.classList.add('hide');
 }
 
-//hideContentForMaximizingReverse
+// hideContentForMaximizingReverse
 function hideContentForMaximizingReverse () {
     console.log ("##f()## hideContentForMaximizingReverse function execution");
     maximized.classList.add('hide');
@@ -481,9 +495,88 @@ function hideContentForMaximizingReverse () {
     searchResultsSeparator.classList.remove('hide');
     searchResults.classList.remove('hide');
     trendingGifos.classList.remove('hide');
+    //let setFavoriteFunction = function (e) { setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); }
+    maximizedDownloadBorder.removeEventListener("click", downloadFunction, true);
+    maximizedLikeButton.removeEventListener('click', setFavoriteFunction, true);
 }
 
-//download
+// queryFavorite
+function queryFavorite (resultId) {
+    console.log ("##f()## queryFavorite function execution");
+    let savedFavoritesString = localStorage.getItem('favorites')
+    let savedFavoritesObject = JSON.parse(savedFavoritesString);
+    if (savedFavoritesObject!=null) { 
+        if((savedFavoritesObject.findIndex(element => element.Id==resultId))!==-1) {
+            maximizedLikeButton.src="images/icon-fav-active.svg";
+        }
+    }
+}
+
+// setFavorite
+function setFavorite (resultId, resultUser, resultName, resultUrl, resultOriginalUrl) {
+    console.log ("##f()## setFavorite function execution");
+    let savedFavoritesString = localStorage.getItem('favorites')
+    let savedFavoritesObject = JSON.parse(savedFavoritesString);
+    if (savedFavoritesObject!=null) {
+        console.log ("Hay favoritos."); 
+        console.log("Cantidad de favoritos guardados previos: "+savedFavoritesObject.length);
+        savedFavoritesObject.forEach(element => {
+            console.log("Saved ID: "+element.Id)
+        });
+        console.log("resultId: "+resultId);
+        console.log("Índice del maximizado: "+savedFavoritesObject.findIndex(element => element.Id==resultId));
+        if((savedFavoritesObject.findIndex(element => element.Id==resultId))==-1) {
+            console.log ("No era favorito, ahora lo es."); 
+            maximizedLikeButton.src="images/icon-fav-active.svg";   
+            let newFavorite = {
+                "Id": resultId,
+                "user": resultUser,
+                "title": resultName,
+                "url": resultUrl,
+                "originalUrl": resultOriginalUrl,
+            }
+            console.log("Objeto newFavorite: "+JSON.stringify(newFavorite));
+            favoritesArray.push(newFavorite);
+            localStorage.removeItem('favorites');
+            localStorage.setItem('favorites',JSON.stringify(favoritesArray));
+            console.log("Array Favorites: "+favoritesArray);
+            console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
+        } else {
+            console.log ("Era favorito, ahora ya no lo es."); 
+            maximizedLikeButton.src="images/icon-fav-hover.svg";   
+            let newFavorite = {
+                "Id": resultId,
+                "user": resultUser,
+                "title": resultName,
+                "url": resultUrl,
+                "originalUrl": resultOriginalUrl,
+            }
+            console.log("Objeto newFavorite: "+JSON.stringify(newFavorite));
+            favoritesArray.splice(savedFavoritesObject.findIndex(element => element.Id==resultId),1);
+            localStorage.removeItem('favorites');
+            localStorage.setItem('favorites',JSON.stringify(favoritesArray));
+            console.log("Array Favorites: "+favoritesArray);
+            console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
+        }    
+    } else {
+        console.log ("No hay favoritos. Ahora es favorito"); 
+        maximizedLikeButton.src="images/icon-fav-active.svg";
+        let newFavorite = {
+            "Id": resultId,
+            "user": resultUser,
+            "title": resultName,
+            "url": resultUrl,
+            "originalUrl": resultOriginalUrl,
+        }
+        console.log("Objeto newFavorite: "+JSON.stringify(newFavorite));
+        favoritesArray.push(newFavorite);
+        localStorage.removeItem('favorites');
+        localStorage.setItem('favorites',JSON.stringify(favoritesArray));
+        console.log("Array Favorites: "+favoritesArray);
+        console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));   
+    }
+}
+// download
 function download(data, strFileName, strMimeType) {
     console.log ("##f()## download function execution");
     var self = window, // this script is only for browsers anyway...
@@ -597,3 +690,33 @@ function download(data, strFileName, strMimeType) {
     }
     return true;
 }; /* end download() */
+
+//++++ TRENDING TERMS FUNCIONS ++++
+
+// getTrendingSearchTerms
+function getTrendingTerms() {
+    console.log ("##f()## getTrendingTerms function execution");
+    console.log(`https://api.giphy.com/v1/trending/searches?api_key=${api_key}`);
+    let trendingText ="";
+    let gifTrendingSearchTerms = giphyConnection (`https://api.giphy.com/v1/trending/searches?api_key=${api_key}`);
+    gifTrendingSearchTerms.then (response => {
+        console.log("Trending Search Terms: "+response.data);
+        for (let i=0; i<response.data.length; i++) {
+           if(i==(response.data.length-1)) {
+                trendingText+=response.data[i];
+           } else {
+                trendingText+=response.data[i]+", ";
+           }
+        }
+        console.log("Trending Text: "+trendingText);
+        let trendingTermsResult = document.getElementById('trending-terms-results');
+        console.log(trendingTermsResult.textContent);
+        trendingTermsResult.textContent=trendingText;
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
+//++++ FAVORITES FUNCTIONS ++++
+
+
