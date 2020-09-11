@@ -6,6 +6,41 @@ let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
 //++++ GLOBAL TAGS ++++
 
 let header = document.getElementsByTagName('header');
+let favoritesLink = document.getElementById('favorites-link');
+favoritesLink.addEventListener('click', showFavorites);
+let favoritesFlag=false;
+let favoritesPagination=0;
+
+function showFavorites() {
+    console.log ("##f()## showFavorites function execution");
+    favoritesFlag=true;
+    clearPreviousFavorites();
+    hideContentForFavorites();
+    let favoritesObject= JSON.parse(localStorage.getItem('favorites'));
+    if(favoritesObject!=null) {
+        favoritesObject.forEach(element => {
+            console.log("Id: "+element.Id);            
+        });
+        drawFavorites(favoritesObject);
+        drawMoreFavoritesButton(favoritesObject,favoritesPagination);
+    } else {
+        drawNoFavoritesAlert();
+    }
+}
+
+// hideContentForFavorites
+function hideContentForFavorites() {
+    console.log ("##f()## hideContentForFavorites function execution");
+    //header[0].classList.remove('hide');
+    banner.style.display='none';
+    trendingTerms.classList.add('hide');
+    searchResultsSeparator.classList.add('hide');
+    searchResults.classList.add('hide');
+    maximized.classList.add('hide');
+    trendingGifos.classList.add('hide');
+    favorites.style.display='flex';
+}
+
 let banner = document.getElementById('banner');
 let trendingTerms = document.getElementById('trending-terms');
 
@@ -30,7 +65,7 @@ moreResultsButton.addEventListener('click', drawMoreResults);
 
 // maximized area tags
 let maximizedCloseButton = document.getElementById('maximized-close-button');
-maximizedCloseButton.addEventListener('click', function() { hideContentForMaximizingReverse(); } );
+maximizedCloseButton.addEventListener('click', function() { hideContentForMaximizingReverse(favoritesFlag); } );
 let maximizedResultImg = document.getElementById('maximized-result-img');
 let maximizedResultUser = document.getElementById('maximized-result-user');
 let maximizedResultTitle = document.getElementById('maximized-result-title');
@@ -41,7 +76,10 @@ let maximizedLikeButton = document.getElementById('maximized-like-button');
 let trendingGifos = document.getElementById('trending-gifos');
 
 //favorites area tags
-
+favorites.style.display='none';  // To not show favorites area in the beginning.
+let favoritesResults = document.getElementById('favorites-results');
+let moreFavoritesButton =document.getElementById('more-favorites');
+moreFavoritesButton.addEventListener('click', drawMoreFavorites);
 //favorites global array
 let favoritesArray= new Array();
 
@@ -472,6 +510,7 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     queryFavorite(resultId);
     maximizedLikeButton.addEventListener('click', setFavoriteFunction, true);
     maximized.classList.remove('hide');
+    favoritesPagination=0;
 }
 
 // hideContentForMaximizing
@@ -483,10 +522,11 @@ function hideContentForMaximizing () {
     searchResultsSeparator.classList.add('hide');
     searchResults.classList.add('hide');
     trendingGifos.classList.add('hide');
+    favorites.style.display='none';
 }
 
 // hideContentForMaximizingReverse
-function hideContentForMaximizingReverse () {
+function hideContentForMaximizingReverse (favoritesFlag) {
     console.log ("##f()## hideContentForMaximizingReverse function execution");
     maximized.classList.add('hide');
     header[0].classList.remove('hide');
@@ -498,6 +538,12 @@ function hideContentForMaximizingReverse () {
     //let setFavoriteFunction = function (e) { setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); }
     maximizedDownloadBorder.removeEventListener("click", downloadFunction, true);
     maximizedLikeButton.removeEventListener('click', setFavoriteFunction, true);
+    console.log("Flag favorites: "+favoritesFlag);
+    if (favoritesFlag==true) {
+        console.log("Permanezco en Favoritos");
+        hideContentForFavorites();
+        showFavorites();
+    }
 }
 
 // queryFavorite
@@ -718,5 +764,86 @@ function getTrendingTerms() {
 }
 
 //++++ FAVORITES FUNCTIONS ++++
+
+// drawFavorites
+function drawFavorites (favoritesObject) {
+    console.log ("##f()## drawFavorites function execution");
+    let favoriteModel= document.createElement('div');
+    favoriteModel.classList.add('gif-card');
+    let favoriteImgModel= document.createElement('img');
+    favoriteModel.appendChild(favoriteImgModel);
+    let favoritesResults = document.getElementById('favorites-results');
+    favoritesResults.classList.remove('hide');
+    console.log ("Start iteration for drawing favorites");
+    for (let i=favoritesPagination; i<(favoritesPagination+12); i++) {
+        console.log("i: "+i+".");
+        let favorite = favoriteModel.cloneNode(true);
+        //favorite.setAttribute("order",1+searchResults.pagination.offset+i);
+        favorite.setAttribute("order",i+1);
+        favorite.setAttribute("id",favoritesObject[i].Id);
+        favorite.setAttribute("user",favoritesObject[i].user);
+        favorite.setAttribute("title",favoritesObject[i].title);
+        console.log(favorite);  
+        let favoriteImg = favorite.getElementsByTagName('img');
+        favoriteImg[0].src=favoritesObject[i].url;
+        favorite.addEventListener('click', function() { maximizeSearchResult(favoritesObject[i].Id, favoritesObject[i].user, favoritesObject[i].title, favoritesObject[i].url, favoritesObject[i].originalUrl); });
+        favoritesResults.appendChild(favorite);
+        console.log("favoritesObject.length: "+favoritesObject.length+". "+"i: "+i+".");
+        if (i==(favoritesObject.length-1))
+        {
+            i=favoritesPagination+12;
+        }
+    }
+}
+
+// drawNoFavoritesAlert
+function drawNoFavoritesAlert () {
+    console.log ("##f()## drawNoFavoritesAlert function execution");
+    let noFavoritesIcon = document.getElementById('no-favorites-icon');
+    noFavoritesIcon.classList.remove('hide');
+    let noFavoritesText = document.getElementById('no-favorites-text');
+    noFavoritesText.classList.remove('hide');
+}
+
+// drawMoreFavoritesButton
+function drawMoreFavoritesButton (favoritesObject,favoritesPagination) {
+    console.log ("##f()## drawMoreFavoritesButton function execution");
+    if (favoritesPagination==0) {
+        moreFavoritesButton.setAttribute('offset', 0);
+    }
+    //let remainingResults = paginationObject.total_count-(paginationObject.offset+paginationObject.count);
+    let remainingResults =favoritesObject.length-(favoritesPagination+12);
+    console.log("Resultados restantes: "+remainingResults);
+    if (remainingResults>0) {
+        moreFavoritesButton.classList.remove('hide');
+    } else {
+        moreFavoritesButton.classList.add('hide');
+    }
+    
+}
+
+//  drawMoreFavorites
+function drawMoreFavorites () {
+    console.log ("##f()## drawMoreFavorites function execution");   
+    let moreFavoritesButton = document.getElementById('more-favorites');
+    console.log("Offset al solicitar más resultados: "+moreFavoritesButton.getAttribute('offset'));
+    favoritesPagination = parseInt(moreFavoritesButton.getAttribute('offset'))+12;
+    let favoritesObject= JSON.parse(localStorage.getItem('favorites'))
+    drawFavorites(favoritesObject);
+    drawMoreFavoritesButton(favoritesObject,favoritesPagination);
+    moreFavoritesButton.setAttribute('offset', favoritesPagination);
+    favoritesPagination=+12;
+    console.log("Offset después solicitar más resultados: "+moreFavoritesButton.getAttribute('offset'));
+}
+
+// clearPreviousFavorites
+function clearPreviousFavorites () {
+    console.log ("##f()## clearPreviousFavorites function execution");   
+    if ( favoritesResults.hasChildNodes() ) {
+        while (favoritesResults.childNodes.length>=1) {
+            favoritesResults.removeChild(favoritesResults.firstChild);
+        }
+    }
+}
 
 

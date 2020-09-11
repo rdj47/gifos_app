@@ -44,10 +44,9 @@
                 <span></span>
                 <span></span>
                 <ul>
-                    <li><a href="#episodes">EPISODIOS</a></li>
-                    <li><a href="#where-we-come-from">NOSOTROS</a></li>
-                    <li><a href="#guesses">ENTREVISTAS</a></li>
-                    <li><a href="#topics">TÓPICOS</a></li>
+                    <li><a href="#episodes">Modo Nocturno</a></li>
+                    <li id="favorites-link" class="favorites-link"><a href="#favorites">Favoritos</a></li>
+                    <li><a href="#guesses">Mis GIFOS</a></li>
                 </ul>
             </div>
         </nav>    
@@ -140,11 +139,12 @@
         <div id="favorites" class="favorites hide">
             <img id="favorites-icon" class="favorites-icon" src="images/icon-favoritos.svg" alt="Ícono Favoritos">
             <h2 id="favorites-title" class="favorites-title">Favoritos</h2>
-            <img id="no-favorites-icon" class="no-favorites-icon" src="images/icon-favoritos.svg"  alt="Ícono de corazón triste">
-            <h3 id="no-favorites-text" class="no-favorites-text">"¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"</h3>
-            <div id="favorites-results" class="favorites-results"> 
-
-            </div>
+            <img id="no-favorites-icon" class="no-favorites-icon hide" src="images/icon-favoritos.svg"  alt="Ícono de corazón triste">
+            <h3 id="no-favorites-text" class="no-favorites-text hide">"¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"</h3>
+            <div id="favorites-results" class="favorites-results hide"></div>
+            <div id="more-favorites" class="more-favorites hide">
+                <p>VER MÁS</p>
+            </div>      
         </div>
     </main>
     <footer></footer>
