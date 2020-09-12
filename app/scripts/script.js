@@ -6,6 +6,8 @@ let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
 //++++ GLOBAL TAGS ++++
 
 let header = document.getElementsByTagName('header');
+let logo = document.getElementById('logo');
+logo.addEventListener('click',initialize);
 let favoritesLink = document.getElementById('favorites-link');
 favoritesLink.addEventListener('click', showFavorites);
 let favoritesFlag=false;
@@ -14,10 +16,16 @@ let favoritesPagination=0;
 function showFavorites() {
     console.log ("##f()## showFavorites function execution");
     favoritesFlag=true;
+    clearNoFavoritesAlert();
     clearPreviousFavorites();
     hideContentForFavorites();
     let favoritesObject= JSON.parse(localStorage.getItem('favorites'));
-    if(favoritesObject!=null) {
+    try {
+        console.log("Longitud de favoritos: "+favoritesObject.length);
+    } catch (err) {
+        console.log('favoritesObject.length failed', err);
+    }
+    if(favoritesObject!=null && favoritesObject.length!=0) {
         favoritesObject.forEach(element => {
             console.log("Id: "+element.Id);            
         });
@@ -129,6 +137,41 @@ searchInput.addEventListener('keyup', function getSuggestions() {
 getTrendingTerms();
 
 //++++++++++++++++++++++++++++++++++FUNCIONES+++++++++++++++++++++++++++++++++++++++++++++
+
+function initialize() {
+    console.log ("##f()## initizalize function execution");    
+    header[0].classList.remove('hide');
+    banner.style.display='flex';
+    trendingTerms.classList.remove('hide');
+    searchResultsSeparator.classList.add('hide');
+    searchResults.classList.add('hide');
+    maximized.classList.add('hide');
+    trendingGifos.classList.remove('hide');
+    favorites.style.display='none';
+    favoritesFlag=false;
+    favoritesPagination=0;
+}
+
+
+/*function hideContentForMaximizingReverse (favoritesFlag) {
+    console.log ("##f()## hideContentForMaximizingReverse function execution");
+    maximized.classList.add('hide');
+    header[0].classList.remove('hide');
+    banner.style.display='flex';
+    trendingTerms.classList.remove('hide');
+    searchResultsSeparator.classList.remove('hide');
+    searchResults.classList.remove('hide');
+    trendingGifos.classList.remove('hide');
+    //let setFavoriteFunction = function (e) { setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); }
+    maximizedDownloadBorder.removeEventListener("click", downloadFunction, true);
+    maximizedLikeButton.removeEventListener('click', setFavoriteFunction, true);
+    console.log("Flag favorites: "+favoritesFlag);
+    if (favoritesFlag==true) {
+        console.log("Permanezco en Favoritos");
+        hideContentForFavorites();
+        showFavorites();
+    }
+}*/
 
 //++++ GIPHY API FETCH FUNCTION ++++
 async function giphyConnection (url) {
@@ -767,6 +810,7 @@ function getTrendingTerms() {
 
 // drawFavorites
 function drawFavorites (favoritesObject) {
+    //favoritesObject= JSON.parse(localStorage.getItem('favorites'));
     console.log ("##f()## drawFavorites function execution");
     let favoriteModel= document.createElement('div');
     favoriteModel.classList.add('gif-card');
@@ -777,21 +821,30 @@ function drawFavorites (favoritesObject) {
     console.log ("Start iteration for drawing favorites");
     for (let i=favoritesPagination; i<(favoritesPagination+12); i++) {
         console.log("i: "+i+".");
+        console.log("favoritesPagination+12: "+parseInt(favoritesPagination+12));
         let favorite = favoriteModel.cloneNode(true);
         //favorite.setAttribute("order",1+searchResults.pagination.offset+i);
-        favorite.setAttribute("order",i+1);
+        favorite.setAttribute("order",1+i);
         favorite.setAttribute("id",favoritesObject[i].Id);
         favorite.setAttribute("user",favoritesObject[i].user);
         favorite.setAttribute("title",favoritesObject[i].title);
         console.log(favorite);  
         let favoriteImg = favorite.getElementsByTagName('img');
         favoriteImg[0].src=favoritesObject[i].url;
-        favorite.addEventListener('click', function() { maximizeSearchResult(favoritesObject[i].Id, favoritesObject[i].user, favoritesObject[i].title, favoritesObject[i].url, favoritesObject[i].originalUrl); });
+        /*console.log("Id: "+favoritesObject[i].Id);
+        console.log("user: "+favoritesObject[i].user);
+        console.log("title: "+favoritesObject[i].title);*/
+        if (typeof favoritesObject!='undefined') {
+            favorite.addEventListener('click', function() { maximizeSearchResult(favoritesObject[i].Id, favoritesObject[i].user, favoritesObject[i].title, favoritesObject[i].url, favoritesObject[i].originalUrl); });
+        }
         favoritesResults.appendChild(favorite);
         console.log("favoritesObject.length: "+favoritesObject.length+". "+"i: "+i+".");
         if (i==(favoritesObject.length-1))
         {
-            i=favoritesPagination+12;
+            console.log("Stop iteration for drawing favorites");
+            //i=favoritesPagination+12;  
+            break;
+            console.log("favoritesPagination+12 final: "+i);          
         }
     }
 }
@@ -803,6 +856,24 @@ function drawNoFavoritesAlert () {
     noFavoritesIcon.classList.remove('hide');
     let noFavoritesText = document.getElementById('no-favorites-text');
     noFavoritesText.classList.remove('hide');
+}
+
+// clearNoFavoritesAlert
+function clearNoFavoritesAlert() {
+    console.log ("##f()## clearNoFavoritesAlert function execution");
+    try {
+        let noFavoritesIcon= document.getElementById('no-favorites-icon');
+        let noFavoritesText= document.getElementById('no-favorites-text');
+        let noFavoritesIconClasses = noFavoritesIcon.classList;
+        console.log("Clases del ícono de No Favorites: "+noFavoritesIconClasses);
+        console.log(noFavoritesIconClasses.length);
+        if(noFavoritesIconClasses.length==1){
+            noFavoritesIcon.classList.add('hide');
+            noFavoritesText.classList.add('hide');
+        }
+    } catch (err) {
+        console.log("There is no No Favorites Alert to delete"+err);
+    }
 }
 
 // drawMoreFavoritesButton
@@ -828,7 +899,7 @@ function drawMoreFavorites () {
     let moreFavoritesButton = document.getElementById('more-favorites');
     console.log("Offset al solicitar más resultados: "+moreFavoritesButton.getAttribute('offset'));
     favoritesPagination = parseInt(moreFavoritesButton.getAttribute('offset'))+12;
-    let favoritesObject= JSON.parse(localStorage.getItem('favorites'))
+    let favoritesObject= JSON.parse(localStorage.getItem('favorites'));
     drawFavorites(favoritesObject);
     drawMoreFavoritesButton(favoritesObject,favoritesPagination);
     moreFavoritesButton.setAttribute('offset', favoritesPagination);
