@@ -8,6 +8,7 @@ let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
 let header = document.getElementsByTagName('header');
 let logo = document.getElementById('logo');
 logo.addEventListener('click',initialize);
+let sandwich = document.getElementById('sandwich');
 let favoritesLink = document.getElementById('favorites-link');
 favoritesLink.addEventListener('click', showFavorites);
 let favoritesFlag=false;
@@ -15,6 +16,7 @@ let favoritesPagination=0;
 
 function showFavorites() {
     console.log ("##f()## showFavorites function execution");
+    sandwich.checked= false;
     favoritesFlag=true;
     clearNoFavoritesAlert();
     clearPreviousFavorites();
