@@ -62,6 +62,7 @@ let searchResultsTitle= document.getElementById("search-results-title");
 let results = document.getElementById('results');
 let searchPhraseMG = document.getElementById('search-phrase-mg');
 let searchBarInput = document.getElementById('search-phrase-input');
+searchBarInput.value="";
 searchPhraseMG.addEventListener('click', function() { gifSearch(searchBarInput.value); } );
 let searchPhraseClear = document.getElementById('search-phrase-clear');
 searchPhraseClear.addEventListener('click', clearSearchPhrase);
@@ -143,6 +144,7 @@ getTrendingTerms();
 function initialize() {
     console.log ("##f()## initizalize function execution");    
     header[0].classList.remove('hide');
+    sandwich.checked= false;
     banner.style.display='flex';
     trendingTerms.classList.remove('hide');
     searchResultsSeparator.classList.add('hide');
@@ -324,17 +326,19 @@ function gifSearch(searchPhrase) {
                 console.log("ID: "+response.data[i].id);
             }
             console.log (response);
+            clearPreviousResults();
             drawSearchResultsAreaTitle();
             if (response.data.length>0) {
                 clearNoResultsAlert();
-                clearPreviousResults();
+                //clearPreviousResults();
                 //drawSearchResultsAreaTitle();
                 drawSearchResults(response);
-                drawMoreResultsButton(response.pagination);
+                //drawMoreResultsButton(response.pagination);
             } else {
                 //clearSearchResultAreaTitle();
                 drawNoResultsAlert();
             }
+            drawMoreResultsButton(response.pagination);
     }).catch(error => {
         console.log(error);
     })
