@@ -47,7 +47,7 @@ function hideContentForFavorites() {
     searchResultsSeparator.classList.add('hide');
     searchResults.classList.add('hide');
     maximized.classList.add('hide');
-    trendingGifos.classList.add('hide');
+    //trendingGifos.classList.add('hide');
     favorites.style.display='flex';
 }
 
