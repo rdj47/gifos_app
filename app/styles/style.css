@@ -19,6 +19,13 @@ main .banner .search-bar .search-phrase {
   justify-content: space-between;
   align-content: center; }
 
+footer .social-networks-icons {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center; }
+
 main .maximized .maximized-download-border {
   display: flex;
   flex-flow: row wrap;
@@ -167,7 +174,7 @@ main .banner {
       main .banner .search-bar .search-phrase .search-phrase-mg {
         width: 20px;
         height: 20px;
-        margin: 15px 20px 15px 19px;
+        margin: 15px 20px 15px 18px;
         order: 1; }
       main .banner .search-bar .search-phrase .search-phrase-clear {
         display: none;
@@ -392,5 +399,29 @@ main .favorites {
       text-align: center;
       font-weight: 900;
       margin: 18px 0px 16px 0px; }
+
+footer {
+  text-align: center; }
+  footer .social-networks-text {
+    margin: auto;
+    margin-top: 47px;
+    font-family: Roboto;
+    font-size: 15px;
+    color: #000000;
+    letter-spacing: 0;
+    line-height: 18px; }
+  footer .social-networks-icons {
+    width: 30%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 22px; }
+  footer .rights-reserved-text {
+    margin: auto;
+    margin-top: 46px;
+    font-family: Roboto;
+    font-size: 15px;
+    color: #000000;
+    letter-spacing: 0;
+    line-height: 18px; }
 
 /*# sourceMappingURL=style.css.map */
