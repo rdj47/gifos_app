@@ -167,7 +167,7 @@ main .banner {
       main .banner .search-bar .search-phrase .search-phrase-mg {
         width: 20px;
         height: 20px;
-        margin: 15px 20px 15px 0px;
+        margin: 15px 20px 15px 21px;
         order: 1; }
       main .banner .search-bar .search-phrase .search-phrase-clear {
         display: none;
