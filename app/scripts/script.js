@@ -138,6 +138,23 @@ searchInput.addEventListener('keyup', function getSuggestions() {
 });
 
 getTrendingTerms();
+showTrending();
+const gra = function(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+const gri = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const init = function(){
+    let galleryItems = document.querySelectorAll('.gallery li');
+    for (let i = 0; i < galleryItems.length; i++){
+        galleryItems[i].style.minWidth = gra(30,60) + 'vw';
+        galleryItems[i].style.background = randomColor({luminosity: 'light'});
+    }
+    cssScrollSnapPolyfill()
+}
 
 //++++++++++++++++++++++++++++++++++FUNCIONES+++++++++++++++++++++++++++++++++++++++++++++
 
@@ -812,6 +829,42 @@ function getTrendingTerms() {
     });
 }
 
+//++++ TRENDING GIFOS FUNCTIONS ++++
+
+
+//showTrending
+function showTrending () {
+    console.log ("##f()## showTrending function execution");
+    let trendingItemModel= document.createElement('li');
+    trendingItemModel.classList.add('trending-item');
+    let trendingItemImgModel= document.createElement('img');
+    trendingItemModel.appendChild(trendingItemImgModel);
+    let trendingGallery = document.getElementById('trending-gallery');
+    let gifTrending = giphyConnection (`http://api.giphy.com/v1/gifs/trending?limit=25&api_key=${api_key}`);
+    gifTrending.then (response => {
+        console.log("GIF Trending");
+        //console.log (response.data[0]);
+        console.log ("Longitud Array Objetos Trending: "+ response.data.length);
+        for (let i=0; i<response.data.length; i++) {
+            console.log("ID: "+response.data[i].id);
+        }
+        console.log ("Start iteration for drawing trending");
+        for (let i=0; i<response.data.length; i++) {
+            console.log ("Entro al for de la iteration");
+            let trendingItem = trendingItemModel.cloneNode(true);
+            trendingItem.setAttribute("order",1+i);
+            trendingItem.setAttribute("id",response.data[i].id);
+            trendingItem.setAttribute("user",response.data[i].username);
+            trendingItem.setAttribute("title",response.data[i].title);
+            let trendingItemImg = trendingItem.getElementsByTagName('img');
+            trendingItemImg[0].src = response.data[i].images.fixed_height.url;
+            //searchResult.addEventListener('click', function() { maximizeSearchResult(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url); });
+            trendingGallery.appendChild(trendingItem);
+        }
+    }).catch(error => {
+    console.log(error);
+    })
+}
 //++++ FAVORITES FUNCTIONS ++++
 
 // drawFavorites

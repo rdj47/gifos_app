@@ -377,6 +377,23 @@ main
             color: #000000
             text-align: center
             line-height: 23px
+        .trending-gallery
+            border: 1px solid lightgray
+            padding: 1rem
+            display: flex
+            overflow-x: scroll
+            scroll-padding: 0 50%
+            scroll-snap-type: x mandatory
+        .trending-item
+            scroll-snap-align: center
+            display: inline-block
+            //height: 83vh
+            max-height: 187px
+            border-radius: 3px
+            font-size: 0
+            margin-right: 3rem
+            img
+                //max-width: 65%
     .favorites
         width: 100%
         @extend %flex-column-center

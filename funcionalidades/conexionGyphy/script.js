@@ -34,10 +34,12 @@ gifSearch.then (response => {
     console.log(error);
 })
 //  Test function for Gyphy Trending verification
-let gifTrending = giphyConnection (`http://api.giphy.com/v1/gifs/trending?api_key=${api_key}`);
+
+let gifTrending = giphyConnection (`http://api.giphy.com/v1/gifs/trending?limit=25&api_key=${api_key}`);
 gifTrending.then (response => {
+    console.log("GIF Trending");
     console.log (response.data[0]);
-    console.log ("Longitud Array Objetos: "+ response.data.length);
+    console.log ("Longitud Array Objetos Trending: "+ response.data.length);
     for (let i=0; i<response.data.length; i++) {
         console.log("ID: "+response.data[i].id);
     }
@@ -87,3 +89,6 @@ uploadGif.then (response => {
 }).catch(error => {
     console.log(error);
 })*/
+
+
+
