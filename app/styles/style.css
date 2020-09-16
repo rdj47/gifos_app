@@ -349,8 +349,7 @@ main .trending-gifos {
     text-align: center;
     line-height: 23px; }
   main .trending-gifos .trending-gallery {
-    border: 1px solid lightgray;
-    padding: 1rem;
+    padding: 0 22px 0 22px;
     display: flex;
     overflow-x: scroll;
     scroll-padding: 0 50%;
@@ -358,8 +357,7 @@ main .trending-gifos {
   main .trending-gifos .trending-item {
     scroll-snap-align: center;
     display: inline-block;
-    max-height: 187px;
-    border-radius: 3px;
+    max-height: 200px;
     font-size: 0;
     margin-right: 3rem; }
 main .favorites {
