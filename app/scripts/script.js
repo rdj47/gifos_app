@@ -840,7 +840,7 @@ function showTrending () {
     let trendingItemImgModel= document.createElement('img');
     trendingItemModel.appendChild(trendingItemImgModel);
     let trendingGallery = document.getElementById('trending-gallery');
-    let gifTrending = giphyConnection (`http://api.giphy.com/v1/gifs/trending?limit=25&api_key=${api_key}`);
+    let gifTrending = giphyConnection (`https://api.giphy.com/v1/gifs/trending?limit=25&api_key=${api_key}`);
     gifTrending.then (response => {
         console.log("GIF Trending");
         //console.log (response.data[0]);
