@@ -45,6 +45,8 @@
                     <li><a href="#episodes">Modo Nocturno</a></li>
                     <li id="favorites-link" class="favorites-link"><a href="#favorites">Favoritos</a></li>
                     <li><a href="#guesses">Mis GIFOS</a></li>
+                    <!--<li id="create-gifos-link" class="create-gifos-link"><a href="#create-gifos">Crear GIFO</a></li>-->
+                    <li id="create-gifos-link" class="create-gifos-link"><a href="#logo">Crear GIFO</a></li>
                 </ul>
             </div>
         </nav>    
@@ -61,10 +63,6 @@
                     <img id="search-phrase-mg" class="search-phrase-mg" src="images/icon-search.svg" alt="Lupa">
                     <img id="search-phrase-clear" class="search-phrase-clear hide" src="images/close.svg" alt="Borrar texto">
                 </div>
-                <!--<div class="search-suggestions hide">
-                    <img src="images/icon-search.svg" alt="Lupa">
-                    <p>Sugestion</p>
-                </div>-->
             </div>
         </div>
         <div id="trending-terms" class="trending-terms">
@@ -76,44 +74,7 @@
             <h2 id="search-results-title" class="search-results-title">Mascotas</h2>
             <img src="images/icon-busqueda-sin-resultado.svg" id="no-results-icon" class="no-results-icon hide" alt="Ícono de OUCH!">
             <h3 id="no-results-text" class="no-results-text hide">Intenta con otra búsqueda</h3>
-            <div id="results" class="results hide">
-                <!--<div class="git-card hide">
-                    <img src="" alt="GIF">
-                </div>s
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>
-                <div class="git-card hide">
-                    <img src="" alt="">
-                </div>-->
-            </div>  
+            <div id="results" class="results hide"></div>  
             <div id="more-results" class="more-results hide">
                 <p>VER MÁS</p>
             </div>      
@@ -145,6 +106,31 @@
             <ul id="trending-gallery" class="trending-gallery">                
             </ul>
         </div>
+        <div id="create-gifos" class="create-gifos hide">
+            <div id="create-gifos-frame" class="create-gifos-frame">
+                <div id="create-gifos-subframe" class="create-gifos-subframe">
+                        <h2 id="camera-access-title" class="camera-access-title">Aquí podrás crear tus propios GIFOS</h2>
+                        <p id="camera-access-comment" class="camera-access-comment">¡Crea tu GIFO en sólo 3 pasos!<br>(sólo necesitas una cámara para grabar un video)</p>
+                        <video id="camera" class="camera hide" playsinline autoplay></video>
+                        <div id="gifo-preview-container" class="gifo-preview-container">
+                            <img id="gifo-preview" class="gifo-preview hide" src="" alt="Previsualización del GIFO">
+                        </div>
+                </div>                
+            </div>
+            <div id="create-gifos-panel" class="create-gifos-panel">
+                <div id="step-icon-container" class="step-icon-container">
+                    <div id="step-1-icon" class="step-icon">1</div>
+                    <div id="step-2-icon" class="step-icon">2</div>
+                    <div id="step-3-icon" class="step-icon">3</div>
+                </div>
+                <hr id ="control-panel-separator" class="control-panel-separator">
+                <div id="initial-button" class="control-panel-button">COMENZAR</div>   
+                <div id="record-start-button" class="control-panel-button hide">GRABAR</div>
+                <div id="record-stop-button" class="control-panel-button hide">FINALIZAR</div>
+                <div id="upload-gifo-button" class="control-panel-button hide">SUBIR GIFO/div>   
+            </div>
+             
+        </div>
     </main>
     <footer>
         <p id="social-networks-text" class="social-networks-text">Compartir en:</p>
@@ -156,6 +142,7 @@
         <p id="rights-reserved-text" class="rights-reserved-text">© GIFOS 2020 All Rights Reserved.</p>
     </footer>
     <script src="scripts/script.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
     <script>
         document.cookie = 'same-site-cookie=foo; SameSite=Lax'; 
         document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';

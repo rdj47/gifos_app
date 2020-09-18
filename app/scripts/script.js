@@ -1,7 +1,8 @@
 console.log(new Date().toString() + " SCRIPT START");
 localStorage.removeItem('favorites');
 //API Key for GIPHY
-let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
+//let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
+let api_key = "12xR8EXZYIjZ3NLdqajJlmVoKMgAT2Y7";
 
 //++++ GLOBAL TAGS ++++
 
@@ -13,6 +14,8 @@ let favoritesLink = document.getElementById('favorites-link');
 favoritesLink.addEventListener('click', showFavorites);
 let favoritesFlag=false;
 let favoritesPagination=0;
+let createGifosLink = document.getElementById('create-gifos-link');
+createGifosLink.addEventListener('click', showCreateGifos);
 
 function showFavorites() {
     console.log ("##f()## showFavorites function execution");
@@ -94,6 +97,25 @@ moreFavoritesButton.addEventListener('click', drawMoreFavorites);
 //favorites global array
 let favoritesArray= new Array();
 
+//create-gifos area tags
+let createGifos = document.getElementById('create-gifos');
+createGifos.style.display='none'; 
+let cameraAccessTitle = document.getElementById('camera-access-title');
+let cameraAccessComment = document.getElementById('camera-access-comment');
+const videoPort = document.getElementById('camera');
+let gifoPreviewContainer = document.getElementById('gifo-preview-container');
+let gifoPreview = document.getElementById('gifo-preview');
+let step1Icon = document.getElementById('step-1-icon');
+let step2Icon = document.getElementById('step-2-icon');
+let step3Icon = document.getElementById('step-3-icon');
+let initialButton = document.getElementById('initial-button');
+initialButton.addEventListener('click', goToStep1);
+let recordStartButton = document.getElementById('record-start-button');
+recordStartButton.addEventListener('click', startRecording);
+let recordStopButton = document.getElementById('record-stop-button');
+//recordStopButton.addEventListener('click', stopRecording);
+let uploadGifoButton = document.getElementById('upload-gifo-button');
+//uploadGifoButton.addEventListener('click', uploadGifo);
 let footer = document.getElementsByTagName('footer');
 
 searchInput.addEventListener('keyup', function getSuggestions() {
@@ -174,25 +196,6 @@ function initialize() {
 }
 
 
-/*function hideContentForMaximizingReverse (favoritesFlag) {
-    console.log ("##f()## hideContentForMaximizingReverse function execution");
-    maximized.classList.add('hide');
-    header[0].classList.remove('hide');
-    banner.style.display='flex';
-    trendingTerms.classList.remove('hide');
-    searchResultsSeparator.classList.remove('hide');
-    searchResults.classList.remove('hide');
-    trendingGifos.classList.remove('hide');
-    //let setFavoriteFunction = function (e) { setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); }
-    maximizedDownloadBorder.removeEventListener("click", downloadFunction, true);
-    maximizedLikeButton.removeEventListener('click', setFavoriteFunction, true);
-    console.log("Flag favorites: "+favoritesFlag);
-    if (favoritesFlag==true) {
-        console.log("Permanezco en Favoritos");
-        hideContentForFavorites();
-        showFavorites();
-    }
-}*/
 
 //++++ GIPHY API FETCH FUNCTION ++++
 async function giphyConnection (url) {
@@ -204,6 +207,20 @@ async function giphyConnection (url) {
         return info;
         //console.log (await response.text());
     } catch (err) {
+        console.log('fetch failed', err);
+    }
+}
+
+async function giphyConnectionPost (url,form) {
+    try {
+         const resp = await fetch(url, {
+        method: 'POST',
+        body: form,
+        headers: {'Access-Control-Allow-Origin': '*'}});
+        const info = await resp.json();
+        return info;
+     }
+    catch (err) {
         console.log('fetch failed', err);
     }
 }
@@ -976,4 +993,184 @@ function clearPreviousFavorites () {
     }
 }
 
+//++++ CREATE GIFOS FUNCTIONS ++++
 
+function showCreateGifos () {
+    sandwich.checked= false;
+    hideContentForCreateGifos();
+}
+
+//hideContentForCreateGifos
+function hideContentForCreateGifos() {
+    console.log ("##f()## hideContentForCreateGifos function execution");
+    //header[0].classList.remove('hide');
+    banner.style.display='none';
+    trendingTerms.classList.add('hide');
+    searchResultsSeparator.classList.add('hide');
+    searchResults.classList.add('hide');
+    maximized.classList.add('hide');
+    trendingGifos.classList.add('hide');
+    favorites.style.display='none';
+    createGifos.style.display='flex';
+}
+
+function goToStep1() {
+    console.log ("##f()## goToStep1 function execution");
+    step1IconActivation();
+    changeTitleAndComment();
+    activateCamera();
+    
+}
+
+function step1IconActivation () {
+    console.log ("##f()## step1IconActivation function execution");
+    step1Icon.style.background = '#572ee5';
+    step1Icon.style.color = '#ffffff'
+}
+
+function changeTitleAndComment () {
+    cameraAccessTitle.textContent = '¿Nos das acceso a tu cámara?';
+    cameraAccessComment.textContent = 'El acceso a tu cámara será válido sólo por el tiempo en el que estés creando el GIFO.';
+}
+
+function activateCamera() {
+    initCamera();     
+    //changeStyleForStep2();
+}
+
+// Acceso a la webcam
+async function initCamera() {
+    const constraints = {
+        audio: false,
+        video: {
+        width: 320, height: 240
+        }
+    };
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        handleSuccess(stream);
+        changeStyleForStep2();
+    } catch (e) {
+        alert(`navigator.getUserMedia error:${e.toString()}`);
+    }
+}
+// Correcto!
+function handleSuccess(stream) {
+    window.stream = stream;
+    videoPort.srcObject = stream;
+    recordStopButton.addEventListener('click', function () {
+        stopStream(stream);
+    });
+}
+
+function stopStream(stream) {
+    console.log('stop called');
+    stream.getVideoTracks().forEach(function (track) {
+        track.stop();
+    });
+}
+// Load init
+
+function changeStyleForStep2() {
+    cameraAccessTitle.classList.add('hide');
+    cameraAccessComment.classList.add('hide');
+    videoPort.classList.remove('hide');
+    step1Icon.style.background = 'unset';
+    step1Icon.style.color = '#572EE5';
+    step2Icon.style.background = '#572ee5';
+    step2Icon.style.color = '#ffffff';
+    initialButton.classList.add('hide');
+    recordStartButton.classList.remove('hide');
+}
+
+function startRecording () {
+    changeStyleForStep21();
+    startRecord();
+}
+
+function changeStyleForStep21() {
+    console.log("##f()## changeStyleForStep21 function execution");
+    recordStartButton.classList.add('hide');
+    recordStopButton.classList.remove('hide');
+}
+
+function startRecord () { 
+    console.log("##f()## startRecord function execution");
+    navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: false
+}).then(async function(stream) {
+    let recorder = RecordRTC(stream, {
+        type: 'gif',
+        frameRate: 1,
+        quality: 10,
+        hidden: 240,
+    });
+    recorder.startRecording();
+    let stopRecord = function () { recorder.stopRecording(function() {
+        let blob = recorder.getBlob();
+        let form = new FormData();
+        form.append('file', recorder.getBlob(), 'myGif.gif');
+        console.log(form.get('file'));
+        gifoPreviewF(blob);
+        //invokeSaveAsDialog(blob);
+        let fileName= "RDJ472007_myGif.gif";
+        changeStyleForStep22();
+        let uploadGifo = function () {
+            console.log (`https://upload.giphy.com/v1/gifs?file=${fileName}&api_key=${api_key}`);
+            changeStyleForStep3();
+            let uploadGif= giphyConnectionPost (`https://upload.giphy.com/v1/gifs?api_key=${api_key}`,form);
+            uploadGif.then (response => {
+                console.log (response);
+                console.log (response.data[0]);
+                console.log ("Longitud Array Objetos: "+ response.data.length);
+                for (let i=0; i<response.data.length; i++) {
+                    console.log("GIF Requested: "+response.data[i]);
+                }
+                changeStyleForStep31();            
+            }).catch(error => {
+                console.log(error);
+            })
+        }
+        videoPort.pause();
+        stopStream(stream);
+        //videoPort.src="";
+        /*localStream.getTracks().forEach( (track) => {
+            track.stop();
+        });*/
+        uploadGifoButton.addEventListener('click',uploadGifo);
+    });}
+    recordStopButton.addEventListener('click',stopRecord);    
+});}
+
+function changeStyleForStep22() {
+    recordStopButton.classList.add('hide');
+    uploadGifoButton.classList.remove('hide');
+}
+
+function gifoPreviewF (blob) {
+    videoPort.classList.add('hide');
+    gifoPreviewContainer.classList.remove('hide');
+    gifoPreview.classList.remove('hide');
+    var reader = new FileReader();
+    reader.addEventListener("loadend", function() {
+        console.log(reader.result);
+        gifoPreview.src=reader.result;
+    });
+    reader.readAsDataURL(blob);
+
+}
+
+function changeStyleForStep3() {
+    step2Icon.style.background = 'unset';
+    step2Icon.style.color = '#572EE5';
+    step3Icon.style.background = '#572ee5';
+    step3Icon.style.color = '#ffffff';
+    cameraAccessComment.textContent = 'Estamos subiendo tu GIFO';
+    cameraAccessComment.classList.remove('hide');
+    gifoPreviewContainer.style.backgroundColor='rgba(255, 255, 255, 0.3)';
+}
+
+function changeStyleForStep31() {
+    cameraAccessComment.textContent = 'GIF subido con éxito';
+}

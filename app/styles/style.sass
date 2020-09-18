@@ -5,6 +5,12 @@
     align-items: center
     justify-content: flex-start
     align-content: center
+%flex-column-center-center
+    display: flex
+    flex-flow: column wrap
+    align-items: center
+    justify-content: center
+    align-content: center
 %flex-column-left
     display: flex
     flex-flow: column wrap
@@ -452,6 +458,51 @@ main
                 text-align: center
                 font-weight: 900
                 margin: 18px 0px 16px 0px
+    .create-gifos
+        @extend %flex-column-center
+        margin-top: 100px
+        .create-gifos-frame
+            @extend %flex-column-center
+            width: 95%
+            border: 1px solid #572EE5
+            .create-gifos-subframe
+                @extend %flex-column-center-center
+                border: 1px solid #50E3C2
+                min-height: 320px
+                h2, p
+                    text-align: center
+
+        .create-gifos-panel
+            @extend %flex-column-center 
+            width: 100%           
+            .step-icon-container
+                @extend %flex-row-justify-space-between
+                .step-icon
+                    @extend %flex-column-center-center
+                    width: 32px
+                    height: 32px
+                    font-family: Roboto
+                    font-size: 18px
+                    color: #572EE5
+                    text-align: center
+                    border: 1px solid #572EE5
+                    border-radius: 50%
+            .control-panel-separator  
+                width: 98%
+                height: 6.9px
+                background: #572EE5 // *Adjust color border
+                margin: auto      
+            .control-panel-button
+                min-width: 127px
+                border: 1px solid #572EE5
+                border-radius: 25px
+                font-family: Roboto
+                font-size: 13px
+                color: #572EE5
+                letter-spacing: 0
+                text-align: center
+                line-height: 16px
+                
 footer
     text-align: center
     border-bottom: 5px solid #572EE5

@@ -14,7 +14,8 @@ async function giphyConnection (url,form) {
         console.log('fetch failed', err);
     }
 }
-let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
+//let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
+let api_key = "12xR8EXZYIjZ3NLdqajJlmVoKMgAT2Y7";
 
 /*// Test function for Accessing Media Devices
 async function getVideoDevices(constrains) {
@@ -72,8 +73,14 @@ init();
     context.drawImage(video, 0, 0, 640, 480);
 });
 
+let recordGifo = document.getElementById('recorder');
+let stopRecordGifo = document.getElementById('stop-recorder');
+
+//recordGifo.addEventListener('click', startRecord);
+
 // Start video
-navigator.mediaDevices.getUserMedia({
+let startRecord = function () { 
+    navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
 }).then(async function(stream) {
@@ -85,46 +92,16 @@ navigator.mediaDevices.getUserMedia({
         hidden: 240,
     });
     recorder.startRecording();
-
-    const sleep = m => new Promise(r => setTimeout(r, m));
-    await sleep(3000);
-// Stop video
-    recorder.stopRecording(function() {
+    let stopRecord = function () { recorder.stopRecording(function() {
         // Handle video data
         let blob = recorder.getBlob();
         let form = new FormData();
         form.append('file', recorder.getBlob(), 'myGif.gif');
         console.log(form.get('file'));
         invokeSaveAsDialog(blob);
-        /*let lector = new FileReader();
-        let binario = lector.readAsBinaryString(blob);
-        binario.then (response => {
-            console.log (response.data[0]);
-            console.log ("Longitud Array Objetos: "+ response.data.length);
-            for (let i=0; i<response.data.length; i++) {
-                console.log("ID: "+response.data[i].id);
-            }
-            }).catch(error => {
-                console.log(error);
-            })
-        // Prueba por error
-        let q = "dog";
-        let gifSearch = giphyConnection (`http://api.giphy.com/v1/gifs/search?q=${q}&api_key=${api_key}`);
-        gifSearch.then (response => {
-        console.log (response.data[0]);
-        console.log ("Longitud Array Objetos: "+ response.data.length);
-        for (let i=0; i<response.data.length; i++) {
-            console.log("ID: "+response.data[i].id);
-        }
-        }).catch(error => {
-            console.log(error);
-        })
-        // Fin Prueba*/
-        let userName = "RDJ472007";
-        let fileName= "myGif.gif";
+        let fileName= "RDJ472007_myGif.gif";
         console.log (`http://upload.giphy.com/v1/gifs?file=${fileName}&api_key=${api_key}`);
         let uploadGif= giphyConnection (`https://upload.giphy.com/v1/gifs?api_key=${api_key}`,form);
-        //let uploadGif= giphyConnection (`https://upload.giphy.com/v1/gifs?file=${fileName}&api_key=${api_key}`);
         uploadGif.then (response => {
             console.log (response);
             console.log (response.data[0]);
@@ -135,5 +112,13 @@ navigator.mediaDevices.getUserMedia({
         }).catch(error => {
             console.log(error);
         })
-    });
-});
+    });}
+    stopRecordGifo.addEventListener('click',stopRecord);
+    //const sleep = m => new Promise(r => setTimeout(r, m));
+    //await sleep(3000);
+
+// Stop video
+
+});}
+
+recordGifo.addEventListener('click', startRecord);

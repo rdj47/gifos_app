@@ -1,8 +1,15 @@
-main .banner, main .banner .presentation, main .favorites {
+main .banner, main .banner .presentation, main .favorites, main .create-gifos, main .create-gifos .create-gifos-frame, main .create-gifos .create-gifos-panel {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: flex-start;
+  align-content: center; }
+
+main .create-gifos .create-gifos-frame .create-gifos-subframe, main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
   align-content: center; }
 
 main .banner .search-bar {
@@ -12,7 +19,7 @@ main .banner .search-bar {
   justify-content: flex-start;
   align-content: center; }
 
-main .banner .search-bar .search-phrase {
+main .banner .search-bar .search-phrase, main .create-gifos .create-gifos-panel .step-icon-container {
   display: flex;
   flex-flow: row no-wrap;
   align-items: flex-start;
@@ -416,6 +423,42 @@ main .favorites {
       text-align: center;
       font-weight: 900;
       margin: 18px 0px 16px 0px; }
+main .create-gifos {
+  margin-top: 100px; }
+  main .create-gifos .create-gifos-frame {
+    width: 95%;
+    border: 1px solid #572EE5; }
+    main .create-gifos .create-gifos-frame .create-gifos-subframe {
+      border: 1px solid #50E3C2;
+      min-height: 320px; }
+      main .create-gifos .create-gifos-frame .create-gifos-subframe h2, main .create-gifos .create-gifos-frame .create-gifos-subframe p {
+        text-align: center; }
+  main .create-gifos .create-gifos-panel {
+    width: 100%; }
+    main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
+      width: 32px;
+      height: 32px;
+      font-family: Roboto;
+      font-size: 18px;
+      color: #572EE5;
+      text-align: center;
+      border: 1px solid #572EE5;
+      border-radius: 50%; }
+    main .create-gifos .create-gifos-panel .control-panel-separator {
+      width: 98%;
+      height: 6.9px;
+      background: #572EE5;
+      margin: auto; }
+    main .create-gifos .create-gifos-panel .control-panel-button {
+      min-width: 127px;
+      border: 1px solid #572EE5;
+      border-radius: 25px;
+      font-family: Roboto;
+      font-size: 13px;
+      color: #572EE5;
+      letter-spacing: 0;
+      text-align: center;
+      line-height: 16px; }
 
 footer {
   text-align: center;
