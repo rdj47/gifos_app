@@ -186,6 +186,9 @@ function initialize() {
     header[0].classList.remove('hide');
     sandwich.checked= false;
     banner.style.display='flex';
+    clearSearchPhrase();
+    clearSuggestions();
+    changeSearchPhraseStyleReverse();
     trendingTerms.classList.remove('hide');
     searchResultsSeparator.classList.add('hide');
     searchResults.classList.add('hide');
@@ -283,14 +286,15 @@ function changeSearchPhraseStyleReverse() {
     console.log ("##f()## changeSearchPhraseStyleReverse function execution");
     let searchBarInput = document.getElementById('search-phrase-input');
     searchBarInput.style.marginBottom = '13px';
-    searchBarInput.style.order= 'unset';
+    searchBarInput.style.order= '0';
     searchBarInput.style.marginLeft = '55px';
     let searchPhraseMG = document.getElementById('search-phrase-mg');
     searchPhraseMG.style.marginBottom = '15px';
     searchPhraseMG.style.marginRight = '20px';
-    searchPhraseMG.style.order= 'unset';
+    searchPhraseMG.style.order= '1';
     let searchPhraseClear = document.getElementById('search-phrase-clear');
     searchPhraseClear.style.display = 'none';
+    searchPhraseClear.style.order = '2';
     let searchPhrase = document.getElementById('search-phrase');
     searchPhrase.style.justifyContent = 'space-between';
     searchBarLineDeletion();
