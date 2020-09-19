@@ -882,7 +882,7 @@ function showTrending () {
             trendingItem.setAttribute("title",response.data[i].title);
             let trendingItemImg = trendingItem.getElementsByTagName('img');
             trendingItemImg[0].src = response.data[i].images.fixed_height.url;
-            //searchResult.addEventListener('click', function() { maximizeSearchResult(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url); });
+            trendingItem.addEventListener('click', function() { maximizeSearchResult(response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url); });
             trendingGallery.appendChild(trendingItem);
         }
     }).catch(error => {
