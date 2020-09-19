@@ -105,6 +105,7 @@ let cameraAccessComment = document.getElementById('camera-access-comment');
 const videoPort = document.getElementById('camera');
 let gifoPreviewContainer = document.getElementById('gifo-preview-container');
 let gifoPreview = document.getElementById('gifo-preview');
+let uploadGifoPreview = document.getElementById('upload-gifo-preview');
 let step1Icon = document.getElementById('step-1-icon');
 let step2Icon = document.getElementById('step-2-icon');
 let step3Icon = document.getElementById('step-3-icon');
@@ -826,21 +827,27 @@ function download(data, strFileName, strMimeType) {
 function getTrendingTerms() {
     console.log ("##f()## getTrendingTerms function execution");
     console.log(`https://api.giphy.com/v1/trending/searches?api_key=${api_key}`);
-    let trendingText ="";
+    let trendingText = "";
+    let trendingTermsResult = document.getElementById('trending-terms-results');
+    let trendTermModel = document.createElement('span');
     let gifTrendingSearchTerms = giphyConnection (`https://api.giphy.com/v1/trending/searches?api_key=${api_key}`);
     gifTrendingSearchTerms.then (response => {
         console.log("Trending Search Terms: "+response.data);
         for (let i=0; i<response.data.length; i++) {
-           if(i==(response.data.length-1)) {
-                trendingText+=response.data[i];
-           } else {
-                trendingText+=response.data[i]+", ";
-           }
+            //let trendTerm= trendingItemModel.cloneNode(true);
+            let trendingTerm = document.createElement('span');
+            if(i==(response.data.length-1)) {
+                trendingTerm.textContent = response.data[i];
+            } else {
+                trendingTerm.textContent+=response.data[i]+", ";
+            }
+            trendingTerm.addEventListener('click', function() { gifSearch(response.data[i]); });
+            trendingTermsResult.appendChild(trendingTerm);
         }
         console.log("Trending Text: "+trendingText);
-        let trendingTermsResult = document.getElementById('trending-terms-results');
-        console.log(trendingTermsResult.textContent);
-        trendingTermsResult.textContent=trendingText;
+        //let trendingTermsResult = document.getElementById('trending-terms-results');
+        console.log(trendingTermsResult.textContent);       
+        //trendingTermsResult.textContent=trendingText;
     }).catch(error => {
         console.log(error);
     });
@@ -1156,6 +1163,11 @@ function gifoPreviewF (blob) {
     reader.addEventListener("loadend", function() {
         console.log(reader.result);
         gifoPreview.src=reader.result;
+        //uploadGifoPreview.src=reader.result;
+        //uploadGifoPreview.style.backgroundImage = "linear-gradient(rgba(25, 209, 231, 0.5), rgba(243, 17, 224, 0.5)), url('images/icon-favoritos.svg')"; 
+        //uploadGifoPreview.style.backgroundColor = 
+        //uploadGifoPreview.style.backgroundImage = `"url('${reader.result}')"`; 
+        //uploadGifoPreview.style.backgroundSize = 'cover'; 
     });
     reader.readAsDataURL(blob);
 
@@ -1166,10 +1178,14 @@ function changeStyleForStep3() {
     step2Icon.style.color = '#572EE5';
     step3Icon.style.background = '#572ee5';
     step3Icon.style.color = '#ffffff';
+    //gifoPreview.classList.add('hide');
+    //uploadGifoPreview.classList.remove('hide');
     cameraAccessComment.textContent = 'Estamos subiendo tu GIFO';
     cameraAccessComment.classList.remove('hide');
-    gifoPreviewContainer.style.backgroundColor='rgba(255, 255, 255, 0.3)';
-}
+    //gifoPreviewContainer.style.backgroundColor='rgba(255, 255, 255, 0.3)';
+    //document.styleSheets[0].addRule('.gifo-preview-container:before','content: ""; width: 100%; height: 100%; background-color: aqua; position: absolute; opacity: 0.7;');
+} 
+
 
 function changeStyleForStep31() {
     cameraAccessComment.textContent = 'GIF subido con éxito';

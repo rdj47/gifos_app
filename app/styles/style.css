@@ -433,6 +433,9 @@ main .create-gifos {
       min-height: 320px; }
       main .create-gifos .create-gifos-frame .create-gifos-subframe h2, main .create-gifos .create-gifos-frame .create-gifos-subframe p {
         text-align: center; }
+      main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview {
+        width: 320px;
+        height: 240px; }
   main .create-gifos .create-gifos-panel {
     width: 100%; }
     main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
