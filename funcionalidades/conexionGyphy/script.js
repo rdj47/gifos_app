@@ -59,15 +59,16 @@ gifAutocomplete.then (response => {
 console.log(error);
 })
 //  Test function for Gyphy Search by ID
-let s = "DvyLQztQwmyAM";
-console.log (`http://api.giphy.com/v1/gifs/${s}?api_key=${api_key}`);
-let gifSearchByID = giphyConnection (`http://api.giphy.com/v1/gifs/${s}?api_key=${api_key}`);
+let s = "qhlTLYwGbMaapt8F0S";
+console.log (`https://api.giphy.com/v1/gifs/${s}?api_key=${api_key}`);
+let gifSearchByID = giphyConnection (`https://api.giphy.com/v1/gifs/${s}?api_key=${api_key}`);
 gifSearchByID.then (response => {
-    console.log (response.data[0]);
+    console.log("searchId Endpoint Answer");
+    console.log(response);
     console.log ("Longitud Array Objetos: "+ response.data.length);
-    for (let i=0; i<response.data.length; i++) {
-        console.log("GIF Requested: "+response.data[i]);
-    }
+    console.log ("Longitud Array Objetos: "+ response.data.id);
+    console.log ("Longitud Array Objetos: "+ response.data.title);
+
 }).catch(error => {
 console.log(error);
 })

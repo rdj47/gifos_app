@@ -1,4 +1,4 @@
-main .banner, main .banner .presentation, main .favorites, main .create-gifos, main .create-gifos .create-gifos-frame, main .create-gifos .create-gifos-panel {
+main .banner, main .banner .presentation, main .favorites, main .create-gifos, main .create-gifos .create-gifos-frame, main .create-gifos .create-gifos-panel, main .my-gifos {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -40,7 +40,7 @@ main .maximized .maximized-download-border {
   justify-content: center;
   align-content: center; }
 
-main .search-results .results, main .favorites .favorites-results {
+main .search-results .results, main .favorites .favorites-results, main .my-gifos .my-gifos-results {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
   grid-gap: 21px; }
@@ -462,6 +462,62 @@ main .create-gifos {
       letter-spacing: 0;
       text-align: center;
       line-height: 16px; }
+main .my-gifos {
+  width: 100%;
+  margin-top: 100px; }
+  main .my-gifos .my-gifos-icon {
+    margin-top: 5px;
+    width: 28px;
+    height: 21px; }
+  main .my-gifos .my-gifos-title {
+    margin-top: 7px;
+    font-family: Roboto;
+    font-size: 20px;
+    color: #572EE5;
+    text-align: center;
+    line-height: 30px; }
+  main .my-gifos .no-gifos-icon {
+    margin-top: 46px;
+    width: 150px;
+    height: 150px; }
+  main .my-gifos .no-gifos-text {
+    margin-top: 24px;
+    font-family: Roboto;
+    font-size: 18px;
+    color: #50E3C2;
+    text-align: center;
+    line-height: 33px; }
+  main .my-gifos .my-gifos-results {
+    width: 100%;
+    padding: 0px 21px 0px 21px; }
+    main .my-gifos .my-gifos-results .gif-card {
+      padding: unset;
+      width: 156px;
+      height: 120px;
+      margin: auto; }
+      main .my-gifos .my-gifos-results .gif-card img {
+        max-width: 156px;
+        max-height: 120px;
+        text-align: center;
+        display: block;
+        margin: auto; }
+  main .my-gifos .more-my-gifos {
+    border: 1px solid #572EE5;
+    border-radius: 25px;
+    width: 127px;
+    height: 50px;
+    margin-top: 78px;
+    margin-bottom: 79px;
+    margin-left: auto;
+    margin-right: auto; }
+    main .my-gifos .more-my-gifos p {
+      font-family: Roboto;
+      font-size: 13px;
+      color: #572EE5;
+      letter-spacing: 0;
+      text-align: center;
+      font-weight: 900;
+      margin: 18px 0px 16px 0px; }
 
 footer {
   text-align: center;

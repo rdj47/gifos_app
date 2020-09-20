@@ -43,10 +43,11 @@
                 <span></span>
                 <ul>
                     <li><a href="#episodes">Modo Nocturno</a></li>
-                    <li id="favorites-link" class="favorites-link"><a href="#favorites">Favoritos</a></li>
-                    <li><a href="#guesses">Mis GIFOS</a></li>
+                    <li id="favorites-link" class="favorites-link"><a href="#logo">Favoritos</a></li>
+                    <li id="my-gifos-link" class="my-gifos-link"><a href="#logo">Mis GIFOS</a></li>
                     <!--<li id="create-gifos-link" class="create-gifos-link"><a href="#create-gifos">Crear GIFO</a></li>-->
                     <li id="create-gifos-link" class="create-gifos-link"><a href="#logo">Crear GIFO</a></li>
+                    
                 </ul>
             </div>
         </nav>    
@@ -100,6 +101,16 @@
                 <p>VER MÁS</p>
             </div>      
         </div>
+        <div id="my-gifos" class="my-gifos hide">
+            <img id="my-gifos-icon" class="my-gifos-icon" src="images/icon-mis-gifos.svg" alt="Ícono Mis GIFOS">
+            <h2 id="my-gifos-title" class="my-gifos-title">Mis GIFOS</h2>
+            <img id="no-gifos-icon" class="no-gifos-icon hide" src="images/icon-mis-gifos-sin-contenido.svg"  alt="Ícono de carita triste">
+            <h3 id="no-gifos-text" class="no-gifos-text hide">¡Anímate a crear tu primer GIFO!</h3>
+            <div id="my-gifos-results" class="my-gifos-results hide"></div>
+            <div id="more-my-gifos" class="more-my-gifos hide">
+                <p>VER MÁS</p>
+            </div>      
+        </div>
         <div id="trending-gifos" class="trending-gifos">
             <h2>Trending GIFOS</h2>
             <p>Mira los últimos<br>GIFOS de nuestra comunidad.</p>
@@ -129,8 +140,7 @@
                 <div id="record-start-button" class="control-panel-button hide">GRABAR</div>
                 <div id="record-stop-button" class="control-panel-button hide">FINALIZAR</div>
                 <div id="upload-gifo-button" class="control-panel-button hide">SUBIR GIFO</div>   
-            </div>
-             
+            </div>          
         </div>
     </main>
     <footer>
