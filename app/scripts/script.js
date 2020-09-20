@@ -27,6 +27,7 @@ function showFavorites() {
     console.log ("##f()## showFavorites function execution");
     sandwich.checked= false;
     favoritesFlag=true;
+    myGifosFlag=false;
     clearNoFavoritesAlert();
     clearPreviousFavorites();
     hideContentForFavorites();
@@ -87,7 +88,7 @@ moreResultsButton.addEventListener('click', drawMoreResults);
 
 // maximized area tags
 let maximizedCloseButton = document.getElementById('maximized-close-button');
-maximizedCloseButton.addEventListener('click', function() { hideContentForMaximizingReverse(favoritesFlag); } );
+maximizedCloseButton.addEventListener('click', function() { hideContentForMaximizingReverse(favoritesFlag,myGifosFlag); } );
 let maximizedResultImg = document.getElementById('maximized-result-img');
 let maximizedResultUser = document.getElementById('maximized-result-user');
 let maximizedResultTitle = document.getElementById('maximized-result-title');
@@ -117,6 +118,8 @@ let uploadGifoPreview = document.getElementById('upload-gifo-preview');
 let step1Icon = document.getElementById('step-1-icon');
 let step2Icon = document.getElementById('step-2-icon');
 let step3Icon = document.getElementById('step-3-icon');
+let repeatCaptureButton = document.getElementById('repeat-capture');
+repeatCaptureButton.addEventListener('click', repeatCapture);
 let initialButton = document.getElementById('initial-button');
 initialButton.addEventListener('click', goToStep1);
 let recordStartButton = document.getElementById('record-start-button');
@@ -134,7 +137,8 @@ let myGifosTitle = document.getElementById('my-gifos-title');
 let noGifosIcon = document.getElementById('no-gifos-icon');
 let noGifosText = document.getElementById('no-gifos-text');
 let myGifosResults = document.getElementById('my-gifos-results');
-let moreMyGifos = document.getElementById('more-my-gifos');
+let moreMyGifosButton = document.getElementById('more-my-gifos');
+moreMyGifosButton.addEventListener('click', drawMoreMyGifos);
 let myGifosArray = new Array();
 
 //footer area tags
@@ -633,6 +637,7 @@ function hideContentForMaximizing () {
     searchResults.classList.add('hide');
     trendingGifos.classList.add('hide');
     favorites.style.display='none';
+    myGifos.style.display='none';
 }
 
 // hideContentForMaximizingReverse
@@ -653,6 +658,10 @@ function hideContentForMaximizingReverse (favoritesFlag) {
         console.log("Permanezco en Favoritos");
         hideContentForFavorites();
         showFavorites();
+    } else if (myGifosFlag==true) {
+        console.log("Permanezco en Mis Gifos");
+        hideContentForMyGifos();
+        showMyGifos();
     }
 }
 
@@ -1028,6 +1037,8 @@ function clearPreviousFavorites () {
 
 //++++ CREATE GIFOS FUNCTIONS ++++
 
+let uploadGifoFunction=0;
+
 function showCreateGifos () {
     sandwich.checked= false;
     hideContentForCreateGifos();
@@ -1044,6 +1055,7 @@ function hideContentForCreateGifos() {
     maximized.classList.add('hide');
     trendingGifos.classList.add('hide');
     favorites.style.display='none';
+    myGifos.style.display='none';
     createGifos.style.display='flex';
 }
 
@@ -1149,8 +1161,9 @@ function startRecord () {
         //invokeSaveAsDialog(blob);
         let fileName= "RDJ472007_myGif.gif";
         changeStyleForStep22();
-        let uploadGifo = function () {
-            console.log("##f()## uploadGifo function let execution");
+        uploadGifoFunction = function () {
+            console.log("##f()## uploadGifoFunction function let execution");
+            uploadGifoButton.removeEventListener('click', uploadGifoFunction, true);
             console.log (`https://upload.giphy.com/v1/gifs?file=${fileName}&api_key=${api_key}`);
             changeStyleForStep3();
             let uploadGif= giphyConnectionPost (`https://upload.giphy.com/v1/gifs?api_key=${api_key}`,form);
@@ -1162,14 +1175,13 @@ function startRecord () {
             }).catch(error => {
                 console.log(error);
             })
+            
         }
         videoPort.pause();
-        stopStream(stream);
-        //videoPort.src="";
-        /*localStream.getTracks().forEach( (track) => {
-            track.stop();
-        });*/
-        uploadGifoButton.addEventListener('click',uploadGifo);
+        stopStream(stream);        
+        uploadGifoButton.addEventListener('click', uploadGifoFunction);
+        uploadGifoButton.removeEventListener('click', uploadGifoFunction, true);
+        showRepeatCaptureButton(); 
     });}
     recordStopButton.addEventListener('click',stopRecord);    
 });}
@@ -1260,12 +1272,33 @@ function saveGifo (resultId, resultUser, resultName, resultUrl, resultOriginalUr
     console.log("resultId: "+resultId);        
 }
 
+function showRepeatCaptureButton() {    
+    repeatCaptureButton.classList.remove('hide');  
+}
+
+function repeatCapture () {
+    uploadGifoButton.removeEventListener('click', uploadGifoFunction, true);
+    step2Icon.style.background = 'unset';
+    step2Icon.style.color = '#572EE5';
+    step3Icon.style.background = 'unset';
+    step3Icon.style.color = '#572EE5';
+    cameraAccessTitle.textContent='Aquí podrás crear tus propios GIFOS';
+    cameraAccessTitle.classList.remove('hide');
+    cameraAccessComment.textContent = '¡Crea tu GIFO en sólo 3 pasos!<br>(sólo necesitas una cámara para grabar un video)';
+    cameraAccessComment.classList.remove('hide');  
+    gifoPreviewContainer.classList.add('hide');
+    gifoPreview.classList.add('hide'); 
+    uploadGifoButton.classList.add('hide'); 
+    initialButton.classList.remove('hide');
+}
+
 //++++ MY GIFOS FUNCTIONS ++++
 
 function showMyGifos() {
     console.log ("##f()## showMyGifos function execution");
     sandwich.checked= false;
     favoritesFlag=false;
+    myGifosFlag=true;
     clearNoGifosAlert();
     //clearPreviousFavorites();
     hideContentForMyGifos();
@@ -1280,7 +1313,7 @@ function showMyGifos() {
             console.log("Id: "+element.Id);            
         });
         drawMyGifos(myGifosObject);
-        //drawMoreFavoritesButton(myGifosObject,myGifosPagination);
+        drawMoreMyGifosButton(myGifosObject,myGifosPagination);
     } else {
         drawNoGifosAlert();
     }
@@ -1361,3 +1394,34 @@ function drawMyGifos (myGifosObject) {
         }
     }
 }
+
+// drawMoreMyGifosButton 
+function drawMoreMyGifosButton (myGifosObject,myGifosPagination) {
+    console.log ("##f()## drawMoreMyGifosButton  function execution");
+    if (myGifosPagination==0) {
+        moreMyGifosButton.setAttribute('offset', 0);
+    }
+    //let remainingResults = paginationObject.total_count-(paginationObject.offset+paginationObject.count);
+    let remainingResults = myGifosObject.length-(myGifosPagination+12);
+    console.log("Resultados restantes: "+remainingResults);
+    if (remainingResults>0) {
+        moreMyGifosButton.classList.remove('hide');
+    } else {
+        moreMyGifosButton.classList.add('hide');
+    }    
+}
+
+//  drawMoreMyGifos
+function drawMoreMyGifos () {
+    console.log ("##f()## drawMoreMyGifos function execution");   
+    let moreMyGifosButton = document.getElementById('more-my-gifos');
+    console.log("Offset al solicitar más resultados: "+moreMyGifosButton.getAttribute('offset'));
+    myGifosPagination = parseInt(moreMyGifosButton.getAttribute('offset'))+12;
+    let myGifosObject= JSON.parse(localStorage.getItem('mygifos'));
+    drawMyGifos(myGifosObject);
+    drawMoreMyGifosButton(myGifosObject,myGifosPagination);
+    moreMyGifosButton.setAttribute('offset', myGifosPagination);
+    myGifosPagination=+12;
+    console.log("Offset después solicitar más resultados: "+moreMyGifosButton.getAttribute('offset'));
+}
+
