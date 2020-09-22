@@ -65,7 +65,7 @@ let gifSearchByID = giphyConnection (`https://api.giphy.com/v1/gifs/${s}?api_key
 gifSearchByID.then (response => {
     console.log("searchId Endpoint Answer");
     console.log(response);
-    console.log ("Longitud Array Objetos: "+ response.data.length);
+    //console.log ("Longitud Array Objetos: "+ response.data.length);
     console.log ("Longitud Array Objetos: "+ response.data.id);
     console.log ("Longitud Array Objetos: "+ response.data.title);
 

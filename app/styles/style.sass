@@ -335,7 +335,7 @@ main
             color: #000000
             max-width: 50%
             //text-align: center
-        .maximized-like-button
+        .maximized-like-button, .maximized-trash-button
             position: relative
             width: 20px
             height: 18px
@@ -344,6 +344,8 @@ main
             margin-right: 17.33% 
             opacity: 0.5
         .maximized-like-button:hover
+            opacity: unset
+        .maximized-trash-button:hover
             opacity: unset
         .maximized-download-border
             @extend %flex-row-justify-center
@@ -469,14 +471,30 @@ main
             .create-gifos-subframe
                 @extend %flex-column-center-center
                 border: 1px solid #50E3C2
-                min-height: 320px
+                min-height: 240px
                 h2, p
                     text-align: center
                 .gifo-preview-container
                     .gifo-preview
-                    .upload-gifo-preview
                         width: 320px
                         height: 240px
+                    .upload-gifo-preview-container
+                        width: 320px
+                        height: 240px
+                        position: relative
+                            z-index: 1
+                            overflow: hidden
+                        .upload-gifo-preview
+                    .upload-gifo-preview-container::after
+                            content: ""
+                            width: 100%
+                            height: 100%
+                            top: 0
+                            left: 0
+                            background-color: blue
+                            opacity: 0.7
+                            position: absolute
+                            z-index: 2                            
         .create-gifos-panel
             @extend %flex-column-center 
             width: 100%   
