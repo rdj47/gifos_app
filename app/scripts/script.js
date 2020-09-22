@@ -1392,14 +1392,19 @@ function createGifoLink (createdGifoUrl) {
 
 function saveGifo (resultId, resultUser, resultName, resultUrl, resultOriginalUrl) {
     console.log ("##f()## saveGifo function execution");
-    let savedMyGifosString = localStorage.getItem('mygifos');
-    let savedMyGifosObject = JSON.parse(savedMyGifosString);
-    if (savedMyGifosObject!=null) {
-        console.log ("Hay Mis Gifos."); 
-        console.log("Cantidad de mis gifos guardados previos: "+savedMyGifosObject.length);
-        savedMyGifosObject.forEach(element => {
-            console.log("Saved ID: "+element.Id)
-        });
+    //let savedMyGifosString = localStorage.getItem('mygifos');
+    //let savedMyGifosObject = JSON.parse(savedMyGifosString);
+    let savedMyGifosObject = new Array();
+    savedMyGifosObject = JSON.parse(localStorage.getItem('mygifos'));
+    try {
+        if(JSON.parse(localStorage.getItem('mygifos')).length == undefined) {
+            savedMyGifosObject = new Array (JSON.parse(localStorage.getItem('mygifos')));
+        } else {
+            savedMyGifosObject = JSON.parse(localStorage.getItem('mygifos'));
+        }
+    } catch (err) {
+        console.log("JSON.parse(localStorage.getItem('mygifos')).length failed", err);
+        //savedFavoritesObject= JSON.parse(localStorage.getItem('favorites'));
     }
     let newMyGifo = {
         "Id": resultId,
@@ -1407,10 +1412,19 @@ function saveGifo (resultId, resultUser, resultName, resultUrl, resultOriginalUr
         "title": resultName,
         "url": resultUrl,
         "originalUrl": resultOriginalUrl,
-    }        
+    }      
     console.log("Objeto newMyGifo: "+JSON.stringify(newMyGifo));
+    if (savedMyGifosObject!=null) {
+        console.log ("Hay Mis Gifos."); 
+        console.log("Cantidad de mis gifos guardados previos: "+savedMyGifosObject.length);
+        savedMyGifosObject.forEach(element => {
+            console.log("Saved ID: "+element.Id)
+        });
+        savedMyGifosObject.unshift(newMyGifo);  
+    }  else {        
+        savedMyGifosObject=newMyGifo;;  
+    }
     localStorage.removeItem('mygifos');
-    savedMyGifosObject.push(newMyGifo);  
     localStorage.setItem('mygifos',JSON.stringify(savedMyGifosObject));
     console.log("Array myGifos: "+savedMyGifosObject);
     console.log("Item Listado de mis gifos: "+localStorage.getItem('mygifos'));   
