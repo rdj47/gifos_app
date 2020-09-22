@@ -22,6 +22,7 @@ let myGifosFlag=false;
 let myGifosPagination=0;
 let createGifosLink = document.getElementById('create-gifos-link');
 createGifosLink.addEventListener('click', showCreateGifos);
+//let favoritesObject= new Array();
 
 function showFavorites() {
     console.log ("##f()## showFavorites function execution");
@@ -31,7 +32,18 @@ function showFavorites() {
     clearNoFavoritesAlert();
     clearPreviousFavorites();
     hideContentForFavorites();
-    let favoritesObject= JSON.parse(localStorage.getItem('favorites'));
+    let favoritesObject= new Array();
+    favoritesObject= JSON.parse(localStorage.getItem('favorites'));
+    console.log("Tipo de favoritesObject: "+typeof(favoritesObject));
+    try {
+        if(JSON.parse(localStorage.getItem('favorites')).length == undefined) {
+            favoritesObject= new Array (JSON.parse(localStorage.getItem('favorites')));
+        } else {
+            favoritesObject= JSON.parse(localStorage.getItem('favorites'));
+        }
+    } catch (err) {
+        console.log("JSON.parse(localStorage.getItem('favorites')).length failed", err);
+    }
     try {
         console.log("Longitud de favoritos: "+favoritesObject.length);
     } catch (err) {
@@ -106,6 +118,7 @@ let moreFavoritesButton =document.getElementById('more-favorites');
 moreFavoritesButton.addEventListener('click', drawMoreFavorites);
 //favorites global array
 let favoritesArray= new Array();
+
 
 //create-gifos area tags
 let createGifos = document.getElementById('create-gifos');
@@ -712,8 +725,19 @@ function hideContentForMaximizingReverse (favoritesFlag,myGifosFlag) {
 // queryFavorite
 function queryFavorite (resultId) {
     console.log ("##f()## queryFavorite function execution");
-    let savedFavoritesString = localStorage.getItem('favorites')
-    let savedFavoritesObject = JSON.parse(savedFavoritesString);
+    let savedFavoritesObject = 0;
+    try {
+        if(JSON.parse(localStorage.getItem('favorites')).length == undefined) {
+            savedFavoritesObject= new Array (JSON.parse(localStorage.getItem('favorites')));
+        } else {
+            savedFavoritesObject= JSON.parse(localStorage.getItem('favorites'));
+        }
+    } catch (err) {
+        console.log("JSON.parse(localStorage.getItem('favorites')).length failed", err);
+        savedFavoritesObject= JSON.parse(localStorage.getItem('favorites'));
+    }
+    //let savedFavoritesString = localStorage.getItem('favorites')
+    //let savedFavoritesObject = JSON.parse(savedFavoritesString);
     if (savedFavoritesObject!=null) { 
         if((savedFavoritesObject.findIndex(element => element.Id==resultId))!==-1) {
             maximizedLikeButton.src="images/icon-fav-active.svg";
@@ -724,8 +748,20 @@ function queryFavorite (resultId) {
 // setFavorite
 function setFavorite (resultId, resultUser, resultName, resultUrl, resultOriginalUrl) {
     console.log ("##f()## setFavorite function execution");
-    let savedFavoritesString = localStorage.getItem('favorites')
-    let savedFavoritesObject = JSON.parse(savedFavoritesString);
+    savedFavoritesObject = new Array();
+    savedFavoritesObject = JSON.parse(localStorage.getItem('favorites'));
+    try {
+        if(JSON.parse(localStorage.getItem('favorites')).length == undefined) {
+            savedFavoritesObject= new Array (JSON.parse(localStorage.getItem('favorites')));
+        } else {
+            savedFavoritesObject= JSON.parse(localStorage.getItem('favorites'));
+        }
+    } catch (err) {
+        console.log("JSON.parse(localStorage.getItem('favorites')).length failed", err);
+        //savedFavoritesObject= JSON.parse(localStorage.getItem('favorites'));
+    }
+    //let savedFavoritesString = localStorage.getItem('favorites');
+    //let savedFavoritesObject = new Array(JSON.parse(savedFavoritesString));
     if (savedFavoritesObject!=null) {
         console.log ("Hay favoritos."); 
         console.log("Cantidad de favoritos guardados previos: "+savedFavoritesObject.length);
@@ -745,7 +781,7 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
                 "originalUrl": resultOriginalUrl,
             }
             console.log("Objeto newFavorite: "+JSON.stringify(newFavorite));
-            savedFavoritesObject.push(newFavorite);
+            savedFavoritesObject.unshift(newFavorite);
             localStorage.removeItem('favorites');
             localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
             console.log("Array Favorites: "+savedFavoritesObject);
@@ -783,7 +819,7 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
         localStorage.setItem('favorites',JSON.stringify(favoritesArray));
         console.log("Array Favorites: "+favoritesArray);
         console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));*/
-        savedFavoritesObject.push(newFavorite);   
+        savedFavoritesObject=newFavorite;   
         localStorage.removeItem('favorites');
         localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
         console.log("Array Favorites: "+savedFavoritesObject);
@@ -794,8 +830,19 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
 function trash(resultId) {
     console.log ("##f()## trash function execution");
     console.log("resultId a eliminar: "+resultId);
-    let savedMyGifosString = localStorage.getItem('mygifos');
-    let savedMyGifosObject = JSON.parse(savedMyGifosString);
+    savedMyGifosObject = new Array();
+    savedMyGifosObject = JSON.parse(localStorage.getItem('mygifos'));
+    try {
+        if(JSON.parse(localStorage.getItem('mygifos')).length == undefined) {
+            savedMyGifosObject= new Array (JSON.parse(localStorage.getItem('mygifos')));
+        } else {
+            savedMyGifosObject= JSON.parse(localStorage.getItem('mygifos'));
+        }
+    } catch (err) {
+        console.log("JSON.parse(localStorage.getItem('mygifos')).length failed", err);
+    }
+    //let savedMyGifosString = localStorage.getItem('mygifos');
+    //let savedMyGifosObject = JSON.parse(savedMyGifosString);
     console.log("Longitud Item mygifos previo al borrado: "+savedMyGifosObject.length);
     savedMyGifosObject.splice(savedMyGifosObject.findIndex(element => element.Id==resultId),1);   
     localStorage.setItem('mygifos',JSON.stringify(savedMyGifosObject));
@@ -1436,7 +1483,17 @@ function showMyGifos() {
     clearNoGifosAlert();
     clearPreviousMyGifos();
     hideContentForMyGifos();
-    let myGifosObject= JSON.parse(localStorage.getItem('mygifos'));
+    let  myGifosObject= new Array();
+    myGifosObject = JSON.parse(localStorage.getItem('mygifos'));
+    try {
+        if(JSON.parse(localStorage.getItem('mygifos')).length == undefined) {
+            myGifosObject= new Array (JSON.parse(localStorage.getItem('mygifos')));
+        } else {
+            myGifosObject= JSON.parse(localStorage.getItem('mygifos'));
+        }
+    } catch (err) {
+        console.log("JSON.parse(localStorage.getItem('mygifos')).length failed", err);
+    }
     try {
         console.log("Longitud de mygifos: "+myGifosObject.length);
     } catch (err) {
