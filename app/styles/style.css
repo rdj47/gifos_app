@@ -60,7 +60,7 @@ header {
   width: 100%;
   height: 95px;
   top: 0;
-  padding: 10px 19px 10px 16px;
+  padding: 29px 26px 17.2px 22px;
   z-index: 10;
   border-top: 5px solid #572EE5; }
 
@@ -103,7 +103,7 @@ header nav .menu input[type="checkbox"]:checked ~ ul {
   transition: all 1s ease; }
 
 header nav .menu {
-  padding-top: 6px; }
+  padding-top: 18px; }
 
 header nav .menu input {
   display: block;
@@ -116,14 +116,15 @@ header nav .menu input {
 header nav .menu span {
   padding: 0;
   display: block;
-  width: 18px;
+  width: 15px;
   height: 2px;
   margin-bottom: 3px;
   position: relative;
-  background: #000;
+  background: #572EE5;
   z-index: 1;
   transform-origin: 3px 0px;
-  position: relative; }
+  position: relative;
+  border-radius: px; }
 
 header nav .menu span:first-child {
   transform-origin: 0% 0%; }
@@ -133,9 +134,7 @@ header nav .menu span:nth-last-child(2) {
 
 header nav .menu input:checked ~ span {
   opacity: 1;
-  transform: rotate(45deg) translate(2px, 2px);
-  left: 8px;
-  top: -2px; }
+  transform: rotate(45deg) translate(2px, 2px); }
 
 header nav .menu input:checked ~ span:nth-last-child(3) {
   opacity: 0;
@@ -148,14 +147,18 @@ header nav .menu input:checked ~ span:nth-last-child(2) {
 main .banner {
   padding-top: 100px; }
   main .banner .presentation h1 {
-    font-family: Roboto;
-    font-weight: 900;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     padding: 7px 44px 0px 44px;
     font-size: 25px;
     color: #572EE5;
     text-align: center;
-    line-height: 33px;
-    text-align: center; }
+    line-height: 33px; }
+    main .banner .presentation h1 span {
+      font-family: Montserrat, "Times New Roman", Times, serif;
+      font-size: 25px;
+      color: #5ED7C6;
+      line-height: 33px; }
   main .banner .presentation img {
     width: 273px;
     height: 130px;
@@ -173,7 +176,8 @@ main .banner {
       main .banner .search-bar .search-phrase .search-phrase-input {
         margin: 15px 0px 13px 55px;
         border: none;
-        font-family: Roboto;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 400;
         font-size: 16px;
         color: #000000;
         line-height: 22px;
@@ -219,7 +223,8 @@ main .trending-terms {
     width: 60%;
     height: 25px;
     text-align: center;
-    font-family: Roboto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 16px;
     color: #572EE5;
     text-align: center;
@@ -227,8 +232,9 @@ main .trending-terms {
     margin: auto; }
   main .trending-terms p {
     padding: unset;
-    width: 225px;
-    font-family: Roboto;
+    max-width: 60%;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 500;
     font-size: 14px;
     color: #572EE5;
     text-align: center;
@@ -236,24 +242,43 @@ main .trending-terms {
     margin: auto;
     text-transform: capitalize; }
 main .search-results-separator {
+  position: relative;
+  top: -10px;
   width: 41.86%;
   height: 1px;
   background: #9CAFC3;
   margin: auto; }
 main .search-results {
+  position: relative;
+  top: -10px;
   width: 100%; }
   main .search-results .search-results-title {
     margin: 43px 0 38px 0;
     width: 100%;
     text-align: center;
-    font-family: Roboto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 25px;
     color: #572EE5;
     text-align: center;
     line-height: 40px;
     text-transform: capitalize; }
+  main .search-results .no-results-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; }
+  main .search-results .no-results-text {
+    margin-top: 29px;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #50E3C2;
+    text-align: center;
+    line-height: 25px;
+    width: 100%; }
   main .search-results .results {
-    padding: 0px 21px 0px 21px; }
+    padding: 0px 21px 0px 21px;
+    margin-bottom: 78px; }
     main .search-results .results .gif-card {
       padding: unset;
       width: 156px;
@@ -271,17 +296,17 @@ main .search-results {
     border-radius: 25px;
     width: 127px;
     height: 50px;
-    margin-top: 78px;
-    margin-bottom: 79px;
+    margin-bottom: 78px;
     margin-left: auto;
     margin-right: auto; }
     main .search-results .more-results p {
-      font-family: Roboto;
+      font-family: Montserrat, "Times New Roman", Times, serif;
+      font-weight: 700;
       font-size: 13px;
       color: #572EE5;
       letter-spacing: 0;
       text-align: center;
-      font-weight: 900;
+      line-height: 16px;
       margin: 18px 0px 16px 0px; }
 main .maximized {
   width: 100%; }
@@ -298,6 +323,8 @@ main .maximized {
     position: relative;
     margin-top: 14px;
     left: 9.33%;
+    font-family: Roboto, "Times New Roman", Times, serif;
+    font-weight: 400;
     font-size: 15px;
     font-weight: 400;
     line-height: 18px;
@@ -306,6 +333,8 @@ main .maximized {
     position: relative;
     margin-top: 6px;
     left: 7.87%;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 16px;
     font-weight: 900;
     line-height: 19px;
@@ -345,14 +374,16 @@ main .trending-gifos {
   main .trending-gifos h2 {
     width: 100%;
     height: 30px;
-    font-family: Roboto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 20px;
     color: #572EE5;
     text-align: center;
     line-height: 30px; }
   main .trending-gifos p {
     margin: 7px 21px 32px 21px;
-    font-family: Roboto;
+    font-family: Roboto, "Times New Roman", Times, serif;
+    font-weight: 400;
     font-size: 16px;
     color: #000000;
     text-align: center;
@@ -377,8 +408,9 @@ main .favorites {
     width: 28px;
     height: 21px; }
   main .favorites .favorites-title {
-    margin-top: 7px;
-    font-family: Roboto;
+    margin-top: 6px;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 20px;
     color: #572EE5;
     text-align: center;
@@ -388,13 +420,17 @@ main .favorites {
     width: 150px;
     height: 150px; }
   main .favorites .no-favorites-text {
+    max-width: 80%;
     margin-top: 24px;
-    font-family: Roboto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 18px;
     color: #50E3C2;
     text-align: center;
     line-height: 33px; }
   main .favorites .favorites-results {
+    margin-top: 46px;
+    margin-bottom: 78px;
     width: 100%;
     padding: 0px 21px 0px 21px; }
     main .favorites .favorites-results .gif-card {
@@ -413,17 +449,17 @@ main .favorites {
     border-radius: 25px;
     width: 127px;
     height: 50px;
-    margin-top: 78px;
-    margin-bottom: 79px;
+    margin-bottom: 78px;
     margin-left: auto;
     margin-right: auto; }
     main .favorites .more-favorites p {
-      font-family: Roboto;
+      font-family: Montserrat, "Times New Roman", Times, serif;
+      font-weight: 700;
       font-size: 13px;
       color: #572EE5;
       letter-spacing: 0;
       text-align: center;
-      font-weight: 900;
+      line-height: 16px;
       margin: 18px 0px 16px 0px; }
 main .create-gifos {
   margin-top: 100px; }
@@ -488,8 +524,9 @@ main .my-gifos {
     width: 28px;
     height: 21px; }
   main .my-gifos .my-gifos-title {
-    margin-top: 7px;
-    font-family: Roboto;
+    margin-top: 6px;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 20px;
     color: #572EE5;
     text-align: center;
@@ -506,6 +543,8 @@ main .my-gifos {
     text-align: center;
     line-height: 33px; }
   main .my-gifos .my-gifos-results {
+    margin-top: 46px;
+    margin-bottom: 78px;
     width: 100%;
     padding: 0px 21px 0px 21px; }
     main .my-gifos .my-gifos-results .gif-card {
@@ -524,8 +563,7 @@ main .my-gifos {
     border-radius: 25px;
     width: 127px;
     height: 50px;
-    margin-top: 78px;
-    margin-bottom: 79px;
+    margin-bottom: 76px;
     margin-left: auto;
     margin-right: auto; }
     main .my-gifos .more-my-gifos p {
@@ -543,7 +581,8 @@ footer {
   footer .social-networks-text {
     margin: auto;
     margin-top: 47px;
-    font-family: Roboto;
+    font-family: Roboto, "Times New Roman", Times, serif;
+    font-weight: 400;
     font-size: 15px;
     color: #000000;
     letter-spacing: 0;
@@ -557,10 +596,11 @@ footer {
     margin: auto;
     margin-top: 46px;
     margin-bottom: 28px;
-    font-family: Roboto;
-    font-size: 15px;
+    font-family: Roboto, "Times New Roman", Times, serif;
+    font-weight: 400;
+    font-size: 14px;
     color: #000000;
     letter-spacing: 0;
-    line-height: 18px; }
+    line-height: 20px; }
 
 /*# sourceMappingURL=style.css.map */
