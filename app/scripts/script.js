@@ -14,6 +14,7 @@ let sandwich = document.getElementById('sandwich');
 sandwich.addEventListener('click', changeBurgerIcon);
 sandwich.checked= false;
 let sandwichIcon = document.getElementById('sandwich-icon');
+sandwichIcon.src = "images/burger.svg";
 let favoritesLink = document.getElementById('favorites-link');
 favoritesLink.addEventListener('click', showFavorites);
 let favoritesFlag=false;
@@ -28,7 +29,8 @@ createGifosLink.addEventListener('click', showCreateGifos);
 
 function showFavorites() {
     console.log ("##f()## showFavorites function execution");
-    sandwich.checked= false;
+    sandwich.checked = false;
+    sandwichIcon.src = "images/burger.svg";
     favoritesFlag=true;
     myGifosFlag=false;
     clearNoFavoritesAlert();
@@ -251,8 +253,9 @@ function changeBurgerIcon () {
 function initialize() {
     console.log ("##f()## initizalize function execution");    
     header[0].classList.remove('hide');
-    sandwich.checked= false;
-    banner.style.display='flex';
+    sandwich.checked = false;
+    sandwichIcon.src = "images/burger.svg";
+    banner.style.display ='flex';
     clearSearchPhrase();
     clearSuggestions();
     changeSearchPhraseStyleReverse();
@@ -262,10 +265,11 @@ function initialize() {
     maximized.classList.add('hide');
     trendingGifos.classList.remove('hide');
     favorites.style.display='none';
-    favoritesFlag=false;
+    favoritesFlag = false;
     favoritesPagination=0;
-    myGifosPagination=0;
+    myGifosFlag = false;
     myGifos.style.display='none';
+    myGifosPagination=0;
     createGifos.style.display='none';
 }
 
@@ -684,15 +688,15 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     if(trendingFlag==true) {
         maximizedTrashButton.classList.add('hide');
         maximizedLikeButton.classList.remove('hide');
-    } else{
-        if(myGifosFlag==true) {
+    } else if(myGifosFlag==true) {
             maximizedLikeButton.classList.add('hide');
             maximizedTrashButton.classList.remove('hide');
-        } 
-        if (favoritesFlag==true) {
+    } else if (favoritesFlag==true) {
             maximizedTrashButton.classList.add('hide');
             maximizedLikeButton.classList.remove('hide');
-        }
+    } else {
+        maximizedTrashButton.classList.add('hide');
+        maximizedLikeButton.classList.remove('hide');
     }
     maximized.classList.remove('hide');
     favoritesPagination=0;
@@ -1170,6 +1174,7 @@ let uploadGifoFunction=0;
 
 function showCreateGifos () {
     sandwich.checked= false;
+    sandwichIcon.src = "images/burger.svg";
     hideContentForCreateGifos();
     //reiniciar();
 }
@@ -1510,6 +1515,7 @@ function reiniciar(){
 function showMyGifos() {
     console.log ("##f()## showMyGifos function execution");
     sandwich.checked= false;
+    sandwichIcon.src = "images/burger.svg";
     favoritesFlag=false;
     myGifosFlag=true;
     clearNoGifosAlert();
@@ -1545,7 +1551,7 @@ function showMyGifos() {
 // hideContentForMyGifos
 function hideContentForMyGifos() {
     console.log ("##f()## hideContentForMyGifos function execution");
-    //header[0].classList.remove('hide');
+    header[0].classList.remove('hide');
     banner.style.display='none';
     trendingTerms.classList.add('hide');
     searchResultsSeparator.classList.add('hide');
@@ -1555,6 +1561,7 @@ function hideContentForMyGifos() {
     myGifos.style.display='flex';
     createGifos.style.display='none';
     trendingGifos.classList.remove('hide');
+    footer[0].classList.remove('hide');
 }
 
 function clearNoGifosAlert() {

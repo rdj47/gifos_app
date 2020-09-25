@@ -501,7 +501,9 @@ main .create-gifos {
       min-width: 338px;
       margin: 9px; }
       main .create-gifos .create-gifos-frame .create-gifos-subframe h2, main .create-gifos .create-gifos-frame .create-gifos-subframe p {
-        text-align: center; }
+        text-align: center;
+        margin: unset;
+        min-width: unset; }
       main .create-gifos .create-gifos-frame .create-gifos-subframe h2 {
         font-family: Montserrat, "Times New Roman", Times, serif;
         font-weight: 700;
