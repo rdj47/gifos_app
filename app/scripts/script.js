@@ -123,6 +123,7 @@ let favoritesArray= new Array();
 //create-gifos area tags
 let createGifos = document.getElementById('create-gifos');
 createGifos.style.display='none'; 
+let createGifosSubframe = document.getElementById('create-gifos-subframe');
 let cameraAccessTitle = document.getElementById('camera-access-title');
 let cameraAccessComment = document.getElementById('camera-access-comment');
 const videoPort = document.getElementById('camera');
@@ -131,6 +132,7 @@ let gifoPreview = document.getElementById('gifo-preview');
 let uploadGifoPreviewContainer = document.getElementById('upload-gifo-preview-container');
 let uploadGifoPreview = document.getElementById('upload-gifo-preview');
 let cgDownloadBorder = document.getElementById('cg-download-border');
+cgDownloadBorder.style.display = 'none';
 let cgLink = document.getElementById('cg-link');
 let step1Icon = document.getElementById('step-1-icon');
 let step2Icon = document.getElementById('step-2-icon');
@@ -141,6 +143,8 @@ s = 0;
 document.getElementById("hms").innerHTML="00:00:00";
 let repeatCaptureButton = document.getElementById('repeat-capture');
 repeatCaptureButton.addEventListener('click', repeatCapture);
+let uploadStatusIcon = document.getElementById('upload-status-icon');
+let uploadStatusComment = document.getElementById('upload-status-comment');
 let initialButton = document.getElementById('initial-button');
 initialButton.addEventListener('click', goToStep1);
 let recordStartButton = document.getElementById('record-start-button');
@@ -1335,19 +1339,19 @@ function changeStyleForStep3() {
     step3Icon.style.color = '#ffffff';
     gifoPreview.classList.add('hide');
     uploadGifoPreviewContainer.classList.remove('hide');
-    //uploadGifoPreview.classList.remove('hide');
     uploadGifoButton.classList.add('hide');
-    cameraAccessComment.textContent = 'Estamos subiendo tu GIFO';
-    cameraAccessComment.classList.remove('hide');
-    //gifoPreviewContainer.style.backgroundColor='rgba(255, 255, 255, 0.3)';
-    //document.styleSheets[0].addRule('.gifo-preview-container:before','content: ""; width: 100%; height: 100%; background-color: aqua; position: absolute; opacity: 0.7;');
+    uploadStatusIcon.src='images/loader.svg';
+    uploadStatusIcon.classList.remove('hide');
+    uploadStatusComment.textContent = 'Estamos subiendo tu GIFO';
+    uploadStatusComment.classList.remove('hide');
 } 
 
-
-function changeStyleForStep31(createdGifoId, createdGifoUrl) {    
-    cameraAccessComment.textContent = 'GIF subido con éxito';
-    cgDownloadBorder.classList.remove('hide');
+function changeStyleForStep31() {    
+    uploadStatusIcon.src='images/check.svg';
+    uploadStatusComment.textContent = 'GIF subido con éxito';
+    cgDownloadBorder.style.display = 'flex';
     cgLink.classList.remove('hide');
+    //createGifosSubframe.style.alignItems = 'flex-start' 
 }
 
 function queryMyGifoAndSave (Id) {
@@ -1444,7 +1448,7 @@ function repeatCapture () {
     step3Icon.style.color = '#572EE5';
     cameraAccessTitle.textContent='Aquí podrás crear tus propios GIFOS';
     cameraAccessTitle.classList.remove('hide');
-    cameraAccessComment.textContent = '¡Crea tu GIFO en sólo 3 pasos!<br>(sólo necesitas una cámara para grabar un video)';
+    cameraAccessComment.textContent = '¡Crea tu GIFO en sólo 3 pasos! (sólo necesitas una cámara para grabar un video)';
     cameraAccessComment.classList.remove('hide');  
     gifoPreviewContainer.classList.add('hide');
     gifoPreview.classList.add('hide'); 

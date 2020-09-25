@@ -328,8 +328,7 @@ main
                 letter-spacing: 0
                 text-align: center
                 line-height: 16px
-                margin: 18px 0px 16px 0px
-                
+                margin: 18px 0px 16px 0px                
     .maximized
         width: 100%
         .maximized-close-button
@@ -497,8 +496,7 @@ main
                 letter-spacing: 0
                 text-align: center
                 line-height: 16px
-                margin: 18px 0px 16px 0px
-    
+                margin: 18px 0px 16px 0px    
     .create-gifos
         @extend %flex-column-center
         margin-top: 100px
@@ -510,18 +508,41 @@ main
                 @extend %flex-column-center-center
                 border: 1px solid #50E3C2
                 min-height: 240px
+                min-width: 86%
                 h2, p
                     text-align: center
+                h2
+                    font-family: Montserrat, 'Times New Roman', Times, serif
+                    font-weight: 700
+                    font-size: 20px
+                    color: #572EE5                    
+                    line-height: 30px
+                    span
+                        font-family: Montserrat, 'Times New Roman', Times, serif
+                        font-weight: 700
+                        font-size: 20px
+                        color: #5ED7C6                   
+                        line-height: 30px
+                p
+                    font-family: Roboto, 'Times New Roman', Times, serif
+                    font-weight: 400
+                    font-size: 16px
+                    color: #000000
+                    line-height: 23px 
                 .gifo-preview-container
+                    position: absolute
+                    width: 320px
+                    @extend %flex-column-center-center
+                    order: 4
                     .gifo-preview
                         width: 320px
-                        height: 240px
+                        height: 240px                        
                     .upload-gifo-preview-container
+                        position: absolute
                         width: 320px
                         height: 240px
-                        position: relative
-                            z-index: 1
-                            overflow: hidden
+                        z-index: 1
+                        overflow: hidden                        
                         .upload-gifo-preview
                     .upload-gifo-preview-container::after
                             content: ""
@@ -532,15 +553,50 @@ main
                             background-color: blue
                             opacity: 0.7
                             position: absolute
-                            z-index: 2                            
+                            z-index: 2  
+                    .upload-status-icon
+                        z-index: 3  
+                        order: 1
+                    .upload-status-comment
+                        font-family: Montserrat
+                        font-weight: 700
+                        font-size: 15px
+                        color: #FFFFFF
+                        text-align: center
+                        line-height: 19px
+                        z-index: 3 
+                        order: 2
+                    .uploaded-gifo-options  
+                        @extend %flex-row-justify-space-between 
+                        order: 0 
+                        align-self: flex-end
+                        .cg-download-border
+                            @extend %flex-row-justify-center
+                            z-index: 3
+                            width: 32px
+                            height: 32px
+                            background: #FFFFFF
+                            border-radius: 6px
+                            border-radius: 6px
+                        .cg-link
+                            z-index: 3
+                            .cg-link-border
+                                @extend %flex-row-justify-center
+                                width: 32px
+                                height: 32px
+                                background: #FFFFFF
+                                border-radius: 6px
+                                border-radius: 6px                        
         .create-gifos-panel
+            margin-top: 24px
             @extend %flex-column-center 
-            width: 100%   
-
-
+            width: 100%  
             .step-icon-container
-                @extend %flex-row-justify-space-between
+                width: 95%
+                @extend %flex-row-justify-center
                 .step-icon
+                    margin-right: 13px
+                    margin-left: 13px
                     @extend %flex-column-center-center
                     width: 32px
                     height: 32px
@@ -550,21 +606,38 @@ main
                     text-align: center
                     border: 1px solid #572EE5
                     border-radius: 50%
+                .hms, .repeat-capture
+                    margin-left: auto
+                    font-family: Montserrat, 'Times New Roman', Times, serif
+                    font-weight: 700
+                    color: #572EE5
+                    letter-spacing: 0
+                    text-align: center
+                .hms
+                    font-size: 15px
+                    line-height: 22px
+                .repeat-capture
+                    font-size: 13px
+                    line-height: 16px
+                    border-bottom: 2px solid #5ED7C6
             .control-panel-separator  
+                margin-top: 19px
                 width: 98%
                 height: 6.9px
                 background: #572EE5 // *Adjust color border
-                margin: auto      
+ 
             .control-panel-button
+                margin-top: 20.1px
                 min-width: 127px
                 border: 1px solid #572EE5
                 border-radius: 25px
-                font-family: Roboto
+                font-family: Montserrat
+                font-weight: 700
                 font-size: 13px
                 color: #572EE5
                 letter-spacing: 0
                 text-align: center
-                line-height: 16px
+                line-height: 50px
     .my-gifos
         width: 100%
         @extend %flex-column-center
