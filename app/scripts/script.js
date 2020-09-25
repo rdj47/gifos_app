@@ -649,6 +649,7 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     hideContentForMaximizing();
     maximizedResultImg.src=resultOriginalUrl;
     console.log(resultUser);
+    console.log(resultName);
     if(resultUser) {
         maximizedResultUser.textContent=resultUser;
     } else {
@@ -659,8 +660,8 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     } else {
         maximizedResultTitle.textContent="Título no registrado.";
     }
-    console.log(resultName);
-    maximizedResultTitle.textContent=resultName;
+    //console.log(resultName);
+    //maximizedResultTitle.textContent=resultName;
     downloadFunction = function (e) { 
         var x=new XMLHttpRequest();
         x.open("GET", resultOriginalUrl, true);
