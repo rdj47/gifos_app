@@ -42,6 +42,12 @@
     align-items: center
     justify-content: center
     align-content: center  
+%flex-row-justify-flex-end
+    display: flex
+    flex-flow: row wrap
+    align-items: center
+    justify-content: flex-end
+    align-content: center  
 %grid-justify-items-center  
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(156px, 1fr))
@@ -83,7 +89,7 @@ header nav .menu ul
     right: 0
     overflow: hidden
     list-style: none
-    background: #0000EC
+    background: rgba(87,46,229,0.90)
     height: 0px
 
 header nav .menu  ul li 
@@ -92,22 +98,35 @@ header nav .menu  ul li
 header nav .menu ul li a 
     position: relative
     text-decoration: none
-    font-family: 'IBM Plex Mono', monospace
-    font-size: 16px
+    /*text-underline-position: under*/
+    font-family: Montserrat, 'Times New Roman', Times, serif
+    font-weight: 700
+    font-size: 15px
     color: #FFFFFF
-    letter-spacing: 0
-    line-height: 28px
-    padding: 12px 16px
+    text-align: center
+    line-height: 60px
+    //padding: 12px 16px
     display: block
 
+header nav .menu ul li .option-divisor
+    display: block
+    position: relative
+    height: 0px
+    border: 1px solid #a38cf0 //#886cec
+    text-align: center
+    margin: auto
+    width: 11%
+    top: -3px
+
 header nav .menu input[type="checkbox"]:checked ~ ul 
-    height: 224px
-    padding-top: 4px
+    height: 1000px
+    padding-top: 17px
     padding-bottom: 12px
     transition: all 1s ease
 
 header nav .menu 
     padding-top: 18px 
+
 header nav .menu input 
     display: block
     width: 40px
@@ -514,13 +533,18 @@ main
         margin-top: 100px
         .create-gifos-frame
             @extend %flex-column-center
-            width: 95%
+            //width: 95%
+            min-width: 356px
+            min-height: 277px
             border: 1px solid #572EE5
             .create-gifos-subframe
                 @extend %flex-column-center-center
                 border: 1px solid #50E3C2
-                min-height: 240px
-                width: 86%
+                min-height: 258px
+                //width: 86%
+                //width: 90%
+                min-width: 338px
+                margin: 9px
                 h2, p
                     text-align: center
                 h2
@@ -544,28 +568,25 @@ main
                 .gifo-preview-container
                     position: absolute
                     width: 320px
-                    @extend %flex-column-center-center
-                    order: 4
-                    .gifo-preview
-                        width: 320px
-                        height: 240px                        
+                    min-height: 240px 
+                    //@extend %flex-column-center-center
+                    @extend %flex-row-justify-center
+                    .gifo-preview                    
                     .upload-gifo-preview-container
                         position: absolute
-                        width: 320px
-                        height: 240px
                         z-index: 1
                         overflow: hidden                        
                         .upload-gifo-preview
                     .upload-gifo-preview-container::after
-                            content: ""
-                            width: 100%
-                            height: 100%
-                            top: 0
-                            left: 0
-                            background-color: blue
-                            opacity: 0.7
-                            position: absolute
-                            z-index: 2  
+                        content: ""
+                        width: 100%
+                        height: 98%
+                        top: 0
+                        left: 0
+                        background-color: #572EE5
+                        opacity: 0.7
+                        position: absolute
+                        z-index: 2  
                     .upload-status-icon
                         z-index: 3  
                         order: 1
@@ -578,10 +599,16 @@ main
                         line-height: 19px
                         z-index: 3 
                         order: 2
-                    .uploaded-gifo-options  
-                        @extend %flex-row-justify-space-between 
-                        order: 0 
-                        align-self: flex-end
+                        width: 100%
+                        margin: 14px
+                    .uploaded-gifo-options
+                        width: 100%  
+                        //@extend %flex-row-justify-space-between 
+                        @extend %flex-row-justify-flex-end
+                        //order: 0 
+                        position: absolute
+                        top: 0px
+                        //align-self: flex-start
                         .cg-download-border
                             @extend %flex-row-justify-center
                             z-index: 3
@@ -590,8 +617,12 @@ main
                             background: #FFFFFF
                             border-radius: 6px
                             border-radius: 6px
+                            margin-top: 5px
+                            margin-right: 5px
                         .cg-link
                             z-index: 3
+                            margin-top: 5px
+                            margin-right: 5px
                             .cg-link-border
                                 @extend %flex-row-justify-center
                                 width: 32px

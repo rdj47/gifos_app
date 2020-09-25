@@ -11,7 +11,9 @@ let header = document.getElementsByTagName('header');
 let logo = document.getElementById('logo');
 logo.addEventListener('click',initialize);
 let sandwich = document.getElementById('sandwich');
+sandwich.addEventListener('click', changeBurgerIcon);
 sandwich.checked= false;
+let sandwichIcon = document.getElementById('sandwich-icon');
 let favoritesLink = document.getElementById('favorites-link');
 favoritesLink.addEventListener('click', showFavorites);
 let favoritesFlag=false;
@@ -234,6 +236,16 @@ const init = function(){
 let setFavoriteFunction=0; 
 let downloadFunction=0; 
 let trashFunction=0;
+
+function changeBurgerIcon () {
+    console.log ("##f()## changeBurgerIcon function execution"); 
+    console.log ("Sandwich status: "+sandwich.checked)
+    if(sandwich.checked==true) {
+        sandwichIcon.src = "images/close.svg";
+    } else {
+        sandwichIcon.src = "images/burger.svg";
+    }
+}
 
 function initialize() {
     console.log ("##f()## initizalize function execution");    

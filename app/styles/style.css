@@ -5,7 +5,7 @@ main .banner, main .banner .presentation, main .favorites, main .create-gifos, m
   justify-content: flex-start;
   align-content: center; }
 
-main .create-gifos .create-gifos-frame .create-gifos-subframe, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
+main .create-gifos .create-gifos-frame .create-gifos-subframe, main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -19,7 +19,7 @@ main .banner .search-bar {
   justify-content: flex-start;
   align-content: center; }
 
-main .banner .search-bar .search-phrase, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options {
+main .banner .search-bar .search-phrase {
   display: flex;
   flex-flow: row no-wrap;
   align-items: flex-start;
@@ -33,11 +33,18 @@ footer .social-networks-icons {
   justify-content: space-between;
   align-content: center; }
 
-main .maximized .maximized-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .step-icon-container {
+main .maximized .maximized-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .step-icon-container {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
+  align-content: center; }
+
+main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-end;
   align-content: center; }
 
 main .search-results .results, main .favorites .favorites-results, main .my-gifos .my-gifos-results {
@@ -79,7 +86,7 @@ header nav .menu ul {
   right: 0;
   overflow: hidden;
   list-style: none;
-  background: #0000EC;
+  background: rgba(87, 46, 229, 0.9);
   height: 0px; }
 
 header nav .menu ul li {
@@ -88,17 +95,28 @@ header nav .menu ul li {
 header nav .menu ul li a {
   position: relative;
   text-decoration: none;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 16px;
+  /*text-underline-position: under */
+  font-family: Montserrat, "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: 15px;
   color: #FFFFFF;
-  letter-spacing: 0;
-  line-height: 28px;
-  padding: 12px 16px;
+  text-align: center;
+  line-height: 60px;
   display: block; }
 
+header nav .menu ul li .option-divisor {
+  display: block;
+  position: relative;
+  height: 0px;
+  border: 1px solid #a38cf0;
+  text-align: center;
+  margin: auto;
+  width: 11%;
+  top: -3px; }
+
 header nav .menu input[type="checkbox"]:checked ~ ul {
-  height: 224px;
-  padding-top: 4px;
+  height: 1000px;
+  padding-top: 17px;
   padding-bottom: 12px;
   transition: all 1s ease; }
 
@@ -475,12 +493,14 @@ main .favorites {
 main .create-gifos {
   margin-top: 100px; }
   main .create-gifos .create-gifos-frame {
-    width: 95%;
+    min-width: 356px;
+    min-height: 277px;
     border: 1px solid #572EE5; }
     main .create-gifos .create-gifos-frame .create-gifos-subframe {
       border: 1px solid #50E3C2;
-      min-height: 240px;
-      width: 86%; }
+      min-height: 258px;
+      min-width: 338px;
+      margin: 9px; }
       main .create-gifos .create-gifos-frame .create-gifos-subframe h2, main .create-gifos .create-gifos-frame .create-gifos-subframe p {
         text-align: center; }
       main .create-gifos .create-gifos-frame .create-gifos-subframe h2 {
@@ -504,23 +524,18 @@ main .create-gifos {
       main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container {
         position: absolute;
         width: 320px;
-        order: 4; }
-        main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .gifo-preview {
-          width: 320px;
-          height: 240px; }
+        min-height: 240px; }
         main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container {
           position: absolute;
-          width: 320px;
-          height: 240px;
           z-index: 1;
           overflow: hidden; }
         main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container::after {
           content: "";
           width: 100%;
-          height: 100%;
+          height: 98%;
           top: 0;
           left: 0;
-          background-color: blue;
+          background-color: #572EE5;
           opacity: 0.7;
           position: absolute;
           z-index: 2; }
@@ -535,19 +550,26 @@ main .create-gifos {
           text-align: center;
           line-height: 19px;
           z-index: 3;
-          order: 2; }
+          order: 2;
+          width: 100%;
+          margin: 14px; }
         main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options {
-          order: 0;
-          align-self: flex-end; }
+          width: 100%;
+          position: absolute;
+          top: 0px; }
           main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-download-border {
             z-index: 3;
             width: 32px;
             height: 32px;
             background: #FFFFFF;
             border-radius: 6px;
-            border-radius: 6px; }
+            border-radius: 6px;
+            margin-top: 5px;
+            margin-right: 5px; }
           main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-link {
-            z-index: 3; }
+            z-index: 3;
+            margin-top: 5px;
+            margin-right: 5px; }
             main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-link .cg-link-border {
               width: 32px;
               height: 32px;
