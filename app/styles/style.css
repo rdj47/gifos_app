@@ -524,8 +524,10 @@ main .create-gifos {
       main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container {
         position: absolute;
         width: 320px;
-        min-height: 240px; }
+        min-height: 240px;
+        margin: 9px; }
         main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container {
+          margin: 9px;
           position: absolute;
           z-index: 1;
           overflow: hidden; }
