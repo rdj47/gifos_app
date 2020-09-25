@@ -1,4 +1,4 @@
-main .banner, main .banner .presentation, main .favorites, main .create-gifos, main .create-gifos .create-gifos-frame, main .create-gifos .create-gifos-panel, main .my-gifos {
+main .banner, main .banner .presentation, main .search-results, main .favorites, main .create-gifos, main .create-gifos .create-gifos-frame, main .create-gifos .create-gifos-panel, main .my-gifos {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -292,10 +292,6 @@ main .search-results {
     text-align: center;
     line-height: 40px;
     text-transform: capitalize; }
-  main .search-results .no-results-icon {
-    display: block;
-    margin-left: auto;
-    margin-right: auto; }
   main .search-results .no-results-text {
     margin-top: 29px;
     font-family: Montserrat, "Times New Roman", Times, serif;
@@ -303,22 +299,25 @@ main .search-results {
     font-size: 22px;
     color: #50E3C2;
     text-align: center;
-    line-height: 25px;
-    width: 100%; }
+    line-height: 25px; }
   main .search-results .results {
     padding: 0px 21px 0px 21px;
-    margin-bottom: 78px; }
+    margin-bottom: 78px;
+    width: 100%; }
     main .search-results .results .gif-card {
       padding: unset;
       width: 156px;
       height: 120px;
+      overflow: hidden;
       margin: auto; }
       main .search-results .results .gif-card img {
-        max-width: 156px;
-        max-height: 120px;
-        text-align: center;
-        display: block;
-        margin: auto; }
+        width: 156px;
+        min-height: 120px; }
+@supports(object-fit: cover) {
+  main .search-results .results .gif-card img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center; } }
   main .search-results .more-results {
     border: 1px solid #572EE5;
     border-radius: 25px;

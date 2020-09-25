@@ -53,6 +53,13 @@
     grid-template-columns: repeat(auto-fit, minmax(156px, 1fr))
     //grid-template-rows: 6
     grid-gap: 21px
+
+//@supports(object-fit: cover)
+    //main .search-results .results .gif-card img
+      //height: 100%
+      //object-fit: cover
+      //object-position: center center 
+
 * 
     margin: 0
     padding: 0
@@ -299,6 +306,7 @@ main
         background: #9CAFC3 // *Adjust color border
         margin: auto
     .search-results
+        @extend %flex-column-center
         position: relative
         top: -10px
         width: 100%
@@ -314,9 +322,9 @@ main
             line-height: 40px
             text-transform: capitalize 
         .no-results-icon
-            display: block
-            margin-left: auto
-            margin-right: auto
+            //display: block
+            //margin-left: auto
+            //margin-right: auto
         .no-results-text
             margin-top: 29px
             font-family: Montserrat, 'Times New Roman', Times, serif
@@ -325,22 +333,27 @@ main
             color: #50E3C2
             text-align: center
             line-height: 25px
-            width: 100%
+            //width: 100%
         .results
             @extend %grid-justify-items-center  
             padding: 0px 21px 0px 21px
             margin-bottom: 78px
+            width: 100%
             .gif-card
                 padding: unset
                 width: 156px
                 height: 120px
+                overflow: hidden
                 margin: auto
                 img
-                    max-width: 156px
-                    max-height: 120px
-                    text-align: center
-                    display: block
-                    margin: auto
+                    width: 156px
+                    //min-width: 156px
+                    min-height: 120px
+                    @supports(object-fit: cover)
+                        height: 100%
+                        object-fit: cover
+                        object-position: center center 
+
         .more-results
             border: 1px solid #572EE5
             border-radius: 25px

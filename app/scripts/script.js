@@ -69,7 +69,7 @@ function hideContentForFavorites() {
     banner.style.display='none';
     trendingTerms.classList.add('hide');
     searchResultsSeparator.classList.add('hide');
-    searchResults.classList.add('hide');
+    searchResults.style.display = 'none';
     maximized.classList.add('hide');
     //trendingGifos.classList.add('hide');
     favorites.style.display='flex';
@@ -83,7 +83,8 @@ let trendingTerms = document.getElementById('trending-terms');
 let searchInput= document.getElementById("search-phrase-input");
 //console.log("Hola: "+searchInput.value)
 let searchResultsSeparator= document.getElementById("search-results-separator");
-let searchResults= document.getElementById("search-results");
+let searchResults = document.getElementById("search-results");
+searchResults.style.display='none';
 let searchResultsTitle= document.getElementById("search-results-title");
 let results = document.getElementById('results');
 let searchPhraseMG = document.getElementById('search-phrase-mg');
@@ -228,7 +229,7 @@ const init = function(){
         galleryItems[i].style.minWidth = gra(30,60) + 'vw';
         galleryItems[i].style.background = randomColor({luminosity: 'light'});
     }
-    cssScrollSnapPolyfill()
+    cssScrollSnapPolyfill();
 }
 
 
@@ -257,7 +258,7 @@ function initialize() {
     changeSearchPhraseStyleReverse();
     trendingTerms.classList.remove('hide');
     searchResultsSeparator.classList.add('hide');
-    searchResults.classList.add('hide');
+    searchResults.style.display = 'none';
     maximized.classList.add('hide');
     trendingGifos.classList.remove('hide');
     favorites.style.display='none';
@@ -480,7 +481,7 @@ function gifSearchOffset(offsetRequested) {
 function displaySearchResultsArea() {
     console.log ("##f()## displaySearchResultsArea function execution");
     searchResultsSeparator.classList.remove('hide');
-    searchResults.classList.remove('hide');
+    searchResults.style.display = 'flex';
 }
 
 // clearNoResultsAlert helps to hide a No Results Alert when a new GIf search finally shows results.
@@ -705,7 +706,7 @@ function hideContentForMaximizing () {
     banner.style.display='none';
     trendingTerms.classList.add('hide');
     searchResultsSeparator.classList.add('hide');
-    searchResults.classList.add('hide');
+    searchResults.style.display = 'none';
     trendingGifos.classList.add('hide');
     favorites.style.display='none';
     myGifos.style.display='none';
@@ -720,7 +721,7 @@ function hideContentForMaximizingReverse (favoritesFlag,myGifosFlag) {
     banner.style.display='flex';
     trendingTerms.classList.remove('hide');
     searchResultsSeparator.classList.remove('hide');
-    searchResults.classList.remove('hide');
+    searchResults.style.display = 'flex';
     trendingGifos.classList.remove('hide');
     footer[0].classList.remove('hide');
     //let setFavoriteFunction = function (e) { setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); }
@@ -1180,7 +1181,7 @@ function hideContentForCreateGifos() {
     banner.style.display='none';
     trendingTerms.classList.add('hide');
     searchResultsSeparator.classList.add('hide');
-    searchResults.classList.add('hide');
+    searchResults.style.display = 'none';
     maximized.classList.add('hide');
     trendingGifos.classList.add('hide');
     favorites.style.display='none';
@@ -1548,7 +1549,7 @@ function hideContentForMyGifos() {
     banner.style.display='none';
     trendingTerms.classList.add('hide');
     searchResultsSeparator.classList.add('hide');
-    searchResults.classList.add('hide');
+    searchResults.style.display = 'none';
     maximized.classList.add('hide');
     favorites.style.display='none';
     myGifos.style.display='flex';
