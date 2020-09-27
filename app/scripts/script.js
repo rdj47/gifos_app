@@ -136,6 +136,7 @@ let gifoPreviewContainer = document.getElementById('gifo-preview-container');
 let gifoPreview = document.getElementById('gifo-preview');
 let uploadGifoPreviewContainer = document.getElementById('upload-gifo-preview-container');
 let uploadGifoPreview = document.getElementById('upload-gifo-preview');
+let uploadedGifoOptions = document.getElementById('upload-gifo-options');
 let cgDownloadBorder = document.getElementById('cg-download-border');
 cgDownloadBorder.style.display = 'none';
 let cgLink = document.getElementById('cg-link');
@@ -1171,12 +1172,14 @@ function clearPreviousFavorites () {
 //++++ CREATE GIFOS FUNCTIONS ++++
 
 let uploadGifoFunction=0;
+let stopRecordFunction
 
 function showCreateGifos () {
     sandwich.checked= false;
     sandwichIcon.src = "images/burger.svg";
     hideContentForCreateGifos();
-    //reiniciar();
+    repeatCapture();
+    remainingStyleReverse();  
 }
 
 //hideContentForCreateGifos
@@ -1199,7 +1202,8 @@ function goToStep1() {
     step1IconActivation();
     changeTitleAndComment();
     activateCamera();
-    
+    //repeatCapture();
+    //remainingStyleReverse();    
 }
 
 function step1IconActivation () {
@@ -1264,6 +1268,7 @@ function changeStyleForStep2() {
 }
 
 function startRecording () {
+    //repeatCapture();
     changeStyleForStep21();
     startRecord();
 }
@@ -1289,7 +1294,7 @@ function startRecord () {
     });
     recorder.startRecording();
     cronometrar();
-    let stopRecord = function () { recorder.stopRecording(function() {
+    stopRecordFunction = function () { recorder.stopRecording(function() {
         parar();
         reiniciar();
         let blob = recorder.getBlob();
@@ -1310,7 +1315,8 @@ function startRecord () {
                 console.log (response);
                 console.log (response.data.id);
                 changeStyleForStep31();
-                queryMyGifoAndSave(response.data.id);          
+                queryMyGifoAndSave(response.data.id);
+                uploadGifoButton.removeEventListener('click', uploadGifoFunction);          
             }).catch(error => {
                 console.log(error);
             })            
@@ -1319,14 +1325,16 @@ function startRecord () {
         stopStream(stream);        
         uploadGifoButton.addEventListener('click', uploadGifoFunction);
         //uploadGifoButton.removeEventListener('click', uploadGifoFunction);
-        showRepeatCaptureButton(); 
+        showRepeatCaptureButton();
+        recordStopButton.removeEventListener('click',stopRecordFunction);  
     });}
-    recordStopButton.addEventListener('click',stopRecord);    
+    recordStopButton.addEventListener('click',stopRecordFunction);    
 });}
 
 function changeStyleForStep22() {
     hms.classList.add('hide');
     recordStopButton.classList.add('hide');
+    //uploadGifoPreviewContainer.style.display = 'flex';
     uploadGifoButton.classList.remove('hide');
     
 }
@@ -1460,7 +1468,14 @@ function showRepeatCaptureButton() {
 
 function repeatCapture () {
     repeatCaptureButton.classList.add('hide'); 
-    uploadGifoButton.removeEventListener('click', uploadGifoFunction);
+    console.log("Tipo de uploadGifoFunction: "+typeof(stopRecordFunction));
+    if(typeof(stopRecordFunction) == 'function') {
+        recordStopButton.removeEventListener('click',stopRecordFunction);
+    }
+    console.log("Tipo de uploadGifoFunction: "+typeof(uploadGifoFunction));
+    if(typeof(uploadGifoFunction) == 'function') {
+        uploadGifoButton.removeEventListener('click', uploadGifoFunction);
+    }
     step2Icon.style.background = 'unset';
     step2Icon.style.color = '#572EE5';
     step3Icon.style.background = 'unset';
@@ -1473,6 +1488,22 @@ function repeatCapture () {
     gifoPreview.classList.add('hide'); 
     uploadGifoButton.classList.add('hide'); 
     initialButton.classList.remove('hide');
+}
+
+function remainingStyleReverse () {
+    camera.classList.add('hide');
+    uploadGifoPreviewContainer.classList.add('hide');
+    //step1Icon.style.background = 'unset';
+    //step1Icon.style.color = '#572EE5';
+    hms.classList.add('hide');
+    repeatCaptureButton.classList.add('hide');
+    recordStartButton.classList.add('hide');
+    recordStopButton.classList.add('hide');
+    uploadGifoButton.classList.add('hide');
+    uploadStatusIcon.classList.add('hide');
+    uploadStatusComment.classList.add('hide');
+    cgDownloadBorder.style.display = 'none';
+    cgLink.classList.add('hide');
 }
 
 //chronometer

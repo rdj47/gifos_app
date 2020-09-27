@@ -33,14 +33,14 @@ footer .social-networks-icons {
   justify-content: space-between;
   align-content: center; }
 
-main .maximized .maximized-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .step-icon-container {
+main .maximized .maximized-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .step-icon-container {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   align-content: center; }
 
-main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options {
+main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -556,11 +556,11 @@ main .create-gifos {
           order: 2;
           width: 100%;
           margin: 14px; }
-        main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options {
+        main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options {
           width: 100%;
           position: absolute;
           top: 0px; }
-          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-download-border {
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border {
             z-index: 3;
             width: 32px;
             height: 32px;
@@ -569,11 +569,11 @@ main .create-gifos {
             border-radius: 6px;
             margin-top: 5px;
             margin-right: 5px; }
-          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-link {
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link {
             z-index: 3;
             margin-top: 5px;
             margin-right: 5px; }
-            main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .uploaded-gifo-options .cg-link .cg-link-border {
+            main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border {
               width: 32px;
               height: 32px;
               background: #FFFFFF;
