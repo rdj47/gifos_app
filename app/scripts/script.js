@@ -1,6 +1,5 @@
 console.log(new Date().toString() + " SCRIPT START");
-//localStorage.removeItem('favorites');
-//localStorage.removeItem('favorites');
+
 //API Key for GIPHY
 //let api_key = "TWYJkQI33iJE8p0rxE9ckezdCATJKI40";
 let api_key = "12xR8EXZYIjZ3NLdqajJlmVoKMgAT2Y7";
@@ -8,13 +7,18 @@ let api_key = "12xR8EXZYIjZ3NLdqajJlmVoKMgAT2Y7";
 //++++ GLOBAL TAGS ++++
 
 let header = document.getElementsByTagName('header');
-let logo = document.getElementById('logo');
+let logo = document.getElementById('logo-mobile');
 logo.addEventListener('click',initialize);
+let logoDark = document.getElementById('logo-mobile-dark');
+logoDark.addEventListener('click',initialize);
 let sandwich = document.getElementById('sandwich');
 sandwich.addEventListener('click', changeBurgerIcon);
 sandwich.checked= false;
 let sandwichIcon = document.getElementById('sandwich-icon');
 sandwichIcon.src = "images/burger.svg";
+let lightModeLink = document.getElementById('light-mode-link');
+lightModeLink.addEventListener('click', changeLightMode);
+let nextLightMode = document.getElementById('next-light-mode');
 let favoritesLink = document.getElementById('favorites-link');
 favoritesLink.addEventListener('click', showFavorites);
 let favoritesFlag=false;
@@ -33,6 +37,7 @@ function showFavorites() {
     sandwichIcon.src = "images/burger.svg";
     favoritesFlag=true;
     myGifosFlag=false;
+    favoritesPagination=0;
     clearNoFavoritesAlert();
     clearPreviousFavorites();
     hideContentForFavorites();
@@ -80,9 +85,11 @@ function hideContentForFavorites() {
 }
 
 let banner = document.getElementById('banner');
+let presentationTitle = document.getElementById('presentation-title');
+let presentationTitleSpan = document.getElementById('presentation-title-span');
 let trendingTerms = document.getElementById('trending-terms');
-
-let searchInput= document.getElementById("search-phrase-input");
+let searchPhrase= document.getElementById('search-phrase');
+let searchInput= document.getElementById('search-phrase-input');
 //console.log("Hola: "+searchInput.value)
 let searchResultsSeparator= document.getElementById("search-results-separator");
 let searchResults = document.getElementById("search-results");
@@ -97,6 +104,7 @@ let searchPhraseClear = document.getElementById('search-phrase-clear');
 searchPhraseClear.addEventListener('click', clearSearchPhrase);
 
 // trending-terms area tags
+let trendingTermsTitle = document.getElementById('trending-terms-title');
 let trendingTermsResult = document.getElementById('trending-terms-results');
 
 // search-results area tags
@@ -115,17 +123,20 @@ let maximizedTrashButton = document.getElementById('maximized-trash-button');
 
 // trending-gifos area tags
 let trendingGifos = document.getElementById('trending-gifos');
+let trendingGifosTitle = document.getElementById('trending-gifos-title');
+let trendingGifosText = document.getElementById('trending-gifos-text');
 
-//favorites area tags
+
+// favorites area tags
 favorites.style.display='none';  // To not show favorites area in the beginning.
 let favoritesResults = document.getElementById('favorites-results');
 let moreFavoritesButton =document.getElementById('more-favorites');
 moreFavoritesButton.addEventListener('click', drawMoreFavorites);
-//favorites global array
+// favorites global array
 let favoritesArray= new Array();
 
 
-//create-gifos area tags
+// create-gifos area tags
 let createGifos = document.getElementById('create-gifos');
 createGifos.style.display='none'; 
 let createGifosSubframe = document.getElementById('create-gifos-subframe');
@@ -174,6 +185,8 @@ let myGifosArray = new Array();
 
 //footer area tags
 let footer = document.getElementsByTagName('footer');
+let socialNetworksText = document.getElementById('social-networks-text');
+let rightsReservedText = document.getElementById('rights-reserved-text');
 
 searchInput.addEventListener('keyup', function getSuggestions() {
     //searchPhraseActiveStyleActivation();
@@ -274,9 +287,55 @@ function initialize() {
     createGifos.style.display='none';
 }
 
+//++++ LIGHT MODE FUNCTIONS ++++ 
 
+function changeLightMode () {
+    console.log ("##f()## changeLightMode function execution");    
+    console.log("nextLightMode.textContent: "+nextLightMode.textContent);
+    if (nextLightMode.textContent=="Modo Nocturno") {
+        console.log("Ingreso en: nextLightMode.textContent==Modo Nocturno");
+        nextLightMode.textContent="Modo Diurno";
+        logo.classList.add('hide');
+        logoDark.classList.remove('hide');
+        header[0].style.background = '#37383C';
+        document.getElementsByTagName('body')[0].style.background = '#37383C';
+        footer[0].style.background = '#37383C';
+        presentationTitle.style.color = '#FFFFFF';
+        //presentationTitleSpan.style.color = '#FFFFFF';
+        searchPhrase.style.background = '#37383C';
+        searchBarInput.style.background = '#37383C';
+        searchBarInput.style.color = '#6B7989';
+        trendingTermsTitle.style.color = '#FFFFFF';
+        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
+        //document.getElementsByClassName('trending-term').forEach(element => element.style.color = '#FFFFFF');
+        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
+        for (let i=0;  i < document.getElementsByClassName('trending-term').length; i++){
+            document.getElementsByClassName('trending-term')[i].style.color = '#FFFFFF';
+        }        
+        trendingGifos.style.background = '#222326';
+        trendingGifosTitle.style.color = '#FFFFFF';
+        trendingGifosText.style.color = '#FFFFFF';
+        socialNetworksText.style.color = '#FFFFFF';
+        rightsReservedText.style.color = '#FFFFFF';
+        console.log("Total botones VER MÁS: "+document.getElementsByClassName('general-more').length);
+        for (let i=0;  i < document.getElementsByClassName('general-more').length; i++){
+            document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#FFFFFF';
+            document.getElementsByClassName('general-more')[i].style.border = '1px solid #FFFFFF';
+        }   
+    }
+    else if (nextLightMode.textContent=="Modo Diurno"){
+        console.log("Ingreso en: nextLightMode.textContent==Modo Diurno");
+        nextLightMode.textContent="Modo Nocturno";
+        header[0].style.background = '#FFFFFF';
+        document.getElementsByTagName('body')[0].style.background = '#FFFFFF';
+        footer[0].style.background = '#FFFFFF';
 
-//++++ GIPHY API FETCH FUNCTION ++++
+    }
+    
+
+}
+
+//++++ GIPHY API FETCH FUNCTIONS ++++
 async function giphyConnection (url) {
     console.log ("##f()## giphyConnection function execution");
     try {
@@ -1010,6 +1069,7 @@ function getTrendingTerms() {
             } else {
                 trendingTerm.textContent+=response.data[i]+", ";
             }
+            trendingTerm.classList.add('trending-term');
             trendingTerm.addEventListener('click', function() { gifSearch(response.data[i]); });
             trendingTermsResult.appendChild(trendingTerm);
         }
@@ -1549,6 +1609,7 @@ function showMyGifos() {
     sandwichIcon.src = "images/burger.svg";
     favoritesFlag=false;
     myGifosFlag=true;
+    myGifosPagination=0;
     clearNoGifosAlert();
     clearPreviousMyGifos();
     hideContentForMyGifos();
