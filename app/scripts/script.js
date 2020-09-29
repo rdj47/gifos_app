@@ -16,6 +16,7 @@ sandwich.addEventListener('click', changeBurgerIcon);
 sandwich.checked= false;
 let sandwichIcon = document.getElementById('sandwich-icon');
 sandwichIcon.src = "images/burger.svg";
+let menuUl = document.getElementById('menu-ul');
 let lightModeLink = document.getElementById('light-mode-link');
 lightModeLink.addEventListener('click', changeLightMode);
 let nextLightMode = document.getElementById('next-light-mode');
@@ -29,68 +30,16 @@ let myGifosFlag=false;
 let myGifosPagination=0;
 let createGifosLink = document.getElementById('create-gifos-link');
 createGifosLink.addEventListener('click', showCreateGifos);
-//let favoritesObject= new Array();
 
-function showFavorites() {
-    console.log ("##f()## showFavorites function execution");
-    sandwich.checked = false;
-    sandwichIcon.src = "images/burger.svg";
-    favoritesFlag=true;
-    myGifosFlag=false;
-    favoritesPagination=0;
-    clearNoFavoritesAlert();
-    clearPreviousFavorites();
-    hideContentForFavorites();
-    let favoritesObject= new Array();
-    favoritesObject= JSON.parse(localStorage.getItem('favorites'));
-    console.log("Tipo de favoritesObject: "+typeof(favoritesObject));
-    try {
-        if(JSON.parse(localStorage.getItem('favorites')).length == undefined) {
-            favoritesObject= new Array (JSON.parse(localStorage.getItem('favorites')));
-        } else {
-            favoritesObject= JSON.parse(localStorage.getItem('favorites'));
-        }
-    } catch (err) {
-        console.log("JSON.parse(localStorage.getItem('favorites')).length failed", err);
-    }
-    try {
-        console.log("Longitud de favoritos: "+favoritesObject.length);
-    } catch (err) {
-        console.log('favoritesObject.length failed', err);
-    }
-    if(favoritesObject!=null && favoritesObject.length!=0) {
-        favoritesObject.forEach(element => {
-            console.log("Id: "+element.Id);            
-        });
-        drawFavorites(favoritesObject);
-        drawMoreFavoritesButton(favoritesObject,favoritesPagination);
-    } else {
-        drawNoFavoritesAlert();
-    }
-}
-
-// hideContentForFavorites
-function hideContentForFavorites() {
-    console.log ("##f()## hideContentForFavorites function execution");
-    //header[0].classList.remove('hide');
-    banner.style.display='none';
-    trendingTerms.classList.add('hide');
-    searchResultsSeparator.classList.add('hide');
-    searchResults.style.display = 'none';
-    maximized.classList.add('hide');
-    //trendingGifos.classList.add('hide');
-    favorites.style.display='flex';
-    myGifos.style.display='none';
-    createGifos.style.display='none';
-}
-
+// banner area tags
 let banner = document.getElementById('banner');
 let presentationTitle = document.getElementById('presentation-title');
 let presentationTitleSpan = document.getElementById('presentation-title-span');
 let trendingTerms = document.getElementById('trending-terms');
+let searchBar = document.getElementById('search-bar');
 let searchPhrase= document.getElementById('search-phrase');
 let searchInput= document.getElementById('search-phrase-input');
-//console.log("Hola: "+searchInput.value)
+searchInput.addEventListener('keyup', getSuggestions);
 let searchResultsSeparator= document.getElementById("search-results-separator");
 let searchResults = document.getElementById("search-results");
 searchResults.style.display='none';
@@ -126,19 +75,30 @@ let trendingGifos = document.getElementById('trending-gifos');
 let trendingGifosTitle = document.getElementById('trending-gifos-title');
 let trendingGifosText = document.getElementById('trending-gifos-text');
 
-
 // favorites area tags
 favorites.style.display='none';  // To not show favorites area in the beginning.
 let favoritesResults = document.getElementById('favorites-results');
 let moreFavoritesButton =document.getElementById('more-favorites');
 moreFavoritesButton.addEventListener('click', drawMoreFavorites);
-// favorites global array
+
 let favoritesArray= new Array();
 
+// my-gifos area tags
+let myGifos = document.getElementById('my-gifos');
+myGifos.style.display='none'; 
+let myGifosIcon = document.getElementById('my-gifos-icon');
+let myGifosTitle = document.getElementById('my-gifos-title');
+let noGifosIcon = document.getElementById('no-gifos-icon');
+let noGifosText = document.getElementById('no-gifos-text');
+let myGifosResults = document.getElementById('my-gifos-results');
+let moreMyGifosButton = document.getElementById('more-my-gifos');
+moreMyGifosButton.addEventListener('click', drawMoreMyGifos);
+let myGifosArray = new Array();
 
 // create-gifos area tags
 let createGifos = document.getElementById('create-gifos');
 createGifos.style.display='none'; 
+let createGifosFrame = document.getElementById('create-gifos-frame');
 let createGifosSubframe = document.getElementById('create-gifos-subframe');
 let cameraAccessTitle = document.getElementById('camera-access-title');
 let cameraAccessComment = document.getElementById('camera-access-comment');
@@ -158,6 +118,7 @@ h = 0;
 m = 0;
 s = 0;
 document.getElementById("hms").innerHTML="00:00:00";
+let controlPanelSeparator = document.getElementById('control-panel-separator');
 let repeatCaptureButton = document.getElementById('repeat-capture');
 repeatCaptureButton.addEventListener('click', repeatCapture);
 let uploadStatusIcon = document.getElementById('upload-status-icon');
@@ -171,24 +132,277 @@ let recordStopButton = document.getElementById('record-stop-button');
 let uploadGifoButton = document.getElementById('upload-gifo-button');
 //uploadGifoButton.addEventListener('click', uploadGifo);
 
-//my-gifos area tags
-let myGifos = document.getElementById('my-gifos');
-myGifos.style.display='none'; 
-let myGifosIcon = document.getElementById('my-gifos-icon');
-let myGifosTitle = document.getElementById('my-gifos-title');
-let noGifosIcon = document.getElementById('no-gifos-icon');
-let noGifosText = document.getElementById('no-gifos-text');
-let myGifosResults = document.getElementById('my-gifos-results');
-let moreMyGifosButton = document.getElementById('more-my-gifos');
-moreMyGifosButton.addEventListener('click', drawMoreMyGifos);
-let myGifosArray = new Array();
-
 //footer area tags
 let footer = document.getElementsByTagName('footer');
 let socialNetworksText = document.getElementById('social-networks-text');
 let rightsReservedText = document.getElementById('rights-reserved-text');
 
-searchInput.addEventListener('keyup', function getSuggestions() {
+// initial functions execution
+getTrendingTerms();
+showTrending();
+const gra = function(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+const gri = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const init = function(){
+    let galleryItems = document.querySelectorAll('.gallery li');
+    for (let i = 0; i < galleryItems.length; i++){
+        galleryItems[i].style.minWidth = gra(30,60) + 'vw';
+        galleryItems[i].style.background = randomColor({luminosity: 'light'});
+    }
+    cssScrollSnapPolyfill();
+}
+
+
+//++++++++++++++++++++++++++++++++++FUNCTIONS+++++++++++++++++++++++++++++++++++++++++++++
+let setFavoriteFunction=0; 
+let downloadFunction=0; 
+let trashFunction=0;
+
+//++++ BURGER MENU FUNCTIONS ++++ 
+function changeBurgerIcon () {
+    console.log ("##f()## changeBurgerIcon function execution"); 
+    console.log ("Sandwich status: "+sandwich.checked)
+    if(sandwich.checked==true) {
+        if(!queryDarkMode()) {
+            sandwichIcon.src = "images/close.svg";
+        }
+        else {
+            sandwichIcon.src = "images/close-modo-noc.svg";
+        }
+    } else {
+        if(!queryDarkMode()) {
+            sandwichIcon.src = "images/burger.svg";
+        }
+        else {
+            sandwichIcon.src = "images/burger-modo-noc.svg";
+        }
+    }
+}
+
+function initialize() {
+    console.log ("##f()## initizalize function execution");    
+    header[0].classList.remove('hide');
+    sandwich.checked= false;
+    if(!queryDarkMode()) {
+        sandwichIcon.src = "images/burger.svg";
+    } else {
+        sandwichIcon.src = "images/burger-modo-noc.svg";
+    }
+    banner.style.display ='flex';
+    clearSearchPhrase();
+    clearSuggestions();
+    changeSearchPhraseStyleReverse();
+    trendingTerms.classList.remove('hide');
+    searchResultsSeparator.classList.add('hide');
+    searchResults.style.display = 'none';
+    maximized.classList.add('hide');
+    trendingGifos.classList.remove('hide');
+    favorites.style.display='none';
+    favoritesFlag = false;
+    favoritesPagination=0;
+    myGifosFlag = false;
+    myGifos.style.display='none';
+    myGifosPagination=0;
+    createGifos.style.display='none';
+}
+
+//++++ LIGHT MODE FUNCTIONS ++++ 
+
+function queryDarkMode () {
+    console.log ("##f()## queryDarkMode function execution");   
+    console.log("nextLightMode.textContent: "+nextLightMode.textContent);
+    if (nextLightMode.textContent=="Modo Nocturno") {
+        console.log("Ingreso en: nextLightMode.textContent==Modo Nocturno");
+        return false;
+    }
+    else if (nextLightMode.textContent=="Modo Diurno") {
+        console.log("Ingreso en: nextLightMode.textContent==Modo Diurno");
+        return true;
+    }   
+
+}
+
+function changeLightMode () {
+    console.log ("##f()## changeLightMode function execution");    
+    console.log("nextLightMode.textContent: "+nextLightMode.textContent);
+    if (!queryDarkMode()) {
+        console.log("Ingreso en: !queryDarkMode()=true");
+        nextLightMode.textContent="Modo Diurno";
+        header[0].style.background = '#37383C';
+        document.getElementsByTagName('body')[0].style.background = '#37383C';
+        footer[0].style.background = '#37383C';
+        header[0].style.borderTop = '5px solid #000000';
+        logo.classList.add('hide');
+        logoDark.classList.remove('hide');
+        sandwichIcon.src = 'images/close-modo-noc.svg';
+        menuUl.style.background = ' #000000';
+        presentationTitle.style.color = '#FFFFFF';
+        searchBar.style.border = '1px solid #FFFFFF';
+        searchBar.style.background = '#37383C';
+        searchBarInput.style.background = '#37383C';
+        searchBarInput.style.color = '#6B7989';
+        searchPhraseMG.src = 'images/icon-search-modo-noc.svg';
+        searchPhraseClear.src = 'images/button-close-modo-noc.svg';
+        console.log("Total sugerencias: "+document.getElementsByClassName('search-suggestion').length);
+        if (document.getElementsByClassName('search-suggestion')!=null) {
+            for(let i=0; i < document.getElementsByClassName('search-suggestion').length; i++) {
+                document.getElementsByClassName('search-suggestion')[i].getElementsByTagName('img')[0].src = 'images/icon-search-modo-noc.svg';
+            }
+        }
+        console.log("Total section-title: "+document.getElementsByClassName('section-title').length);
+        for (let i=0;  i < document.getElementsByClassName('section-title').length; i++){
+            document.getElementsByClassName('section-title')[i].style.color = '#FFFFFF';
+        }     
+        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
+        //document.getElementsByClassName('trending-term').forEach(element => element.style.color = '#FFFFFF');
+        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
+        for (let i=0;  i < document.getElementsByClassName('trending-term').length; i++){
+            document.getElementsByClassName('trending-term')[i].style.color = '#FFFFFF';
+        }        
+        console.log("Total botones VER MÁS: "+document.getElementsByClassName('general-more').length);
+        for (let i=0;  i < document.getElementsByClassName('general-more').length; i++){
+            document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#FFFFFF';
+            document.getElementsByClassName('general-more')[i].style.border = '1px solid #FFFFFF';
+        }
+        maximizedCloseButton.src = 'images/button-close-modo-noc.svg';   
+        trendingGifos.style.background = '#222326';
+        console.log("Total textos general-text: "+document.getElementsByClassName('general-text').length);
+        for (let i=0;  i < document.getElementsByClassName('general-text').length; i++){
+            document.getElementsByClassName('general-text')[i].style.color = '#FFFFFF';
+        }   
+        createGifosFrame.style.border = '1px solid #FFFFFF';
+        cameraAccessComment.style.color = '#FFFFFF';
+        /*var estilos = window.getComputedStyle(document.querySelector('.upload-gifo-preview-container', '::after'));
+        console.log("Estilo pseudoelemento: "+estilos.backgroundColor);
+        estilos.backgroundColor = */
+        console.log("Total íconos step-icon: "+document.getElementsByClassName('step-icon').length);
+        for (let i=0;  i < document.getElementsByClassName('step-icon').length; i++){
+            document.getElementsByClassName('step-icon')[i].style.color = '#FFFFFF';
+            document.getElementsByClassName('step-icon')[i].style.border = '1px solid #FFFFFF';            
+        }
+        hms.style.color = '#FFFFFF';
+        repeatCaptureButton.style.color = '#FFFFFF';
+        controlPanelSeparator.style.background = '#FFFFFF';
+        console.log("Total botones control-panel-button: "+document.getElementsByClassName('control-panel-button').length);
+        for (let i=0;  i < document.getElementsByClassName('control-panel-button').length; i++){
+            document.getElementsByClassName('control-panel-button')[i].style.color = '#FFFFFF';
+            document.getElementsByClassName('control-panel-button')[i].style.border = '1px solid #FFFFFF';            
+        }   
+        footer[0].style.borderBottom = '5px solid #000000';        
+        socialNetworksText.style.color = '#FFFFFF';
+        rightsReservedText.style.color = '#FFFFFF';
+    }
+    else {
+        console.log("Ingreso en: !queryDarkMode()=false");
+        nextLightMode.textContent="Modo Nocturno";
+        header[0].style.background = '#ffffff';
+        document.getElementsByTagName('body')[0].style.background = '#ffffff';
+        footer[0].style.background = '#ffffff';
+        header[0].style.borderTop = '5px solid #572EE5';
+        logo.classList.remove('hide');
+        logoDark.classList.add('hide');
+        sandwichIcon.src = 'images/close.svg';
+        menuUl.style.background = 'rgba(87,46,229,0.90)';
+        presentationTitle.style.color = '#572EE5';
+        searchBar.style.border = '1px solid #572EE5';
+        searchBar.style.background = '#ffffff';
+        searchBarInput.style.background = '#ffffff';
+        searchBarInput.style.color = '#000000';
+        searchPhraseMG.src = 'images/icon-search.svg';
+        searchPhraseClear.src = 'images/button-close.svg';
+        console.log("Total sugerencias: "+document.getElementsByClassName('search-suggestion').length);
+        if (document.getElementsByClassName('search-suggestion')!=null) {
+            for(let i=0; i < document.getElementsByClassName('search-suggestion').length; i++) {
+                document.getElementsByClassName('search-suggestion')[i].getElementsByTagName('img')[0].src = 'images/icon-search.svg';
+            }
+        }
+        console.log("Total section-title: "+document.getElementsByClassName('section-title').length);
+        for (let i=0;  i < document.getElementsByClassName('section-title').length; i++){
+            document.getElementsByClassName('section-title')[i].style.color = '#572EE5';
+        }     
+        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
+        //document.getElementsByClassName('trending-term').forEach(element => element.style.color = '#FFFFFF');
+        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
+        for (let i=0;  i < document.getElementsByClassName('trending-term').length; i++){
+            document.getElementsByClassName('trending-term')[i].style.color = '#572EE5';
+        }        
+        console.log("Total botones VER MÁS: "+document.getElementsByClassName('general-more').length);
+        for (let i=0;  i < document.getElementsByClassName('general-more').length; i++){
+            document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#572EE5';
+            document.getElementsByClassName('general-more')[i].style.border = '1px solid #572EE5';
+        }
+        maximizedCloseButton.src = 'images/button-close.svg';   
+        trendingGifos.style.background = '#F3F5F8 100%';
+        console.log("Total textos general-text: "+document.getElementsByClassName('general-text').length);
+        for (let i=0;  i < document.getElementsByClassName('general-text').length; i++){
+            document.getElementsByClassName('general-text')[i].style.color = '#000000';
+        }   
+        createGifosFrame.style.border = '1px solid #572EE5';
+        cameraAccessComment.style.color = '#000000';
+        /*var estilos = window.getComputedStyle(document.querySelector('.upload-gifo-preview-container', '::after'));
+        console.log("Estilo pseudoelemento: "+estilos.backgroundColor);
+        estilos.backgroundColor = */
+        console.log("Total íconos step-icon: "+document.getElementsByClassName('step-icon').length);
+        for (let i=0;  i < document.getElementsByClassName('step-icon').length; i++){
+            document.getElementsByClassName('step-icon')[i].style.color = '#572EE5';
+            document.getElementsByClassName('step-icon')[i].style.border = '1px solid #572EE5';            
+        }
+        hms.style.color = '#572EE5';
+        repeatCaptureButton.style.color = '#572EE5';
+        controlPanelSeparator.style.background = '#572EE5';
+        console.log("Total botones control-panel-button: "+document.getElementsByClassName('control-panel-button').length);
+        for (let i=0;  i < document.getElementsByClassName('control-panel-button').length; i++){
+            document.getElementsByClassName('control-panel-button')[i].style.color = '#572EE5';
+            document.getElementsByClassName('control-panel-button')[i].style.border = '1px solid #572EE5';            
+        }   
+        footer[0].style.borderBottom = '5px solid #572EE5';        
+        //socialNetworksText.style.color = '#FFFFFF';
+        //rightsReservedText.style.color = '#FFFFFF';
+    }   
+
+}
+
+//++++ GIPHY API FETCH FUNCTIONS ++++
+
+// giphyConnection 
+async function giphyConnection (url) {
+    console.log ("##f()## giphyConnection function execution");
+    try {
+        const resp = await fetch(url);
+        const info = await resp.json();
+        //console.log (await response.text());
+        return info;
+        //console.log (await response.text());
+    } catch (err) {
+        console.log('fetch failed', err);
+    }
+}
+
+// giphyConnectionPost
+async function giphyConnectionPost (url,form) {
+    console.log ("##f()## giphyConnectionPost function execution");
+    try {
+         const resp = await fetch(url, {
+        method: 'POST',
+        body: form,
+        headers: {'Access-Control-Allow-Origin': '*'}});
+        const info = await resp.json();
+        return info;
+     }
+    catch (err) {
+        console.log('fetch failed', err);
+    }
+}
+
+//++++ SEARCH-RESULTS FUNCTIONS ++++
+
+// getSuggestions
+function getSuggestions() {
     //searchPhraseActiveStyleActivation();
     console.log (new Date().toString()+" ##f()## getSuggestions function execution");
     clearSuggestions();
@@ -227,143 +441,7 @@ searchInput.addEventListener('keyup', function getSuggestions() {
         searchBarLineDeletion();
         changeSearchPhraseStyleReverse();
     }    
-});
-
-getTrendingTerms();
-showTrending();
-const gra = function(min, max) {
-    return Math.random() * (max - min) + min;
 }
-
-const gri = function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-const init = function(){
-    let galleryItems = document.querySelectorAll('.gallery li');
-    for (let i = 0; i < galleryItems.length; i++){
-        galleryItems[i].style.minWidth = gra(30,60) + 'vw';
-        galleryItems[i].style.background = randomColor({luminosity: 'light'});
-    }
-    cssScrollSnapPolyfill();
-}
-
-
-//++++++++++++++++++++++++++++++++++FUNCTIONS+++++++++++++++++++++++++++++++++++++++++++++
-let setFavoriteFunction=0; 
-let downloadFunction=0; 
-let trashFunction=0;
-
-function changeBurgerIcon () {
-    console.log ("##f()## changeBurgerIcon function execution"); 
-    console.log ("Sandwich status: "+sandwich.checked)
-    if(sandwich.checked==true) {
-        sandwichIcon.src = "images/close.svg";
-    } else {
-        sandwichIcon.src = "images/burger.svg";
-    }
-}
-
-function initialize() {
-    console.log ("##f()## initizalize function execution");    
-    header[0].classList.remove('hide');
-    sandwich.checked = false;
-    sandwichIcon.src = "images/burger.svg";
-    banner.style.display ='flex';
-    clearSearchPhrase();
-    clearSuggestions();
-    changeSearchPhraseStyleReverse();
-    trendingTerms.classList.remove('hide');
-    searchResultsSeparator.classList.add('hide');
-    searchResults.style.display = 'none';
-    maximized.classList.add('hide');
-    trendingGifos.classList.remove('hide');
-    favorites.style.display='none';
-    favoritesFlag = false;
-    favoritesPagination=0;
-    myGifosFlag = false;
-    myGifos.style.display='none';
-    myGifosPagination=0;
-    createGifos.style.display='none';
-}
-
-//++++ LIGHT MODE FUNCTIONS ++++ 
-
-function changeLightMode () {
-    console.log ("##f()## changeLightMode function execution");    
-    console.log("nextLightMode.textContent: "+nextLightMode.textContent);
-    if (nextLightMode.textContent=="Modo Nocturno") {
-        console.log("Ingreso en: nextLightMode.textContent==Modo Nocturno");
-        nextLightMode.textContent="Modo Diurno";
-        logo.classList.add('hide');
-        logoDark.classList.remove('hide');
-        header[0].style.background = '#37383C';
-        document.getElementsByTagName('body')[0].style.background = '#37383C';
-        footer[0].style.background = '#37383C';
-        presentationTitle.style.color = '#FFFFFF';
-        //presentationTitleSpan.style.color = '#FFFFFF';
-        searchPhrase.style.background = '#37383C';
-        searchBarInput.style.background = '#37383C';
-        searchBarInput.style.color = '#6B7989';
-        trendingTermsTitle.style.color = '#FFFFFF';
-        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
-        //document.getElementsByClassName('trending-term').forEach(element => element.style.color = '#FFFFFF');
-        console.log("Total términos trending: "+document.getElementsByClassName('trending-term').length);
-        for (let i=0;  i < document.getElementsByClassName('trending-term').length; i++){
-            document.getElementsByClassName('trending-term')[i].style.color = '#FFFFFF';
-        }        
-        trendingGifos.style.background = '#222326';
-        trendingGifosTitle.style.color = '#FFFFFF';
-        trendingGifosText.style.color = '#FFFFFF';
-        socialNetworksText.style.color = '#FFFFFF';
-        rightsReservedText.style.color = '#FFFFFF';
-        console.log("Total botones VER MÁS: "+document.getElementsByClassName('general-more').length);
-        for (let i=0;  i < document.getElementsByClassName('general-more').length; i++){
-            document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#FFFFFF';
-            document.getElementsByClassName('general-more')[i].style.border = '1px solid #FFFFFF';
-        }   
-    }
-    else if (nextLightMode.textContent=="Modo Diurno"){
-        console.log("Ingreso en: nextLightMode.textContent==Modo Diurno");
-        nextLightMode.textContent="Modo Nocturno";
-        header[0].style.background = '#FFFFFF';
-        document.getElementsByTagName('body')[0].style.background = '#FFFFFF';
-        footer[0].style.background = '#FFFFFF';
-
-    }
-    
-
-}
-
-//++++ GIPHY API FETCH FUNCTIONS ++++
-async function giphyConnection (url) {
-    console.log ("##f()## giphyConnection function execution");
-    try {
-        const resp = await fetch(url);
-        const info = await resp.json();
-        //console.log (await response.text());
-        return info;
-        //console.log (await response.text());
-    } catch (err) {
-        console.log('fetch failed', err);
-    }
-}
-
-async function giphyConnectionPost (url,form) {
-    try {
-         const resp = await fetch(url, {
-        method: 'POST',
-        body: form,
-        headers: {'Access-Control-Allow-Origin': '*'}});
-        const info = await resp.json();
-        return info;
-     }
-    catch (err) {
-        console.log('fetch failed', err);
-    }
-}
-
-//++++ SEARCH RESULTS FUNCTIONS ++++
 
 // searchBarLineDeletion deletes search bar line when number of suggestions is 0.
 function searchBarLineCreation() {
@@ -456,7 +534,11 @@ function drawSuggestions (suggestions) {
     let suggestionModel= document.createElement('div');
     suggestionModel.classList.add('search-suggestion');
     let suggestionModelImg= document.createElement('img');
-    suggestionModelImg.src="images/icon-search.svg";
+    if(!queryDarkMode()) {
+        suggestionModelImg.src="images/icon-search.svg";
+    } else {
+        suggestionModelImg.src="images/icon-search-modo-noc.svg";
+    }
     let suggestionModelP = document.createElement('p');
     suggestionModelP.text="Sugerencia";
     suggestionModel.appendChild(suggestionModelImg);
@@ -706,6 +788,7 @@ function drawMoreResults() {
 //let setFavoriteFunction=0; 
 //let downloadFunction=0; 
 //let trashFunction=0;
+
 // maximizeSearchResult
 function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,resultOriginalUrl, trendingFlag) {
     console.log ("##f()## maximizeSearchResult function execution");
@@ -909,6 +992,7 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
     }
 }
 
+// trash
 function trash(resultId) {
     console.log ("##f()## trash function execution");
     console.log("resultId a eliminar: "+resultId);
@@ -1049,6 +1133,69 @@ function download(data, strFileName, strMimeType) {
     return true;
 }; /* end download() */
 
+
+//++++ FAVORITES ++++
+
+// showFavorites
+function showFavorites() {
+    console.log ("##f()## showFavorites function execution");
+    sandwich.checked= false;
+    if(!queryDarkMode()) {
+        sandwichIcon.src = "images/burger.svg";
+    } else {
+        sandwichIcon.src = "images/burger-modo-noc.svg";
+    }
+    hideContentForFavorites();
+    favoritesFlag=true;
+    myGifosFlag=false;
+    favoritesPagination=0;
+    clearNoFavoritesAlert();
+    clearPreviousFavorites();
+    hideContentForFavorites();
+    let favoritesObject= new Array();
+    favoritesObject= JSON.parse(localStorage.getItem('favorites'));
+    console.log("Tipo de favoritesObject: "+typeof(favoritesObject));
+    try {
+        if(JSON.parse(localStorage.getItem('favorites')).length == undefined) {
+            favoritesObject= new Array (JSON.parse(localStorage.getItem('favorites')));
+        } else {
+            favoritesObject= JSON.parse(localStorage.getItem('favorites'));
+        }
+    } catch (err) {
+        console.log("JSON.parse(localStorage.getItem('favorites')).length failed", err);
+    }
+    try {
+        console.log("Longitud de favoritos: "+favoritesObject.length);
+    } catch (err) {
+        console.log('favoritesObject.length failed', err);
+    }
+    if(favoritesObject!=null && favoritesObject.length!=0) {
+        favoritesObject.forEach(element => {
+            console.log("Id: "+element.Id);            
+        });
+        drawFavorites(favoritesObject);
+        drawMoreFavoritesButton(favoritesObject,favoritesPagination);
+    } else {
+        drawNoFavoritesAlert();
+    }
+}
+
+// hideContentForFavorites
+function hideContentForFavorites() {
+    console.log ("##f()## hideContentForFavorites function execution");
+    //header[0].classList.remove('hide');
+    banner.style.display='none';
+    trendingTerms.classList.add('hide');
+    searchResultsSeparator.classList.add('hide');
+    searchResults.style.display = 'none';
+    maximized.classList.add('hide');
+    //trendingGifos.classList.add('hide');
+    favorites.style.display='flex';
+    myGifos.style.display='none';
+    createGifos.style.display='none';
+}
+
+
 //++++ TRENDING TERMS FUNCIONS ++++
 
 // getTrendingSearchTerms
@@ -1082,8 +1229,8 @@ function getTrendingTerms() {
     });
 }
 
-//++++ TRENDING GIFOS FUNCTIONS ++++
 
+//++++ TRENDING GIFOS FUNCTIONS ++++
 
 //showTrending
 function showTrending () {
@@ -1118,6 +1265,8 @@ function showTrending () {
     console.log(error);
     })
 }
+
+
 //++++ FAVORITES FUNCTIONS ++++
 
 // drawFavorites
@@ -1229,20 +1378,27 @@ function clearPreviousFavorites () {
     }
 }
 
+
 //++++ CREATE GIFOS FUNCTIONS ++++
 
 let uploadGifoFunction=0;
-let stopRecordFunction
+let stopRecordFunction=0;
 
+// showCreateGifos
 function showCreateGifos () {
+    console.log ("##f()## showCreateGifos function execution");
     sandwich.checked= false;
-    sandwichIcon.src = "images/burger.svg";
+    if(!queryDarkMode()) {
+        sandwichIcon.src = "images/burger.svg";
+    } else {
+        sandwichIcon.src = "images/burger-modo-noc.svg";
+    }
     hideContentForCreateGifos();
     repeatCapture();
     remainingStyleReverse();  
 }
 
-//hideContentForCreateGifos
+// hideContentForCreateGifos
 function hideContentForCreateGifos() {
     console.log ("##f()## hideContentForCreateGifos function execution");
     //header[0].classList.remove('hide');
@@ -1257,6 +1413,7 @@ function hideContentForCreateGifos() {
     createGifos.style.display='flex';
 }
 
+// goToStep1
 function goToStep1() {
     console.log ("##f()## goToStep1 function execution");
     step1IconActivation();
@@ -1266,24 +1423,35 @@ function goToStep1() {
     //remainingStyleReverse();    
 }
 
+// step1IconActivation
 function step1IconActivation () {
     console.log ("##f()## step1IconActivation function execution");
-    step1Icon.style.background = '#572ee5';
-    step1Icon.style.color = '#ffffff'
+    if (!queryDarkMode()) {
+        step1Icon.style.background = '#572ee5';
+        step1Icon.style.color = '#ffffff';
+    } else {    
+        step1Icon.style.background = '#FFFFFF';
+        step1Icon.style.color = '#37383C';
+    }
 }
 
+//changeTitleAndComment
 function changeTitleAndComment () {
+    console.log ("##f()## changeTitleAndComment function execution");
     cameraAccessTitle.textContent = '¿Nos das acceso a tu cámara?';
     cameraAccessComment.textContent = 'El acceso a tu cámara será válido sólo por el tiempo en el que estés creando el GIFO.';
 }
 
+// activateCamera
 function activateCamera() {
+    console.log ("##f()## activateCamera function execution");
     initCamera();     
     //changeStyleForStep2();
 }
 
-// Acceso a la webcam
+// initCamera:  Acceso a la webcam
 async function initCamera() {
+    console.log ("##f()## initCamera function execution");
     const constraints = {
         audio: false,
         video: {
@@ -1315,24 +1483,35 @@ function stopStream(stream) {
 }
 // Load init
 
+//changeStyleForStep2
 function changeStyleForStep2() {
+    console.log ("##f()## changeStyleForStep2 function execution");
     cameraAccessTitle.classList.add('hide');
     cameraAccessComment.classList.add('hide');
     videoPort.classList.remove('hide');
-    step1Icon.style.background = 'unset';
-    step1Icon.style.color = '#572EE5';
-    step2Icon.style.background = '#572ee5';
-    step2Icon.style.color = '#ffffff';
+    if (!queryDarkMode()) {
+        step1Icon.style.background = 'unset';
+        step1Icon.style.color = '#572EE5';
+        step2Icon.style.background = '#572ee5';
+        step2Icon.style.color = '#ffffff';
+    } else {    
+        step1Icon.style.background = 'unset';
+        step1Icon.style.color = '#ffffff';
+        step2Icon.style.background = '#ffffff';
+        step2Icon.style.color = '#37383C';
+    }
     initialButton.classList.add('hide');
     recordStartButton.classList.remove('hide');
 }
 
+// startRecording
 function startRecording () {
-    //repeatCapture();
+    console.log ("##f()## startRecording function execution");
     changeStyleForStep21();
     startRecord();
 }
 
+// changeStyleForStep21
 function changeStyleForStep21() {
     console.log("##f()## changeStyleForStep21 function execution");
     recordStartButton.classList.add('hide');
@@ -1340,6 +1519,7 @@ function changeStyleForStep21() {
     hms.classList.remove('hide');
 }
 
+// startRecord
 function startRecord () { 
     console.log("##f()## startRecord function execution");
     navigator.mediaDevices.getUserMedia({
@@ -1355,6 +1535,7 @@ function startRecord () {
     recorder.startRecording();
     cronometrar();
     stopRecordFunction = function () { recorder.stopRecording(function() {
+        console.log("##f()## stopRecording function execution");
         parar();
         reiniciar();
         let blob = recorder.getBlob();
@@ -1391,15 +1572,18 @@ function startRecord () {
     recordStopButton.addEventListener('click',stopRecordFunction);    
 });}
 
+// changeStyleForStep22
 function changeStyleForStep22() {
+    console.log("##f()## changeStyleForStep22 function execution");
     hms.classList.add('hide');
     recordStopButton.classList.add('hide');
-    //uploadGifoPreviewContainer.style.display = 'flex';
     uploadGifoButton.classList.remove('hide');
     
 }
 
+// gifoPreviewF
 function gifoPreviewF (blob) {
+    console.log("##f()## gifoPreviewF function execution");
     videoPort.classList.add('hide');
     gifoPreviewContainer.classList.remove('hide');
     gifoPreview.classList.remove('hide');
@@ -1409,21 +1593,26 @@ function gifoPreviewF (blob) {
         console.log(reader.result);
         gifoPreview.src=reader.result;
         uploadGifoPreview.src=reader.result;
-        //uploadGifoPreview.src=reader.result;
         //uploadGifoPreview.style.backgroundImage = "linear-gradient(rgba(25, 209, 231, 0.5), rgba(243, 17, 224, 0.5)), url('images/icon-favoritos.svg')"; 
-        //uploadGifoPreview.style.backgroundColor = 
-        //uploadGifoPreview.style.backgroundImage = `url(${reader.result})`; 
-        //uploadGifoPreview.style.backgroundSize = 'cover'; 
     });
     reader.readAsDataURL(blob);
 
 }
 
+// changeStyleForStep3
 function changeStyleForStep3() {
-    step2Icon.style.background = 'unset';
-    step2Icon.style.color = '#572EE5';
-    step3Icon.style.background = '#572ee5';
-    step3Icon.style.color = '#ffffff';
+    console.log("##f()## changeStyleForStep3 function execution");
+    if (!queryDarkMode()) {
+        step2Icon.style.background = 'unset';
+        step2Icon.style.color = '#572EE5';
+        step3Icon.style.background = '#572ee5';
+        step3Icon.style.color = '#ffffff';
+    } else {    
+        step2Icon.style.background = 'unset';
+        step2Icon.style.color = '#ffffff';
+        step3Icon.style.background = '#ffffff';
+        step3Icon.style.color = '#37383C';
+    }
     gifoPreview.classList.add('hide');
     uploadGifoPreviewContainer.classList.remove('hide');
     uploadGifoButton.classList.add('hide');
@@ -1433,14 +1622,16 @@ function changeStyleForStep3() {
     uploadStatusComment.classList.remove('hide');
 } 
 
-function changeStyleForStep31() {    
+// changeStyleForStep31
+function changeStyleForStep31() {   
+    console.log("##f()## changeStyleForStep31 function execution"); 
     uploadStatusIcon.src='images/check.svg';
     uploadStatusComment.textContent = 'GIF subido con éxito';
     cgDownloadBorder.style.display = 'flex';
     cgLink.classList.remove('hide');
-    //createGifosSubframe.style.alignItems = 'flex-start' 
 }
 
+// queryMyGifoAndSave
 function queryMyGifoAndSave (Id) {
     console.log ("##f()## queryMyGifo function execution");
     console.log (`https://api.giphy.com/v1/gifs/${Id}?api_key=${api_key}`);
@@ -1462,7 +1653,9 @@ function queryMyGifoAndSave (Id) {
 }
 
 let downloadFunctionForGC = 0;
+// createdGifoDownload
 function createdGifoDownload (createdGifoId, createdGifoUrl,) {
+    console.log ("##f()## createdGifoDownload function execution");
     console.log ("createdGifoUrl: "+createdGifoUrl);
     console.log ("createdGifoId: "+createdGifoId);
     downloadFunctionForGC = function (e) {         
@@ -1473,14 +1666,16 @@ function createdGifoDownload (createdGifoId, createdGifoUrl,) {
         x.onload=function(e){download(x.response, "GIFOS_"+createdGifoId+".gif", "image/gif" ); }
         x.send(); 
     }
-    //cgDownloadBorder.removeEventListener("click", downloadFunctionForGifoCreated, true);
     cgDownloadBorder.addEventListener("click", downloadFunctionForGC, true);
 }
 
+// createGifoLink
 function createGifoLink (createdGifoUrl) {
+    console.log ("##f()## createGifoLink function execution");
     cgLink.href = createdGifoUrl;
 }
 
+// saveGifo
 function saveGifo (resultId, resultUser, resultName, resultUrl, resultOriginalUrl) {
     console.log ("##f()## saveGifo function execution");
     //let savedMyGifosString = localStorage.getItem('mygifos');
@@ -1522,11 +1717,15 @@ function saveGifo (resultId, resultUser, resultName, resultUrl, resultOriginalUr
     console.log("resultId: "+resultId);
 }
 
-function showRepeatCaptureButton() {    
+// showRepeatCaptureButton
+function showRepeatCaptureButton() {   
+    console.log ("##f()## showRepeatCaptureButton function execution"); 
     repeatCaptureButton.classList.remove('hide');  
 }
 
+// repeatCapture
 function repeatCapture () {
+    console.log ("##f()## repeatCapture function execution");
     repeatCaptureButton.classList.add('hide'); 
     console.log("Tipo de uploadGifoFunction: "+typeof(stopRecordFunction));
     if(typeof(stopRecordFunction) == 'function') {
@@ -1537,10 +1736,18 @@ function repeatCapture () {
         uploadGifoButton.removeEventListener('click', uploadGifoFunction);
     }
     step2Icon.style.background = 'unset';
-    step2Icon.style.color = '#572EE5';
     step3Icon.style.background = 'unset';
-    step3Icon.style.color = '#572EE5';
-    cameraAccessTitle.textContent='Aquí podrás crear tus propios GIFOS';
+    if (!queryDarkMode()) {
+        step2Icon.style.color = '#572EE5';        
+        step3Icon.style.color = '#572EE5';
+    } else {    
+        step2Icon.style.color = '#FFFFFF';
+        step3Icon.style.color = '#FFFFFF';
+    }
+    cameraAccessTitle.textContent='Aquí podrás crear tus propios ';
+    let cameraAccessTitleSpan = document.createElement('span');
+    cameraAccessTitleSpan.textContent = 'GIFOS';
+    cameraAccessTitle.appendChild(cameraAccessTitleSpan);
     cameraAccessTitle.classList.remove('hide');
     cameraAccessComment.textContent = '¡Crea tu GIFO en sólo 3 pasos! (sólo necesitas una cámara para grabar un video)';
     cameraAccessComment.classList.remove('hide');  
@@ -1550,7 +1757,9 @@ function repeatCapture () {
     initialButton.classList.remove('hide');
 }
 
+// remainingStyleReverse
 function remainingStyleReverse () {
+    console.log ("##f()## remainingStyleReverse function execution");
     camera.classList.add('hide');
     uploadGifoPreviewContainer.classList.add('hide');
     //step1Icon.style.background = 'unset';
@@ -1569,12 +1778,15 @@ function remainingStyleReverse () {
 //chronometer
 let id=0;
 function cronometrar(){
+    console.log ("##f()## cronometrar function execution");
     escribir();
     id = setInterval(escribir,1000);
     //document.querySelector(".start").removeEventListener("click",cronometrar);
 }
 
+// escribir
 function escribir(){
+    console.log ("##f()## escribir function execution");
     var hAux, mAux, sAux;
     s++;
     if (s>59){m++;s=0;}
@@ -1588,25 +1800,35 @@ function escribir(){
     document.getElementById("hms").innerHTML = hAux + ":" + mAux + ":" + sAux; 
 }
 
-function parar(){
+// parar
+function parar() {
+    console.log ("##f()## parar function execution");
     clearInterval(id);
     //document.querySelector(".start").addEventListener("click",cronometrar);
 
 }
 
+// reiniciar
 function reiniciar(){
+    console.log ("##f()## reiniciar function execution");
     clearInterval(id);
     document.getElementById("hms").innerHTML="00:00:00";
     h=0;m=0;s=0;
     //document.querySelector(".start").addEventListener("click",cronometrar);
 }
 
+
 //++++ MY GIFOS FUNCTIONS ++++
 
+// showMyGifos
 function showMyGifos() {
     console.log ("##f()## showMyGifos function execution");
     sandwich.checked= false;
-    sandwichIcon.src = "images/burger.svg";
+    if(!queryDarkMode()) {
+        sandwichIcon.src = "images/burger.svg";
+    } else {
+        sandwichIcon.src = "images/burger-modo-noc.svg";
+    }
     favoritesFlag=false;
     myGifosFlag=true;
     myGifosPagination=0;
@@ -1656,6 +1878,7 @@ function hideContentForMyGifos() {
     footer[0].classList.remove('hide');
 }
 
+// clearNoGifosAlert
 function clearNoGifosAlert() {
     console.log ("##f()## clearNoGifosAlert function execution");
     try {
@@ -1671,6 +1894,7 @@ function clearNoGifosAlert() {
     }
 }
 
+// drawNoGifosAlert
 function drawNoGifosAlert () {
     console.log ("##f()## drawNoGifosAlert function execution");
     noGifosIcon.classList.remove('hide');

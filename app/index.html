@@ -69,7 +69,7 @@
                 <span></span>
                 <span></span>-->
                 <img id="sandwich-icon" class="sandwich-icon" src="images/burger.svg" alt="Ícono de menú hamburguesa">
-                <ul>
+                <ul id="menu-ul" class="menu-ul">
                     <li id="light-mode-link" class="light-mode-link">
                         <a id="next-light-mode" class="next-light-mode" href="#logo">Modo Nocturno</a>
                         <span id="option-divisor" class="option-divisor"></span>
@@ -105,24 +105,24 @@
             </div>
         </div>
         <div id="trending-terms" class="trending-terms">
-            <h2 id="trending-terms-title" class="trending-terms-title">Trending</h2>
+            <h2 id="trending-terms-title" class="trending-terms-title section-title">Trending</h2>
             <p id="trending-terms-results" class="trending-terms-results"></p>
         </div>
         <hr id ="search-results-separator" class="search-results-separator hide">         
         <div id="search-results" class="search-results hide">  
-            <h2 id="search-results-title" class="search-results-title">Mascotas</h2>
+            <h2 id="search-results-title" class="search-results-title section-title"></h2>
             <img src="images/icon-busqueda-sin-resultado.svg" id="no-results-icon" class="no-results-icon hide" alt="Ícono de OUCH!">
             <h3 id="no-results-text" class="no-results-text hide">Intenta con otra búsqueda</h3>
             <div id="results" class="results hide"></div>  
             <div id="more-results" class="more-results general-more hide">
-                <p>VER MÁS</p>
+                <p class="more-text">VER MÁS</p>
             </div>      
         </div>
         <div id="maximized" class="maximized hide">
             <img src="images/button-close.svg" id="maximized-close-button" class="maximized-close-button" alt="">
             <img src="" id="maximized-result-img" class="maximized-result-img" id="maximized-result-img" alt="GIF maximizado">
-            <h2 id="maximized-result-user" class="maximized-result-user">User</h2>
-            <h2 id="maximized-result-title" class="maximized-result-title">Title</h2>
+            <h2 id="maximized-result-user" class="maximized-result-user general-text">User</h2>
+            <h2 id="maximized-result-title" class="maximized-result-title general-text">Title</h2>
             <div id="maximized-download-border" class="maximized-download-border">
                 <img src="images/icon-download.svg" id="maximized-download-button" class="maximized-download-button" alt="Botón De Descarga">
             </div>            
@@ -132,54 +132,54 @@
         </div>
         <div id="favorites" class="favorites hide">
             <img id="favorites-icon" class="favorites-icon" src="images/icon-favoritos.svg" alt="Ícono Favoritos">
-            <h2 id="favorites-title" class="favorites-title">Favoritos</h2>
+            <h2 id="favorites-title" class="favorites-title section-title">Favoritos</h2>
             <img id="no-favorites-icon" class="no-favorites-icon hide" src="images/icon-favoritos.svg"  alt="Ícono de corazón triste">
             <h3 id="no-favorites-text" class="no-favorites-text hide">"¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"</h3>
             <div id="favorites-results" class="favorites-results hide"></div>
             <div id="more-favorites" class="more-favorites general-more hide">
-                <p>VER MÁS</p>
+                <p class="more-text">VER MÁS</p>
             </div>      
         </div>
         <div id="my-gifos" class="my-gifos hide">
             <img id="my-gifos-icon" class="my-gifos-icon" src="images/icon-mis-gifos.svg" alt="Ícono Mis GIFOS">
-            <h2 id="my-gifos-title" class="my-gifos-title">Mis GIFOS</h2>
+            <h2 id="my-gifos-title" class="my-gifos-title section-title">Mis GIFOS</h2>
             <img id="no-gifos-icon" class="no-gifos-icon hide" src="images/icon-mis-gifos-sin-contenido.svg"  alt="Ícono de carita triste">
             <h3 id="no-gifos-text" class="no-gifos-text hide">¡Anímate a crear tu primer GIFO!</h3>
             <div id="my-gifos-results" class="my-gifos-results hide"></div>
             <div id="more-my-gifos" class="more-my-gifos general-more hide">
-                <p>VER MÁS</p>
+                <p class="more-text">VER MÁS</p>
             </div>      
         </div>
         <div id="trending-gifos" class="trending-gifos">
-            <h2 id="trending-gifos-title" class="trending-gifos-title">Trending GIFOS</h2>
-            <p id="trending-gifos-text" class="trending-gifos-text">Mira los últimos<br>GIFOS de nuestra comunidad.</p>
+            <h2 id="trending-gifos-title" class="trending-gifos-title section-title">Trending GIFOS</h2>
+            <p id="trending-gifos-text" class="trending-gifos-text general-text">Mira los últimos<br>GIFOS de nuestra comunidad.</p>
             <ul id="trending-gallery" class="trending-gallery">                
             </ul>
         </div>
         <div id="create-gifos" class="create-gifos hide">
             <div id="create-gifos-frame" class="create-gifos-frame">
-                <div id="create-gifos-subframe" class="create-gifos-subframe">
-                        <h2 id="camera-access-title" class="camera-access-title">Aquí podrás crear tus propios <span>GIFOS</span></h2>
-                        <p id="camera-access-comment" class="camera-access-comment">¡Crea tu GIFO en sólo 3 pasos! (sólo necesitas una cámara para grabar un video)</p>
-                        <video id="camera" class="camera hide" playsinline autoplay></video>
-                        <div id="gifo-preview-container" class="gifo-preview-container hide">
-                            <img id="gifo-preview" class="gifo-preview hide" src="" alt="Previsualización del GIFO">
-                            <div id="upload-gifo-preview-container" class="upload-gifo-preview-container hide">
-                                <img id="upload-gifo-preview" class="upload-gifo-preview" src="" alt="Previsualización del GIFO Subiendo">
-                            </div>
-                            <img id="upload-status-icon" class="upload-status-icon hide" src="images/loader.svg" alt="Ícono de status de carga">
-                            <p id="upload-status-comment" class="upload-status-comment hide" src="">Estamos subiendo tu GIFO</p>
-                            <div id="upload-gifo-options" class="upload-gifo-options">
-                                <div id="cg-download-border" class="cg-download-border hide">
-                                    <img src="images/icon-download.svg" id="cg-download-button" class="cg-download-button" alt="Botón De Descarga">
-                                </div>            
-                                <a href="" id="cg-link" class="cg-link hide">
-                                    <div id="cg-link-border" class="cg-link-border">
-                                        <img src="images/icon-link.svg" id="cg-link-button" class="cg-link-button" alt="Botón Link">
-                                    </div> 
-                                </a> 
-                            </div> 
-                        </div>                   
+                <div id="create-gifos-subframe" class="create-gifos-subframe"> 
+                    <h2 id="camera-access-title" class="camera-access-title section-title">Aquí podrás crear tus propios <span id="random">GIFOS</span></h2>
+                    <p id="camera-access-comment" class="camera-access-comment">¡Crea tu GIFO en sólo 3 pasos! (sólo necesitas una cámara para grabar un video)</p>
+                    <video id="camera" class="camera hide" playsinline autoplay></video>
+                    <div id="gifo-preview-container" class="gifo-preview-container hide">
+                        <img id="gifo-preview" class="gifo-preview hide" src="" alt="Previsualización del GIFO">
+                        <div id="upload-gifo-preview-container" class="upload-gifo-preview-container hide">
+                            <img id="upload-gifo-preview" class="upload-gifo-preview" src="" alt="Previsualización del GIFO Subiendo">
+                        </div>
+                        <img id="upload-status-icon" class="upload-status-icon hide" src="images/loader.svg" alt="Ícono de status de carga">
+                        <p id="upload-status-comment" class="upload-status-comment hide" src="">Estamos subiendo tu GIFO</p>
+                        <div id="upload-gifo-options" class="upload-gifo-options">
+                            <div id="cg-download-border" class="cg-download-border hide">
+                                <img src="images/icon-download.svg" id="cg-download-button" class="cg-download-button" alt="Botón De Descarga">
+                            </div>            
+                            <a href="" id="cg-link" class="cg-link hide">
+                                <div id="cg-link-border" class="cg-link-border">
+                                    <img src="images/icon-link.svg" id="cg-link-button" class="cg-link-button" alt="Botón Link">
+                                </div> 
+                            </a> 
+                        </div> 
+                    </div>                   
                 </div>                
             </div>
             <div id="create-gifos-panel" class="create-gifos-panel">
@@ -199,13 +199,13 @@
         </div>
     </main>
     <footer>
-        <p id="social-networks-text" class="social-networks-text">Compartir en:</p>
+        <p id="social-networks-text" class="social-networks-text general-text">Compartir en:</p>
         <div id="social-networks-icons" class="social-networks-icons">
             <a href="https://www.facebook.com/Acamica.org"><img id="facebook-icon" class="facebook-icon" src="images/icon_facebook.svg" alt="Ícono Facebook"></a>
             <a href="https://twitter.com/Acamica_com"><img id="twitter-icon" class="twitter-icon" src="images/icon-twitter.svg" alt="Ícono Twitter"></a>
             <a href="https://www.instagram.com/acamica/"><img id="instagram-icon" class="instagram-icon" src="images/icon_instagram.svg" alt="Ícono Instragram"></a>
         </div>
-        <p id="rights-reserved-text" class="rights-reserved-text">© GIFOS 2020 All Rights Reserved.</p>
+        <p id="rights-reserved-text" class="rights-reserved-text general-text">© GIFOS 2020 All Rights Reserved.</p>
     </footer>
     <script src="scripts/script.js"></script>
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>

@@ -108,7 +108,7 @@ header nav .menu ul li .option-divisor {
   display: block;
   position: relative;
   height: 0px;
-  border: 1px solid #a38cf0;
+  border: 1px solid #9CAFC3;
   text-align: center;
   margin: auto;
   width: 11%;
@@ -388,6 +388,7 @@ main .maximized {
     top: -40px;
     right: 7.73%;
     opacity: 0.5;
+    background: #FFFFFF;
     border: 1px solid #9CAFC3;
     border-radius: 6px; }
     main .maximized .maximized-download-border .maximized-download-button {
