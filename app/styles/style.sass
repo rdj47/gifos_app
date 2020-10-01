@@ -297,7 +297,6 @@ main
                 line-height: 25px
                 margin: auto    
                 text-transform: capitalize  
-
     .search-results-separator
         position: relative
         top: -10px
@@ -353,7 +352,6 @@ main
                         height: 100%
                         object-fit: cover
                         object-position: center center 
-
         .more-results
             border: 1px solid #572EE5
             border-radius: 25px
@@ -364,7 +362,14 @@ main
             margin-bottom: 78px
             margin-left: auto
             margin-right: auto
-            p
+            font-family: Montserrat, 'Times New Roman', Times, serif
+            font-weight: 700
+            font-size: 13px
+            color: #572EE5
+            letter-spacing: 0
+            text-align: center
+            line-height: 50px
+            /*p
                 font-family: Montserrat, 'Times New Roman', Times, serif
                 font-weight: 700
                 font-size: 13px
@@ -372,7 +377,7 @@ main
                 letter-spacing: 0
                 text-align: center
                 line-height: 16px
-                margin: 18px 0px 16px 0px                
+                margin: 18px 0px 16px 0px*/    
     .maximized
         width: 100%
         .maximized-close-button
@@ -438,11 +443,11 @@ main
                 height: 21.1px
         .maximized-download-border:hover
             opacity: unset
-
     .trending-gifos
         padding: 46px 0px 82px 0px
         width: 100%
         background: #F3F5F8
+        text-align: center
         h2
             //margin: 46px 0 0 0
             width: 100%
@@ -454,13 +459,16 @@ main
             text-align: center
             line-height: 30px
         p
-            margin: 7px 21px 32px 21px
+            display: block
+            max-width: 45%
+            margin: 7px auto 32px auto
             font-family: Roboto, 'Times New Roman', Times, serif
             font-weight: 400
             font-size: 16px
             color: #000000
             text-align: center
             line-height: 23px
+            
         .trending-gallery
             //border: 1px solid lightgray
             padding: 0 22px 0 22px
@@ -521,9 +529,13 @@ main
                 img
                     max-width: 156px
                     max-height: 120px
-                    text-align: center
-                    display: block
-                    margin: auto
+                    //text-align: center
+                    //display: block
+                    //margin: auto
+                    @supports(object-fit: cover)
+                        height: 100%
+                        object-fit: cover
+                        object-position: center center 
         .more-favorites
             border: 1px solid #572EE5
             border-radius: 25px
@@ -533,7 +545,14 @@ main
             margin-bottom: 78px
             margin-left: auto
             margin-right: auto
-            p
+            font-family: Montserrat, 'Times New Roman', Times, serif
+            font-weight: 700
+            font-size: 13px
+            color: #572EE5
+            letter-spacing: 0
+            text-align: center
+            line-height: 50px
+            /*p
                 font-family: Montserrat, 'Times New Roman', Times, serif
                 font-weight: 700
                 font-size: 13px
@@ -541,7 +560,7 @@ main
                 letter-spacing: 0
                 text-align: center
                 line-height: 16px
-                margin: 18px 0px 16px 0px    
+                margin: 18px 0px 16px 0px*/    
     .create-gifos
         @extend %flex-column-center
         margin-top: 100px
@@ -721,7 +740,8 @@ main
             height: 150px
         .no-gifos-text
             margin-top: 24px
-            font-family: Roboto
+            font-family: Montserrat, 'Times New Roman', Times, serif
+            font-weight: 700
             font-size: 18px
             color: #50E3C2
             text-align: center
@@ -734,15 +754,19 @@ main
             padding: 0px 21px 0px 21px
             .gif-card
                 padding: unset
-                width: 156px
-                height: 120px
+                width: 260px
+                height: 200px
                 margin: auto
                 img
-                    max-width: 156px
-                    max-height: 120px
-                    text-align: center
-                    display: block
-                    margin: auto
+                    max-width: 260px
+                    max-height: 200px
+                    //text-align: center
+                    //display: block
+                    //margin: auto
+                    @supports(object-fit: cover)
+                        height: 100%
+                        object-fit: cover
+                        object-position: center center 
         .more-my-gifos
             border: 1px solid #572EE5
             border-radius: 25px
@@ -751,14 +775,21 @@ main
             margin-bottom: 76px
             margin-left: auto
             margin-right: auto
-            p
+            font-family: Montserrat, 'Times New Roman', Times, serif
+            font-weight: 700
+            font-size: 13px
+            color: #572EE5
+            letter-spacing: 0
+            text-align: center
+            line-height: 50px
+            /*p
                 font-family: Roboto
                 font-size: 13px
                 color: #572EE5
                 letter-spacing: 0
                 text-align: center
                 font-weight: 900
-                margin: 18px 0px 16px 0px            
+                margin: 18px 0px 16px 0px*/            
 footer
     text-align: center
     border-bottom: 5px solid #572EE5
@@ -773,11 +804,19 @@ footer
         line-height: 18px
     .social-networks-icons
         width: 30%
+        //min-width: 98px
         @extend %flex-row-justify-space-between-footer
         //display: block
         margin-right: auto
         margin-left: auto
-        margin-top: 22px   
+        margin-top: 22px 
+        a
+            i   
+                font-family: 'Font Awesome 5 Brands'
+                font-size: 20px
+                //width: 20px
+                //height: 20px
+                color: #CDD6E0  
     .rights-reserved-text
         margin: auto
         margin-top: 46px
@@ -789,6 +828,660 @@ footer
         letter-spacing: 0
         line-height: 20px
 
+@media screen and (min-width: 600px) //and (max-width: 1439px)
+
+    header 
+        padding: 0px 10.83% 0px 10.83%
+        width: 100%
+        height: 90px
+        //padding: unset            
+        .logo-mobile, .logo-mobile-dark
+            position: relative
+            top: 18px
+        nav .menu 
+            padding: 0    
+        nav 
+            position: relative
+            top: 36px
+            .menu 
+                display: inline-block
+                .sandwich-icon
+                    display: none
+                ul 
+                    position: relative
+                    padding: 0
+                    top: unset
+                    right: 0
+                    overflow: hidden
+                    background: unset
+                    height: unset
+                    display: flex
+                    flex-flow: row wrap
+                    li 
+                        padding: 0
+                        margin-left: 48px
+                        display: inline-block
+                        a 
+                            font-size: 13px
+                            padding: unset
+                            line-height: 16px
+                            text-decoration: none
+                            color: #572EE5 
+                            padding: 0
+                            text-transform: uppercase
+                        a:hover 
+                            //color: #00F3BB
+                            //font-weight: 500
+                            text-decoration: underline #00F3BB                        
+                        a:active 
+                            text-decoration: none
+                            color: #9CAFC3
+                        .option-divisor
+                            display: none
+                input 
+                    display: none
+        .add-gifo
+            width: 54px
+            height: 54px
+            border: 1px solid #572EE5
+            border-radius: 50%
+            display: inline-block
+            float: right
+            position: relative
+            top: 18px
+            margin-left: 59.5px
+    main 
+        .banner
+            padding-top: 95px
+            //@extend %flex-column-center
+            .presentation
+                //@extend %flex-column-center            
+                h1
+                    //font-family: Montserrat, 'Times New Roman', Times, serif
+                    //font-weight: 700
+                    padding: unset
+                    margin-top: 76px
+                    width: 64.86%
+                    font-size: 35px
+                    //color: #572EE5
+                    //text-align: center
+                    line-height: 50px
+                    span
+                        //font-family: Montserrat, 'Times New Roman', Times, serif
+                        font-size: 35px
+                        //color: #5ED7C6
+                        line-height: 50px
+                img
+                    width: 399px
+                    height: 190px
+                    margin-top: 24px
+            .search-bar
+                //@extend %flex-column-left
+                padding-top: unset
+                width: 48.33%
+                //min-width: 551px
+                //min-height: 50px //Minimum in order to increase it based on suggestions number
+                //background: #FFFFFF
+                //border: 1px solid #572EE5
+                //border-radius: 27px
+                //border-radius: 27px        
+                .search-phrase
+                    width: 100%
+                    //@extend %flex-row-justify-space-between
+                    .search-phrase-input
+                        //min-width: 215px
+                        //margin: 15px 0px 13px 55px
+                        //border: none
+                        //font-family: Roboto, 'Times New Roman', Times, serif
+                        //font-weight: 400
+                        //font-size: 16px
+                        //color: #000000
+                        //line-height: 22px //Verify Spec 
+                        //order: 0
+                    .search-phrase-mg
+                        //width: 20px
+                        //height: 20px
+                        //padding-top: unset
+                        //margin: 15px 20px 15px 19px// margin-left impact on align-content.
+                        //order: 1
+                    .search-phrase-clear
+                        //display: none
+                        //width: 14px
+                        //height: 14px  
+                        //order: 2   
+                        //margin: 18px 23px 15px auto//justify-self not work on flex.   
+                .horizontal-bar
+                    //width: 91.65%
+                    //height: 3px
+                    //adding: 0px 23px 0px 23px 
+                    //background: #9CAFC3 // *Adjust color border
+                    //border: 15px
+                    //align-self: center                                
+                .search-suggestion
+                    //width: 100%
+                    //@extend %flex-row-start
+                    //Fix! margin-top: 14px
+                    //Fix! margin-bottom: 8px //18px-10px(p)=8px
+                    img
+                        //width: 15.8px
+                        //height: 15.8px
+                        //padding-top: unset
+                        //margin: 3.6px 14.6px 15.2px 23.6px
+                        //float: left
+                    p
+                        //margin: 0px 23.6px 10px 0px
+                        //font-family: Roboto
+                        //font-size: 16px
+                        //color: #9CAFC3 
+                        //text-align: left
+                        //line-height: 22px //Verify Spec 
+                        //float: left
+                        //text-transform: capitalize
+        .trending-terms
+            //padding: 31px 0px 45px 0px
+            padding: unset
+            margin-top: 73px
+            margin-bottom: 95px
+            h2
+                padding: unset
+                //width: 60%
+                //height: 25px
+                //text-align: center
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                font-size: 18px
+                //color: #572EE5
+                //text-align: center
+                //line-height: 25px
+                //margin: auto
+            p                
+                margin-top: 7px//padding: unset
+                //width: 225px
+                //max-width: 60%
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 500
+                //font-size: 14px
+                //color: #572EE5
+                //text-align: center
+                //line-height: 25px
+                //margin: auto    
+                //text-transform: capitalize  
+                span
+                    //padding: unset
+                    //max-width: 60%
+                    //font-family: Montserrat, 'Times New Roman', Times, serif
+                    //font-weight: 500
+                    font-size: 16px
+                    //color: #572EE5
+                    //text-align: center
+                    //line-height: 25px
+                    //margin: auto    
+                    //text-transform: capitalize  
+        .search-results-separator
+            //position: relative
+            //top: -10px
+            //width: 41.86%
+            //height: 1px
+            //background: #9CAFC3 // *Adjust color border
+            //margin: auto
+        .search-results
+            //@extend %flex-column-center
+            //position: relative
+            //top: -10px
+            //width: 100%
+            .search-results-title
+                margin: 81.9px 0 60px 0
+                width: 100%
+                //text-align: center
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                font-size: 35px
+                //color: #572EE5
+                //text-align: center
+                line-height: 30px
+                //text-transform: capitalize 
+            .no-results-icon
+                margin-top: 49px
+                //display: block
+                //margin-left: auto
+                //margin-right: auto
+            .no-results-text
+                //margin-top: 29px
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                //font-size: 22px
+                //color: #50E3C2
+                //text-align: center
+                //line-height: 25px
+                //width: 100%
+            .results
+                //@extend %grid-justify-items-center 
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) 
+                padding: 0px 156px 0px 156px
+                //margin-bottom: 78px
+                //width: 100%
+                .gif-card
+                    //padding: unset
+                    width: 260px
+                    height: 200px
+                    //overflow: hidden
+                    //margin: auto
+                    img
+                        width: 260px
+                        //min-width: 156px
+                        min-height: 200px
+                        //@supports(object-fit: cover)
+                            //height: 100%
+                            //object-fit: cover
+                            //object-position: center center 
+            .more-results
+                //border: 1px solid #572EE5
+                //border-radius: 25px
+                //border-radius: 25px
+                //width: 127px
+                //height: 50px
+                //margin-top: 78px
+                //margin-bottom: 78px
+                //margin-left: auto
+                //margin-right: auto
+                //p
+                    //font-family: Montserrat, 'Times New Roman', Times, serif
+                    //font-weight: 700
+                    //font-size: 13px
+                    //color: #572EE5
+                    //letter-spacing: 0
+                    //text-align: center
+                    //line-height: 16px
+                    //margin: 18px 0px 16px 0px
+            .more-results:hover
+                background-color: #572EE5
+                color: #FFFFFF
+                //.p
+                    //color: ##FFFFFF
+        .favorites
+            //idth: 100%
+            //@extend %flex-column-center
+            //margin-top: 100px
+            margin-top: 95px
+            .favorites-icon
+                //margin-top: 5px
+                margin-top: 11px
+                width: 28px
+                height: 21px
+            .favorites-title
+                //margin-top: 6px
+                margin-top: 8px
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                font-size: 25px
+                //color: #572EE5
+                //text-align: center
+                //line-height: 30px
+            .no-favorites-icon
+                //margin-top: 46px
+                margin-top: 110px
+                //width: 150px
+                //height: 150px
+            .no-favorites-text
+                //max-width: 80%
+                max-width: 29.93%
+                //margin-top: 24px
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                font-size: 22px
+                //color: #50E3C2
+                //text-align: center
+                //line-height: 33px
+            .favorites-results
+                //margin-top: 46px
+                margin-top: 36px
+                //margin-bottom: 78px
+                //width: 100%
+                //@extend %grid-justify-items-center  
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) 
+                padding: 0px 156px 0px 156px
+                .gif-card
+                    //padding: unset
+                    width: 260px
+                    height: 200px
+                    //margin: auto
+                    img
+                        max-width: 260px
+                        max-height: 200px
+                        //text-align: center
+                        //display: block
+                        //margin: auto
+            .more-favorites
+                //border: 1px solid #572EE5
+                //border-radius: 25px
+                //width: 127px
+                //height: 50px
+                //margin-top: 78px
+                //margin-bottom: 78px
+                //margin-left: auto
+                //margin-right: auto
+                //p
+                    //font-family: Montserrat, 'Times New Roman', Times, serif
+                    //font-weight: 700
+                    //font-size: 13px
+                    //color: #572EE5
+                    //letter-spacing: 0
+                    //text-align: center
+                    //line-height: 16px
+                    //margin: 18px 0px 16px 0px
+            .more-favorites:hover
+                background-color: #572EE5
+                color: #FFFFFF
+        .create-gifos
+            //@extend %flex-column-center
+            margin-top: 100px
+            .create-gifos-frame
+                //@extend %flex-column-center
+                //width: 95%
+                min-width: 356px
+                min-height: 277px
+                border: 1px solid #572EE5
+                .create-gifos-subframe
+                    //@extend %flex-column-center-center
+                    border: 1px solid #50E3C2
+                    min-height: 258px
+                    //width: 86%
+                    //width: 90%
+                    min-width: 338px
+                    margin: 9px
+                    h2, p
+                        text-align: center
+                        margin: unset
+                        min-width: unset
+                    h2
+                        font-family: Montserrat, 'Times New Roman', Times, serif
+                        font-weight: 700
+                        font-size: 20px
+                        color: #572EE5                    
+                        line-height: 30px
+                        span
+                            font-family: Montserrat, 'Times New Roman', Times, serif
+                            font-weight: 700
+                            font-size: 20px
+                            color: #5ED7C6                   
+                            line-height: 30px
+                    p
+                        font-family: Roboto, 'Times New Roman', Times, serif
+                        font-weight: 400
+                        font-size: 16px
+                        color: #000000
+                        line-height: 23px 
+                    .gifo-preview-container
+                        position: absolute
+                        width: 320px
+                        min-height: 240px 
+                        margin: 9px
+                        //@extend %flex-column-center-center
+                        //@extend %flex-row-justify-center
+                        .gifo-preview                    
+                        .upload-gifo-preview-container
+                            margin: 9px
+                            position: absolute
+                            z-index: 1
+                            overflow: hidden                        
+                            .upload-gifo-preview
+                        .upload-gifo-preview-container::after
+                            content: ""
+                            width: 100%
+                            height: 98%
+                            top: 0
+                            left: 0
+                            background-color: #572EE5
+                            opacity: 0.7
+                            position: absolute
+                            z-index: 2  
+                        .upload-status-icon
+                            z-index: 3  
+                            order: 1
+                        .upload-status-comment
+                            font-family: Montserrat
+                            font-weight: 700
+                            font-size: 15px
+                            color: #FFFFFF
+                            text-align: center
+                            line-height: 19px
+                            z-index: 3 
+                            order: 2
+                            width: 100%
+                            margin: 14px
+                        .upload-gifo-options
+                            width: 100%  
+                            //@extend %flex-row-justify-space-between 
+                            //@extend %flex-row-justify-flex-end
+                            //order: 0 
+                            position: absolute
+                            top: 0px
+                            //align-self: flex-start
+                            .cg-download-border
+                                //@extend %flex-row-justify-center
+                                z-index: 3
+                                width: 32px
+                                height: 32px
+                                background: #FFFFFF
+                                border-radius: 6px
+                                border-radius: 6px
+                                margin-top: 5px
+                                margin-right: 5px
+                            .cg-link
+                                z-index: 3
+                                margin-top: 5px
+                                margin-right: 5px
+                                .cg-link-border
+                                    //@extend %flex-row-justify-center
+                                    width: 32px
+                                    height: 32px
+                                    background: #FFFFFF
+                                    border-radius: 6px
+                                    border-radius: 6px                        
+            .create-gifos-panel
+                margin-top: 24px
+                //@extend %flex-column-center 
+                width: 100%  
+                .step-icon-container
+                    width: 95%
+                    //@extend %flex-row-justify-center
+                    .step-icon
+                        margin-right: 13px
+                        margin-left: 13px
+                        //@extend %flex-column-center-center
+                        width: 32px
+                        height: 32px
+                        font-family: Roboto
+                        font-size: 18px
+                        color: #572EE5
+                        text-align: center
+                        border: 1px solid #572EE5
+                        border-radius: 50%
+                    .hms, .repeat-capture
+                        margin-left: auto
+                        font-family: Montserrat, 'Times New Roman', Times, serif
+                        font-weight: 700
+                        color: #572EE5
+                        letter-spacing: 0
+                        text-align: center
+                    .hms
+                        font-size: 15px
+                        line-height: 22px
+                    .repeat-capture
+                        font-size: 13px
+                        line-height: 16px
+                        border-bottom: 2px solid #5ED7C6
+                .control-panel-separator  
+                    margin-top: 19px
+                    width: 98%
+                    height: 6.9px
+                    background: #572EE5 // *Adjust color border
+    
+                .control-panel-button
+                    margin-top: 20.1px
+                    min-width: 127px
+                    border: 1px solid #572EE5
+                    border-radius: 25px
+                    font-family: Montserrat
+                    font-weight: 700
+                    font-size: 13px
+                    color: #572EE5
+                    letter-spacing: 0
+                    text-align: center
+                    line-height: 50px
+                .control-panel-button:hover
+                    background-color: #572EE5
+                    color: #FFFFFF  
+
+        .my-gifos
+            //width: 100%
+            //@extend %flex-column-center
+            //margin-top: 100px
+            margin-top: 95px
+            .my-gifos-icon
+                //margin-top: 5px
+                margin-top: 10px
+                //width: 28px
+                //height: 21px
+            .my-gifos-title
+                //margin-top: 6px
+                margin-top: 8px
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                font-size: 25px
+                //color: #572EE5
+                //text-align: center
+                //line-height: 30px
+            .no-gifos-icon
+                //margin-top: 46px
+                margin-top: 111px
+                //width: 150px
+                //height: 150px
+            .no-gifos-text
+                //margin-top: 24px
+                margin-top: 40px
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                font-size: 22px
+                //color: #50E3C2
+                //text-align: center
+                line-height: 25px
+            .my-gifos-results
+                //margin-top: 46px
+                margin-top: 36px
+                //margin-bottom: 78px
+                //width: 100%
+                //@extend %grid-justify-items-center  
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) 
+                padding: 0px 156px 0px 156px
+                .gif-card
+                    //padding: unset
+                    //width: 260px
+                    //height: 200px
+                    //margin: auto
+                    img
+                        max-width: 260px
+                        max-height: 200px
+                        //text-align: center
+                        //display: block
+                        //margin: auto
+                        @supports(object-fit: cover)
+                            height: 100%
+                            object-fit: cover
+                            object-position: center center 
+            .more-my-gifos
+                //border: 1px solid #572EE5
+                //border-radius: 25px
+                //width: 127px
+                //height: 50px
+                //margin-bottom: 76px
+                //margin-left: auto
+                //margin-right: auto
+                //p
+                    //font-family: Roboto
+                    //font-size: 13px
+                    //color: #572EE5
+                    //letter-spacing: 0
+                    //text-align: center
+                    //font-weight: 900
+                    //margin: 18px 0px 16px 0px  
+            .more-my-gifos:hover
+                background-color: #572EE5
+                color: #FFFFFF    
+        .trending-gifos
+            padding: 67px 0px 182px 0px
+            //width: 100%
+            //background: #F3F5F8
+            h2
+                //margin-top: 67px
+                margin-top: unset
+                //width: 100%
+                //height: 30px
+                //font-family: Montserrat, 'Times New Roman', Times, serif
+                //font-weight: 700
+                font-size: 25px
+                //color: #572EE5
+                //text-align: center
+                //line-height: 30px
+            p
+                //margin: 7px 21px 32px 21px
+                max-width: unset
+                margin: 7px auto 53px auto
+                //font-family: Roboto, 'Times New Roman', Times, serif
+                //font-weight: 400
+                font-size: 18px
+                //color: #000000
+                //text-align: center
+                line-height: 21px
+            .trending-gallery
+                //border: 1px solid lightgray
+                //padding: 0 22px 0 22px
+                //display: flex
+                //overflow-x: scroll
+                //scroll-padding: 0 50%
+                //scroll-snap-type: x mandatory
+            .trending-item
+                //scroll-snap-align: center
+                //display: inline-block
+                //height: 83vh
+                //max-height: 200px
+                //border-radius: 3px
+                //font-size: 0
+                //margin-right: 3rem
+                img
+                    //max-width: 65%        
+    footer
+        //text-align: center
+        //border-bottom: 5px solid #572EE5
+        //border-bottom: unset
+        .social-networks-text
+            float: left
+            //margin: auto
+            margin-top: 49.5px
+            margin-left: 156px
+            font-size: 13px
+            //color: #000000
+            //letter-spacing: 0
+            line-height: 15px
+        .social-networks-icons
+            float: left
+            margin-top: 47.4px
+            margin-right: unset
+            margin-left: 17px
+            min-width: 98px  
+            width: 6.7%
+            a
+                i:hover
+                    color: #572EE5
+        .rights-reserved-text
+            float: right
+            margin: unset
+            margin-top: 49.5px
+            margin-bottom: 51.5px
+            margin-right: 158px
+            font-size: 13px
+            line-height: 15px
+    
 
 
             

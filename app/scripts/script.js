@@ -266,7 +266,8 @@ function changeLightMode () {
         }        
         console.log("Total botones VER MÁS: "+document.getElementsByClassName('general-more').length);
         for (let i=0;  i < document.getElementsByClassName('general-more').length; i++){
-            document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#FFFFFF';
+            //document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#FFFFFF';
+            document.getElementsByClassName('general-more')[i].style.color = '#FFFFFF';
             document.getElementsByClassName('general-more')[i].style.border = '1px solid #FFFFFF';
         }
         maximizedCloseButton.src = 'images/button-close-modo-noc.svg';   

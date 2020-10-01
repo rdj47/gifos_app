@@ -326,16 +326,23 @@ main .search-results {
     height: 50px;
     margin-bottom: 78px;
     margin-left: auto;
-    margin-right: auto; }
-    main .search-results .more-results p {
-      font-family: Montserrat, "Times New Roman", Times, serif;
-      font-weight: 700;
-      font-size: 13px;
-      color: #572EE5;
-      letter-spacing: 0;
-      text-align: center;
-      line-height: 16px;
-      margin: 18px 0px 16px 0px; }
+    margin-right: auto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #572EE5;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 50px;
+    /*p
+     * font-family: Montserrat, 'Times New Roman', Times, serif
+     * font-weight: 700
+     * font-size: 13px
+     * color: #572EE5
+     * letter-spacing: 0
+     * text-align: center
+     * line-height: 16px
+     * margin: 18px 0px 16px 0px */ }
 main .maximized {
   width: 100%; }
   main .maximized .maximized-close-button {
@@ -399,7 +406,8 @@ main .maximized {
 main .trending-gifos {
   padding: 46px 0px 82px 0px;
   width: 100%;
-  background: #F3F5F8; }
+  background: #F3F5F8;
+  text-align: center; }
   main .trending-gifos h2 {
     width: 100%;
     height: 30px;
@@ -410,7 +418,9 @@ main .trending-gifos {
     text-align: center;
     line-height: 30px; }
   main .trending-gifos p {
-    margin: 7px 21px 32px 21px;
+    display: block;
+    max-width: 45%;
+    margin: 7px auto 32px auto;
     font-family: Roboto, "Times New Roman", Times, serif;
     font-weight: 400;
     font-size: 16px;
@@ -469,10 +479,12 @@ main .favorites {
       margin: auto; }
       main .favorites .favorites-results .gif-card img {
         max-width: 156px;
-        max-height: 120px;
-        text-align: center;
-        display: block;
-        margin: auto; }
+        max-height: 120px; }
+@supports(object-fit: cover) {
+  main .favorites .favorites-results .gif-card img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center; } }
   main .favorites .more-favorites {
     border: 1px solid #572EE5;
     border-radius: 25px;
@@ -480,16 +492,23 @@ main .favorites {
     height: 50px;
     margin-bottom: 78px;
     margin-left: auto;
-    margin-right: auto; }
-    main .favorites .more-favorites p {
-      font-family: Montserrat, "Times New Roman", Times, serif;
-      font-weight: 700;
-      font-size: 13px;
-      color: #572EE5;
-      letter-spacing: 0;
-      text-align: center;
-      line-height: 16px;
-      margin: 18px 0px 16px 0px; }
+    margin-right: auto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #572EE5;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 50px;
+    /*p
+     * font-family: Montserrat, 'Times New Roman', Times, serif
+     * font-weight: 700
+     * font-size: 13px
+     * color: #572EE5
+     * letter-spacing: 0
+     * text-align: center
+     * line-height: 16px
+     * margin: 18px 0px 16px 0px */ }
 main .create-gifos {
   margin-top: 100px; }
   main .create-gifos .create-gifos-frame {
@@ -648,7 +667,8 @@ main .my-gifos {
     height: 150px; }
   main .my-gifos .no-gifos-text {
     margin-top: 24px;
-    font-family: Roboto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
     font-size: 18px;
     color: #50E3C2;
     text-align: center;
@@ -660,15 +680,17 @@ main .my-gifos {
     padding: 0px 21px 0px 21px; }
     main .my-gifos .my-gifos-results .gif-card {
       padding: unset;
-      width: 156px;
-      height: 120px;
+      width: 260px;
+      height: 200px;
       margin: auto; }
       main .my-gifos .my-gifos-results .gif-card img {
-        max-width: 156px;
-        max-height: 120px;
-        text-align: center;
-        display: block;
-        margin: auto; }
+        max-width: 260px;
+        max-height: 200px; }
+@supports(object-fit: cover) {
+  main .my-gifos .my-gifos-results .gif-card img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center; } }
   main .my-gifos .more-my-gifos {
     border: 1px solid #572EE5;
     border-radius: 25px;
@@ -676,15 +698,22 @@ main .my-gifos {
     height: 50px;
     margin-bottom: 76px;
     margin-left: auto;
-    margin-right: auto; }
-    main .my-gifos .more-my-gifos p {
-      font-family: Roboto;
-      font-size: 13px;
-      color: #572EE5;
-      letter-spacing: 0;
-      text-align: center;
-      font-weight: 900;
-      margin: 18px 0px 16px 0px; }
+    margin-right: auto;
+    font-family: Montserrat, "Times New Roman", Times, serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #572EE5;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 50px;
+    /*p
+     * font-family: Roboto
+     * font-size: 13px
+     * color: #572EE5
+     * letter-spacing: 0
+     * text-align: center
+     * font-weight: 900
+     * margin: 18px 0px 16px 0px */ }
 
 footer {
   text-align: center;
@@ -703,6 +732,10 @@ footer {
     margin-right: auto;
     margin-left: auto;
     margin-top: 22px; }
+    footer .social-networks-icons a i {
+      font-family: "Font Awesome 5 Brands";
+      font-size: 20px;
+      color: #CDD6E0; }
   footer .rights-reserved-text {
     margin: auto;
     margin-top: 46px;
@@ -713,5 +746,344 @@ footer {
     color: #000000;
     letter-spacing: 0;
     line-height: 20px; }
+
+@media screen and (min-width: 600px) {
+  header {
+    padding: 0px 10.83% 0px 10.83%;
+    width: 100%;
+    height: 90px; }
+    header .logo-mobile, header .logo-mobile-dark {
+      position: relative;
+      top: 18px; }
+    header nav .menu {
+      padding: 0; }
+    header nav {
+      position: relative;
+      top: 36px; }
+      header nav .menu {
+        display: inline-block; }
+        header nav .menu .sandwich-icon {
+          display: none; }
+        header nav .menu ul {
+          position: relative;
+          padding: 0;
+          top: unset;
+          right: 0;
+          overflow: hidden;
+          background: unset;
+          height: unset;
+          display: flex;
+          flex-flow: row wrap; }
+          header nav .menu ul li {
+            padding: 0;
+            margin-left: 48px;
+            display: inline-block; }
+            header nav .menu ul li a {
+              font-size: 13px;
+              padding: unset;
+              line-height: 16px;
+              text-decoration: none;
+              color: #572EE5;
+              padding: 0;
+              text-transform: uppercase; }
+            header nav .menu ul li a:hover {
+              text-decoration: underline #00F3BB; }
+            header nav .menu ul li a:active {
+              text-decoration: none;
+              color: #9CAFC3; }
+            header nav .menu ul li .option-divisor {
+              display: none; }
+        header nav .menu input {
+          display: none; }
+    header .add-gifo {
+      width: 54px;
+      height: 54px;
+      border: 1px solid #572EE5;
+      border-radius: 50%;
+      display: inline-block;
+      float: right;
+      position: relative;
+      top: 18px;
+      margin-left: 59.5px; }
+
+  main .banner {
+    padding-top: 95px; }
+    main .banner .presentation h1 {
+      padding: unset;
+      margin-top: 76px;
+      width: 64.86%;
+      font-size: 35px;
+      line-height: 50px; }
+      main .banner .presentation h1 span {
+        font-size: 35px;
+        line-height: 50px; }
+    main .banner .presentation img {
+      width: 399px;
+      height: 190px;
+      margin-top: 24px; }
+    main .banner .search-bar {
+      padding-top: unset;
+      width: 48.33%; }
+      main .banner .search-bar .search-phrase {
+        width: 100%; }
+  main .trending-terms {
+    padding: unset;
+    margin-top: 73px;
+    margin-bottom: 95px; }
+    main .trending-terms h2 {
+      padding: unset;
+      font-size: 18px; }
+    main .trending-terms p {
+      margin-top: 7px; }
+      main .trending-terms p span {
+        font-size: 16px; }
+  main .search-results .search-results-title {
+    margin: 81.9px 0 60px 0;
+    width: 100%;
+    font-size: 35px;
+    line-height: 30px; }
+  main .search-results .no-results-icon {
+    margin-top: 49px; }
+  main .search-results .results {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    padding: 0px 156px 0px 156px; }
+    main .search-results .results .gif-card {
+      width: 260px;
+      height: 200px; }
+      main .search-results .results .gif-card img {
+        width: 260px;
+        min-height: 200px; }
+  main .search-results .more-results:hover {
+    background-color: #572EE5;
+    color: #FFFFFF; }
+  main .favorites {
+    margin-top: 95px; }
+    main .favorites .favorites-icon {
+      margin-top: 11px;
+      width: 28px;
+      height: 21px; }
+    main .favorites .favorites-title {
+      margin-top: 8px;
+      font-size: 25px; }
+    main .favorites .no-favorites-icon {
+      margin-top: 110px; }
+    main .favorites .no-favorites-text {
+      max-width: 29.93%;
+      font-size: 22px; }
+    main .favorites .favorites-results {
+      margin-top: 36px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      padding: 0px 156px 0px 156px; }
+      main .favorites .favorites-results .gif-card {
+        width: 260px;
+        height: 200px; }
+        main .favorites .favorites-results .gif-card img {
+          max-width: 260px;
+          max-height: 200px; }
+    main .favorites .more-favorites:hover {
+      background-color: #572EE5;
+      color: #FFFFFF; }
+  main .create-gifos {
+    margin-top: 100px; }
+    main .create-gifos .create-gifos-frame {
+      min-width: 356px;
+      min-height: 277px;
+      border: 1px solid #572EE5; }
+      main .create-gifos .create-gifos-frame .create-gifos-subframe {
+        border: 1px solid #50E3C2;
+        min-height: 258px;
+        min-width: 338px;
+        margin: 9px; }
+        main .create-gifos .create-gifos-frame .create-gifos-subframe h2, main .create-gifos .create-gifos-frame .create-gifos-subframe p {
+          text-align: center;
+          margin: unset;
+          min-width: unset; }
+        main .create-gifos .create-gifos-frame .create-gifos-subframe h2 {
+          font-family: Montserrat, "Times New Roman", Times, serif;
+          font-weight: 700;
+          font-size: 20px;
+          color: #572EE5;
+          line-height: 30px; }
+          main .create-gifos .create-gifos-frame .create-gifos-subframe h2 span {
+            font-family: Montserrat, "Times New Roman", Times, serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: #5ED7C6;
+            line-height: 30px; }
+        main .create-gifos .create-gifos-frame .create-gifos-subframe p {
+          font-family: Roboto, "Times New Roman", Times, serif;
+          font-weight: 400;
+          font-size: 16px;
+          color: #000000;
+          line-height: 23px; }
+        main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container {
+          position: absolute;
+          width: 320px;
+          min-height: 240px;
+          margin: 9px; }
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container {
+            margin: 9px;
+            position: absolute;
+            z-index: 1;
+            overflow: hidden; }
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container::after {
+            content: "";
+            width: 100%;
+            height: 98%;
+            top: 0;
+            left: 0;
+            background-color: #572EE5;
+            opacity: 0.7;
+            position: absolute;
+            z-index: 2; }
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-status-icon {
+            z-index: 3;
+            order: 1; }
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-status-comment {
+            font-family: Montserrat;
+            font-weight: 700;
+            font-size: 15px;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 19px;
+            z-index: 3;
+            order: 2;
+            width: 100%;
+            margin: 14px; }
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options {
+            width: 100%;
+            position: absolute;
+            top: 0px; }
+            main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border {
+              z-index: 3;
+              width: 32px;
+              height: 32px;
+              background: #FFFFFF;
+              border-radius: 6px;
+              border-radius: 6px;
+              margin-top: 5px;
+              margin-right: 5px; }
+            main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link {
+              z-index: 3;
+              margin-top: 5px;
+              margin-right: 5px; }
+              main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border {
+                width: 32px;
+                height: 32px;
+                background: #FFFFFF;
+                border-radius: 6px;
+                border-radius: 6px; }
+    main .create-gifos .create-gifos-panel {
+      margin-top: 24px;
+      width: 100%; }
+      main .create-gifos .create-gifos-panel .step-icon-container {
+        width: 95%; }
+        main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
+          margin-right: 13px;
+          margin-left: 13px;
+          width: 32px;
+          height: 32px;
+          font-family: Roboto;
+          font-size: 18px;
+          color: #572EE5;
+          text-align: center;
+          border: 1px solid #572EE5;
+          border-radius: 50%; }
+        main .create-gifos .create-gifos-panel .step-icon-container .hms, main .create-gifos .create-gifos-panel .step-icon-container .repeat-capture {
+          margin-left: auto;
+          font-family: Montserrat, "Times New Roman", Times, serif;
+          font-weight: 700;
+          color: #572EE5;
+          letter-spacing: 0;
+          text-align: center; }
+        main .create-gifos .create-gifos-panel .step-icon-container .hms {
+          font-size: 15px;
+          line-height: 22px; }
+        main .create-gifos .create-gifos-panel .step-icon-container .repeat-capture {
+          font-size: 13px;
+          line-height: 16px;
+          border-bottom: 2px solid #5ED7C6; }
+      main .create-gifos .create-gifos-panel .control-panel-separator {
+        margin-top: 19px;
+        width: 98%;
+        height: 6.9px;
+        background: #572EE5; }
+      main .create-gifos .create-gifos-panel .control-panel-button {
+        margin-top: 20.1px;
+        min-width: 127px;
+        border: 1px solid #572EE5;
+        border-radius: 25px;
+        font-family: Montserrat;
+        font-weight: 700;
+        font-size: 13px;
+        color: #572EE5;
+        letter-spacing: 0;
+        text-align: center;
+        line-height: 50px; }
+      main .create-gifos .create-gifos-panel .control-panel-button:hover {
+        background-color: #572EE5;
+        color: #FFFFFF; }
+  main .my-gifos {
+    margin-top: 95px; }
+    main .my-gifos .my-gifos-icon {
+      margin-top: 10px; }
+    main .my-gifos .my-gifos-title {
+      margin-top: 8px;
+      font-size: 25px; }
+    main .my-gifos .no-gifos-icon {
+      margin-top: 111px; }
+    main .my-gifos .no-gifos-text {
+      margin-top: 40px;
+      font-size: 22px;
+      line-height: 25px; }
+    main .my-gifos .my-gifos-results {
+      margin-top: 36px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      padding: 0px 156px 0px 156px; }
+      main .my-gifos .my-gifos-results .gif-card img {
+        max-width: 260px;
+        max-height: 200px; }
+  @supports(object-fit: cover) {
+    main .my-gifos .my-gifos-results .gif-card img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center center; } }
+    main .my-gifos .more-my-gifos:hover {
+      background-color: #572EE5;
+      color: #FFFFFF; }
+  main .trending-gifos {
+    padding: 67px 0px 182px 0px; }
+    main .trending-gifos h2 {
+      margin-top: unset;
+      font-size: 25px; }
+    main .trending-gifos p {
+      max-width: unset;
+      margin: 7px auto 53px auto;
+      font-size: 18px;
+      line-height: 21px; }
+
+  footer .social-networks-text {
+    float: left;
+    margin-top: 49.5px;
+    margin-left: 156px;
+    font-size: 13px;
+    line-height: 15px; }
+  footer .social-networks-icons {
+    float: left;
+    margin-top: 47.4px;
+    margin-right: unset;
+    margin-left: 17px;
+    min-width: 98px;
+    width: 6.7%; }
+    footer .social-networks-icons a i:hover {
+      color: #572EE5; }
+  footer .rights-reserved-text {
+    float: right;
+    margin: unset;
+    margin-top: 49.5px;
+    margin-bottom: 51.5px;
+    margin-right: 158px;
+    font-size: 13px;
+    line-height: 15px; } }
 
 /*# sourceMappingURL=style.css.map */
