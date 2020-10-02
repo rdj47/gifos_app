@@ -33,14 +33,14 @@ footer .social-networks-icons {
   justify-content: space-between;
   align-content: center; }
 
-main .maximized .maximized-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .step-icon-container {
+main .search-results .results .search-result .gifo-options .gifo-border, main .maximized .maximized-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .step-icon-container {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   align-content: center; }
 
-main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options {
+main .search-results .results .search-result .gifo-options, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -312,12 +312,94 @@ main .search-results {
       margin: auto; }
       main .search-results .results .gif-card img {
         width: 156px;
-        min-height: 120px; }
-@supports(object-fit: cover) {
-  main .search-results .results .gif-card img {
-    height: 100%;
-    object-fit: cover;
-    object-position: center center; } }
+        min-height: 120px;
+        /*@supports(object-fit: cover)
+         * height: 100%
+         * width: 100%
+         * object-fit: cover
+         * object-position: center center */ }
+    main .search-results .results .search-result {
+      padding: unset;
+      width: 156px;
+      height: 120px;
+      overflow: hidden;
+      margin: auto;
+      /*.search-result-container:after
+       * content: ""
+       * width: 100%
+       * height: 98%
+       * top: 0
+       * left: 0
+       * background-color: #572EE5
+       * opacity: 0.7
+       * position: absolute
+       * z-index: 2 */ }
+      main .search-results .results .search-result .search-result-container {
+        padding: unset;
+        width: 156px;
+        height: 120px;
+        overflow: hidden;
+        margin: auto;
+        position: absolute; }
+        main .search-results .results .search-result .search-result-container .search-result-container-img {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 0; }
+        main .search-results .results .search-result .search-result-container .search-result-container-layer {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 1; }
+        main .search-results .results .search-result .search-result-container .search-result-container-layer:hover {
+          background: #572EE5;
+          opacity: 0.7; }
+      main .search-results .results .search-result .gifo-options {
+        width: 100%;
+        position: relative;
+        height: 37px;
+        display: none;
+        z-index: 3; }
+        main .search-results .results .search-result .gifo-options .gifo-border {
+          width: 32px;
+          height: 32px;
+          background: #FFFFFF;
+          border-radius: 6px;
+          border-radius: 6px;
+          margin-top: 10px;
+          margin-right: 10px;
+          opacity: 0.7; }
+          main .search-results .results .search-result .gifo-options .gifo-border .gifo-button {
+            width: 16.7px;
+            height: 16.7px; }
+        main .search-results .results .search-result .gifo-options .gifo-border:hover {
+          opacity: unset; }
+      main .search-results .results .search-result .gifo-user {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 95px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 400;
+        font-size: 15px;
+        color: #FFFFFF;
+        line-height: 18px;
+        z-index: 3; }
+      main .search-results .results .search-result .gifo-title {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 117px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: #FFFFFF;
+        line-height: 19px;
+        z-index: 3; }
   main .search-results .more-results {
     border: 1px solid #572EE5;
     border-radius: 25px;
@@ -479,10 +561,12 @@ main .favorites {
       margin: auto; }
       main .favorites .favorites-results .gif-card img {
         max-width: 156px;
-        max-height: 120px; }
+        max-height: 120px;
+        margin: auto; }
 @supports(object-fit: cover) {
   main .favorites .favorites-results .gif-card img {
     height: 100%;
+    width: 100%;
     object-fit: cover;
     object-position: center center; } }
   main .favorites .more-favorites {
@@ -747,7 +831,7 @@ footer {
     letter-spacing: 0;
     line-height: 20px; }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 853px) {
   header {
     padding: 0px 10.83% 0px 10.83%;
     width: 100%;
@@ -853,6 +937,35 @@ footer {
       main .search-results .results .gif-card img {
         width: 260px;
         min-height: 200px; }
+    main .search-results .results .search-result {
+      width: 260px;
+      height: 200px;
+      /*.search-result-container:after
+       * content: ""
+       * width: 100%
+       * height: 98%
+       * top: 0
+       * left: 0
+       * background-color: #572EE5
+       * opacity: 0.7
+       * position: absolute
+       * z-index: 2 */ }
+      main .search-results .results .search-result .search-result-container {
+        width: 260px;
+        height: 200px; }
+        main .search-results .results .search-result .search-result-container .search-result-container-img {
+          width: 260px;
+          min-height: 200px; }
+        main .search-results .results .search-result .search-result-container .search-result-container-layer {
+          position: absolute;
+          width: 260px;
+          min-height: 200px; }
+      main .search-results .results .search-result .gifo-options {
+        display: flex; }
+      main .search-results .results .search-result .gifo-user {
+        display: unset; }
+      main .search-results .results .search-result .gifo-title {
+        display: unset; }
   main .search-results .more-results:hover {
     background-color: #572EE5;
     color: #FFFFFF; }
@@ -880,6 +993,11 @@ footer {
         main .favorites .favorites-results .gif-card img {
           max-width: 260px;
           max-height: 200px; }
+  @supports(object-fit: cover) {
+    main .favorites .favorites-results .gif-card img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center center; } }
     main .favorites .more-favorites:hover {
       background-color: #572EE5;
       color: #FFFFFF; }
@@ -1051,16 +1169,16 @@ footer {
     main .my-gifos .more-my-gifos:hover {
       background-color: #572EE5;
       color: #FFFFFF; }
-  main .trending-gifos {
-    padding: 67px 0px 182px 0px; }
-    main .trending-gifos h2 {
-      margin-top: unset;
-      font-size: 25px; }
-    main .trending-gifos p {
-      max-width: unset;
-      margin: 7px auto 53px auto;
-      font-size: 18px;
-      line-height: 21px; }
+    main .my-gifos .trending-gifos {
+      padding: 67px 0px 182px 0px; }
+      main .my-gifos .trending-gifos h2 {
+        margin-top: unset;
+        font-size: 25px; }
+      main .my-gifos .trending-gifos p {
+        max-width: unset;
+        margin: 7px auto 53px auto;
+        font-size: 18px;
+        line-height: 21px; }
 
   footer .social-networks-text {
     float: left;

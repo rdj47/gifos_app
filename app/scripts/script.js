@@ -687,8 +687,8 @@ function drawSearchResults (searchResults) {
             i=searchResults.data.length;
         }
     }*/
-    //function based on tags creation
-    let searchResultModel= document.createElement('div');
+    //function based on tags creation (previous desktop desing)
+    /*let searchResultModel= document.createElement('div');
     searchResultModel.classList.add('gif-card');
     let searchResultImgModel= document.createElement('img');
     searchResultModel.appendChild(searchResultImgModel);
@@ -705,6 +705,119 @@ function drawSearchResults (searchResults) {
         let searchResultImg = searchResult.getElementsByTagName('img');
         searchResultImg[0].src=searchResults.data[i].images.fixed_height.url;
         searchResult.addEventListener('click', function() { maximizeSearchResult(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url); });
+        results.appendChild(searchResult);
+    }*/
+    //function based on tags creation (after desktop desing)
+    let searchResultModel= document.createElement('div');
+    searchResultModel.classList.add('search-result');
+    let searchResultContainerModel= document.createElement('div');    
+    searchResultContainerModel.classList.add('search-result-container');
+    let searchResultContainerImgModel= document.createElement('img');
+    searchResultContainerImgModel.classList.add('search-result-container-img');
+    let searchResultContainerLayerModel= document.createElement('div');
+    searchResultContainerLayerModel.classList.add('search-result-container-layer');
+    searchResultContainerModel.appendChild(searchResultContainerImgModel);
+    searchResultContainerModel.appendChild(searchResultContainerLayerModel);
+
+    let gifoOptions = document.createElement('div');
+    gifoOptions.classList.add('gifo-options');
+
+    let gifoMaximizeBorder = document.createElement('div');
+    gifoMaximizeBorder.classList.add('gifo-maximize-border','gifo-border');
+    let maximizeButton = document.createElement('img');
+    maximizeButton.classList.add('maximize-button');
+    maximizeButton.src = 'images/icon-max.svg';
+    gifoMaximizeBorder.appendChild(maximizeButton);
+    gifoOptions.appendChild(gifoMaximizeBorder);
+
+    let gifoDownloadBorder = document.createElement('div');
+    gifoDownloadBorder.classList.add('gifo-download-border', 'gifo-border');
+    let downloadButton = document.createElement('img');
+    downloadButton.classList.add('download-button', 'gifo-button');
+    downloadButton.src = 'images/icon-download.svg';
+    gifoDownloadBorder.appendChild(downloadButton);
+    gifoOptions.appendChild(gifoDownloadBorder);
+
+    let gifoLikeBorder = document.createElement('div');
+    gifoLikeBorder.classList.add('gifo-like-border', 'gifo-border');
+    let likeButton = document.createElement('img');
+    likeButton.classList.add('like-button', 'gifo-button');
+    likeButton.src = 'images/icon-fav-hover.svg';
+    gifoLikeBorder.appendChild(likeButton);
+    gifoOptions.appendChild(gifoLikeBorder);
+
+    let gifoUser = document.createElement('div');
+    gifoUser.classList.add('gifo-user');
+    let gifoTitle = document.createElement('div');
+    gifoTitle.classList.add('gifo-title');
+
+    /*let gifoTrashBorder = document.createElement('div');
+    gifoTrashBorder.classList.add('gifo-trash-border', 'gifo-border');
+    let trashButton = document.createElement('img');
+    trashButton.classList.add('trash-button', 'gifo-button');
+    trashButton.src = 'images/icon-fav-hover.svg';
+    gifoTrashBorder.appendChild(trahButton);
+    gifoOptions.appendChild(gifoTrashBorder);*/
+       
+
+    searchResultModel.appendChild(searchResultContainerModel);
+    searchResultModel.appendChild(gifoOptions);
+    searchResultModel.appendChild(gifoUser);
+    searchResultModel.appendChild(gifoTitle);
+
+    let results = document.getElementById('results');
+    results.classList.remove('hide');
+    console.log ("Start iteration for drawing results");
+    for (let i=0; i<searchResults.data.length; i++) {
+        let searchResult = searchResultModel.cloneNode(true);
+        searchResult.setAttribute("order",1+searchResults.pagination.offset+i);
+        searchResult.setAttribute("id",searchResults.data[i].id);
+        searchResult.setAttribute("user",searchResults.data[i].username);
+        searchResult.setAttribute("title",searchResults.data[i].title);
+        console.log(searchResult);  
+        console.log("searchResultContainerModel: ");
+        console.log(searchResult.getElementsByTagName('div')[0]);
+        console.log("searchResultContainerImgModel: ");
+        console.log(searchResult.getElementsByTagName('div')[0].getElementsByTagName('img')[0]);
+        //searchResultContainerImg = searchResult.getElementsByTagName('div')[0].getElementsByTagName('img')[0];
+        //searchResultContainerImg[0].src=searchResults.data[i].images.fixed_height.url;
+        searchResult.getElementsByTagName('div')[0].getElementsByTagName('img')[0].src=searchResults.data[i].images.fixed_height.url;
+        //searchResult.getElementsByClassName('gifo-user')[0].textContent = searchResults.data[i].username;
+        if(searchResults.data[i].username) {
+            searchResult.getElementsByClassName('gifo-user')[0].textContent = searchResults.data[i].username;
+        } else {
+            searchResult.getElementsByClassName('gifo-user')[0].textContent = "Usuario no registrado"
+        }
+        if(searchResults.data[i].title) {
+            searchResult.getElementsByClassName('gifo-title')[0].textContent = searchResults.data[i].title;
+        } else {
+            searchResult.getElementsByClassName('gifo-title')[0].textContent = "Título no registrado"
+        }
+        function myFunction(x) {
+            if (x.matches) { // If media query matches
+                searchResult.addEventListener('click', function() { maximizeSearchResult(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url); });
+            } else {
+
+            }
+        }
+        var x = window.matchMedia("(max-width: 852px)");
+        myFunction(x); // Call listener function at run time
+        x.addListener(myFunction); // Attach listener function on state changes          
+
+        searchResult.getElementsByClassName('gifo-maximize-border')[0].addEventListener('click', function() { maximizeSearchResult(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url); });
+        downloadFunction = function (e) { 
+            var x=new XMLHttpRequest();
+            x.open("GET", searchResults.data[i].images.original.url, true);
+            x.responseType = 'blob';
+            x.onload=function(e){download(x.response, "GIFOS_"+searchResults.data[i].id+".gif", "image/gif" ); }
+            x.send(); 
+        }
+        searchResult.getElementsByClassName('gifo-download-border')[0].addEventListener("click", downloadFunction, true);
+        setFavoriteFunction = function (e) { 
+            setFavorite(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url, "results"); 
+        }
+        queryFavorite(searchResults.data[i].id,"results");
+        searchResult.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
         results.appendChild(searchResult);
     }
 }
@@ -820,13 +933,13 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     }
     maximizedDownloadBorder.addEventListener("click", downloadFunction, true);
     setFavoriteFunction = function (e) { 
-        setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); 
+        setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl, "maximized"); 
     }
     trashFunction = function (e) { 
         trash (resultId);
         maximizedTrashButton.removeEventListener('click', trashFunction, true); 
     }
-    queryFavorite(resultId);
+    queryFavorite(resultId,"maximized");
     maximizedLikeButton.addEventListener('click', setFavoriteFunction, true);
     maximizedTrashButton.addEventListener('click', trashFunction, true);
     if(trendingFlag==true) {
@@ -889,7 +1002,7 @@ function hideContentForMaximizingReverse (favoritesFlag,myGifosFlag) {
 }
 
 // queryFavorite
-function queryFavorite (resultId) {
+function queryFavorite (resultId, context) {
     console.log ("##f()## queryFavorite function execution");
     let savedFavoritesObject = 0;
     try {
@@ -906,13 +1019,19 @@ function queryFavorite (resultId) {
     //let savedFavoritesObject = JSON.parse(savedFavoritesString);
     if (savedFavoritesObject!=null) { 
         if((savedFavoritesObject.findIndex(element => element.Id==resultId))!==-1) {
-            maximizedLikeButton.src="images/icon-fav-active.svg";
+            if(context=="maximized"){ 
+                maximizedLikeButton.src="images/icon-fav-active.svg";
+                maximizedDownloadBorder.style.opacity='unset';   
+            } else if (context=="results") {
+                document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+            }
         }
     }
 }
 
 // setFavorite
-function setFavorite (resultId, resultUser, resultName, resultUrl, resultOriginalUrl) {
+function setFavorite (resultId, resultUser, resultName, resultUrl, resultOriginalUrl, context) {
     console.log ("##f()## setFavorite function execution");
     savedFavoritesObject = new Array();
     savedFavoritesObject = JSON.parse(localStorage.getItem('favorites'));
@@ -938,7 +1057,6 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
         console.log("Índice del maximizado: "+savedFavoritesObject.findIndex(element => element.Id==resultId));
         if((savedFavoritesObject.findIndex(element => element.Id==resultId))==-1) {
             console.log ("No era favorito, ahora lo es."); 
-            maximizedLikeButton.src="images/icon-fav-active.svg";   
             let newFavorite = {
                 "Id": resultId,
                 "user": resultUser,
@@ -952,9 +1070,15 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
             localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
             console.log("Array Favorites: "+savedFavoritesObject);
             console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
+            if (context=='maximized') {
+                maximizedLikeButton.src="images/icon-fav-active.svg";
+                maximizedLikeButton.style.opacity='unset';   
+            } else if (context=='results') {
+                document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+            }
         } else {
             console.log ("Era favorito, ahora ya no lo es."); 
-            maximizedLikeButton.src="images/icon-fav-hover.svg";   
             let newFavorite = {
                 "Id": resultId,
                 "user": resultUser,
@@ -968,10 +1092,16 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
             localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
             console.log("Array Favorites: "+savedFavoritesObject);
             console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
+            if (context=='maximized') {
+                maximizedLikeButton.src="images/icon-fav-hover.svg";  
+                maximizedLikeButton.style.opacity='0.7'; 
+            } else if (context=='results') {
+                document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-hover.svg";
+                document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='0.7';
+            }
         }    
     } else {
         console.log ("No hay favoritos. Ahora es favorito"); 
-        maximizedLikeButton.src="images/icon-fav-active.svg";
         let newFavorite = {
             "Id": resultId,
             "user": resultUser,
@@ -990,6 +1120,13 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
         localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
         console.log("Array Favorites: "+savedFavoritesObject);
         console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
+        if (context=='maximized') {
+            maximizedLikeButton.src="images/icon-fav-active.svg";   
+            maximizedLikeButton.style.opacity='unset';
+        } else if (context=='results') {
+            document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+            document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+        }
     }
 }
 
