@@ -5,7 +5,7 @@ main .banner, main .banner .presentation, main .search-results, main .favorites,
   justify-content: flex-start;
   align-content: center; }
 
-main .create-gifos .create-gifos-frame .create-gifos-subframe, main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
+main .create-gifos .create-gifos-frame .create-gifos-subframe, main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container .step-icon {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -33,14 +33,14 @@ footer .social-networks-icons {
   justify-content: space-between;
   align-content: center; }
 
-main .search-results .results .search-result .gifo-options .gifo-border, main .maximized .maximized-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .step-icon-container {
+header .add-gifo, main .search-results .results .search-result .gifo-options .gifo-border, main .maximized .maximized-frame .maximized-download-border, main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options .gifo-border, main .favorites .favorites-results .gifo .gifo-options .gifo-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container, main .my-gifos .my-gifos-results .gifo .gifo-options .gifo-border {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   align-content: center; }
 
-main .search-results .results .search-result .gifo-options, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options {
+main .search-results .results .search-result .gifo-options, main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options, main .favorites .favorites-results .gifo .gifo-options, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options, main .my-gifos .my-gifos-results .gifo .gifo-options {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -51,6 +51,12 @@ main .search-results .results, main .favorites .favorites-results, main .my-gifo
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
   grid-gap: 21px; }
+
+main .create-gifos .create-gifos-panel .menu-icons-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1;
+  grid-gap: 0; }
 
 * {
   margin: 0;
@@ -75,6 +81,9 @@ header svg {
   float: left;
   height: 48.8px;
   width: 48.8px; }
+
+header .add-gifo {
+  display: none; }
 
 header nav {
   float: right; }
@@ -431,12 +440,12 @@ main .maximized {
     position: relative;
     margin-top: 64px;
     left: 85.84%; }
-  main .maximized .maximized-result-img {
+  main .maximized .maximized-frame .maximized-result-img {
     display: block;
     margin: auto;
     margin-top: 78px;
     width: 85%; }
-  main .maximized .maximized-result-user {
+  main .maximized .maximized-frame .maximized-result-user {
     position: relative;
     margin-top: 14px;
     left: 9.33%;
@@ -446,7 +455,7 @@ main .maximized {
     font-weight: 400;
     line-height: 18px;
     color: #000000; }
-  main .maximized .maximized-result-title {
+  main .maximized .maximized-frame .maximized-result-title {
     position: relative;
     margin-top: 6px;
     left: 7.87%;
@@ -457,7 +466,7 @@ main .maximized {
     line-height: 19px;
     color: #000000;
     max-width: 50%; }
-  main .maximized .maximized-like-button, main .maximized .maximized-trash-button {
+  main .maximized .maximized-frame .maximized-like-button, main .maximized .maximized-frame .maximized-trash-button {
     position: relative;
     width: 20px;
     height: 18px;
@@ -465,11 +474,11 @@ main .maximized {
     top: -31px;
     margin-right: 17.33%;
     opacity: 0.5; }
-  main .maximized .maximized-like-button:hover {
+  main .maximized .maximized-frame .maximized-like-button:hover {
     opacity: unset; }
-  main .maximized .maximized-trash-button:hover {
+  main .maximized .maximized-frame .maximized-trash-button:hover {
     opacity: unset; }
-  main .maximized .maximized-download-border {
+  main .maximized .maximized-frame .maximized-download-border {
     position: relative;
     width: 36px;
     height: 36px;
@@ -480,16 +489,15 @@ main .maximized {
     background: #FFFFFF;
     border: 1px solid #9CAFC3;
     border-radius: 6px; }
-    main .maximized .maximized-download-border .maximized-download-button {
+    main .maximized .maximized-frame .maximized-download-border .maximized-download-button {
       width: 19.2px;
       height: 21.1px; }
-  main .maximized .maximized-download-border:hover {
+  main .maximized .maximized-frame .maximized-download-border:hover {
     opacity: unset; }
 main .trending-gifos {
   padding: 46px 0px 82px 0px;
   width: 100%;
-  background: #F3F5F8;
-  text-align: center; }
+  background: #F3F5F8; }
   main .trending-gifos h2 {
     width: 100%;
     height: 30px;
@@ -515,12 +523,86 @@ main .trending-gifos {
     overflow-x: scroll;
     scroll-padding: 0 50%;
     scroll-snap-type: x mandatory; }
-  main .trending-gifos .trending-item {
-    scroll-snap-align: center;
-    display: inline-block;
-    max-height: 200px;
-    font-size: 0;
-    margin-right: 3rem; }
+    main .trending-gifos .trending-gallery .trending-item {
+      scroll-snap-align: center;
+      display: inline-block;
+      max-height: 200px;
+      font-size: 0;
+      margin-right: 3rem; }
+  main .trending-gifos .trending-gallery-desktop {
+    width: 100%;
+    text-align: unset; }
+    main .trending-gifos .trending-gallery-desktop .carousel .gifo {
+      padding: unset;
+      width: 156px;
+      height: 120px;
+      overflow: hidden;
+      margin: auto; }
+      main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-container {
+        padding: unset;
+        width: 156px;
+        height: 120px;
+        overflow: hidden;
+        position: absolute;
+        /*.gifo-container-layer:hover
+         * background: #572EE5
+         * opacity: 0.7 */ }
+        main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-container .gifo-container-img {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 0; }
+        main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-container .gifo-container-layer {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 1; }
+      main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options {
+        width: 100%;
+        position: relative;
+        height: 37px;
+        display: none;
+        z-index: 3; }
+        main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options .gifo-border {
+          width: 32px;
+          height: 32px;
+          background: #FFFFFF;
+          border-radius: 6px;
+          border-radius: 6px;
+          margin-top: 10px;
+          margin-right: 10px;
+          opacity: 0.7; }
+          main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options .gifo-border .gifo-button {
+            width: 16.7px;
+            height: 16.7px; }
+        main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options .gifo-border:hover {
+          opacity: unset; }
+      main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-user {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 95px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 400;
+        font-size: 15px;
+        color: #FFFFFF;
+        line-height: 18px;
+        z-index: 3; }
+      main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-title {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 117px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: #FFFFFF;
+        line-height: 19px;
+        z-index: 3; }
 main .favorites {
   width: 100%;
   margin-top: 100px; }
@@ -569,6 +651,78 @@ main .favorites {
     width: 100%;
     object-fit: cover;
     object-position: center center; } }
+    main .favorites .favorites-results .gifo {
+      padding: unset;
+      width: 156px;
+      height: 120px;
+      overflow: hidden;
+      margin: auto; }
+      main .favorites .favorites-results .gifo .gifo-container {
+        padding: unset;
+        width: 156px;
+        height: 120px;
+        overflow: hidden;
+        margin: auto;
+        position: absolute;
+        /*.gifo-container-layer:hover
+         * background: #572EE5
+         * opacity: 0.7 */ }
+        main .favorites .favorites-results .gifo .gifo-container .gifo-container-img {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 0; }
+        main .favorites .favorites-results .gifo .gifo-container .gifo-container-layer {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 1; }
+      main .favorites .favorites-results .gifo .gifo-options {
+        width: 100%;
+        position: relative;
+        height: 37px;
+        display: none;
+        z-index: 3; }
+        main .favorites .favorites-results .gifo .gifo-options .gifo-border {
+          width: 32px;
+          height: 32px;
+          background: #FFFFFF;
+          border-radius: 6px;
+          border-radius: 6px;
+          margin-top: 10px;
+          margin-right: 10px;
+          opacity: 0.7; }
+          main .favorites .favorites-results .gifo .gifo-options .gifo-border .gifo-button {
+            width: 16.7px;
+            height: 16.7px; }
+        main .favorites .favorites-results .gifo .gifo-options .gifo-border:hover {
+          opacity: unset; }
+      main .favorites .favorites-results .gifo .gifo-user {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 95px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 400;
+        font-size: 15px;
+        color: #FFFFFF;
+        line-height: 18px;
+        z-index: 3; }
+      main .favorites .favorites-results .gifo .gifo-title {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 117px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: #FFFFFF;
+        line-height: 19px;
+        z-index: 3; }
   main .favorites .more-favorites {
     border: 1px solid #572EE5;
     border-radius: 25px;
@@ -686,11 +840,11 @@ main .create-gifos {
   main .create-gifos .create-gifos-panel {
     margin-top: 24px;
     width: 100%; }
-    main .create-gifos .create-gifos-panel .step-icon-container {
-      width: 95%; }
-      main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
-        margin-right: 13px;
-        margin-left: 13px;
+    main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container {
+      grid-column: 2; }
+      main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container .step-icon {
+        margin-right: 2px;
+        margin-left: 2px;
         width: 32px;
         height: 32px;
         font-family: Roboto;
@@ -699,20 +853,24 @@ main .create-gifos {
         text-align: center;
         border: 1px solid #572EE5;
         border-radius: 50%; }
-      main .create-gifos .create-gifos-panel .step-icon-container .hms, main .create-gifos .create-gifos-panel .step-icon-container .repeat-capture {
-        margin-left: auto;
-        font-family: Montserrat, "Times New Roman", Times, serif;
-        font-weight: 700;
-        color: #572EE5;
-        letter-spacing: 0;
-        text-align: center; }
-      main .create-gifos .create-gifos-panel .step-icon-container .hms {
-        font-size: 15px;
-        line-height: 22px; }
-      main .create-gifos .create-gifos-panel .step-icon-container .repeat-capture {
-        font-size: 13px;
-        line-height: 16px;
-        border-bottom: 2px solid #5ED7C6; }
+    main .create-gifos .create-gifos-panel .menu-icons-container .hms, main .create-gifos .create-gifos-panel .menu-icons-container .repeat-capture {
+      grid-column: 3;
+      margin-left: auto;
+      font-family: Montserrat, "Times New Roman", Times, serif;
+      font-weight: 700;
+      color: #572EE5;
+      letter-spacing: 0;
+      text-align: center; }
+    main .create-gifos .create-gifos-panel .menu-icons-container .hms {
+      font-size: 15px;
+      line-height: 22px;
+      width: 73.4px;
+      height: 22px; }
+    main .create-gifos .create-gifos-panel .menu-icons-container .repeat-capture {
+      font-size: 13px;
+      line-height: 16px;
+      border-bottom: 2px solid #5ED7C6;
+      width: 65px; }
     main .create-gifos .create-gifos-panel .control-panel-separator {
       margin-top: 19px;
       width: 98%;
@@ -766,6 +924,11 @@ main .my-gifos {
       padding: unset;
       width: 260px;
       height: 200px;
+      margin: auto;
+      padding: unset;
+      width: 156px;
+      height: 120px;
+      overflow: hidden;
       margin: auto; }
       main .my-gifos .my-gifos-results .gif-card img {
         max-width: 260px;
@@ -775,6 +938,78 @@ main .my-gifos {
     height: 100%;
     object-fit: cover;
     object-position: center center; } }
+    main .my-gifos .my-gifos-results .gifo {
+      padding: unset;
+      width: 156px;
+      height: 120px;
+      overflow: hidden;
+      margin: auto; }
+      main .my-gifos .my-gifos-results .gifo .gifo-container {
+        padding: unset;
+        width: 156px;
+        height: 120px;
+        overflow: hidden;
+        margin: auto;
+        position: absolute;
+        /*.gifo-container-layer:hover
+         * background: #572EE5
+         * opacity: 0.7 */ }
+        main .my-gifos .my-gifos-results .gifo .gifo-container .gifo-container-img {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 0; }
+        main .my-gifos .my-gifos-results .gifo .gifo-container .gifo-container-layer {
+          position: absolute;
+          width: 156px;
+          min-height: 120px;
+          z-index: 1; }
+      main .my-gifos .my-gifos-results .gifo .gifo-options {
+        width: 100%;
+        position: relative;
+        height: 37px;
+        display: none;
+        z-index: 3; }
+        main .my-gifos .my-gifos-results .gifo .gifo-options .gifo-border {
+          width: 32px;
+          height: 32px;
+          background: #FFFFFF;
+          border-radius: 6px;
+          border-radius: 6px;
+          margin-top: 10px;
+          margin-right: 10px;
+          opacity: 0.7; }
+          main .my-gifos .my-gifos-results .gifo .gifo-options .gifo-border .gifo-button {
+            width: 16.7px;
+            height: 16.7px; }
+        main .my-gifos .my-gifos-results .gifo .gifo-options .gifo-border:hover {
+          opacity: unset; }
+      main .my-gifos .my-gifos-results .gifo .gifo-user {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 95px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 400;
+        font-size: 15px;
+        color: #FFFFFF;
+        line-height: 18px;
+        z-index: 3; }
+      main .my-gifos .my-gifos-results .gifo .gifo-title {
+        display: none;
+        max-width: 234px;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-top: 117px;
+        position: absolute;
+        font-family: Roboto, "Times New Roman", Times, serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: #FFFFFF;
+        line-height: 19px;
+        z-index: 3; }
   main .my-gifos .more-my-gifos {
     border: 1px solid #572EE5;
     border-radius: 25px;
@@ -839,6 +1074,23 @@ footer {
     header .logo-mobile, header .logo-mobile-dark {
       position: relative;
       top: 18px; }
+    header .add-gifo {
+      width: 54px;
+      height: 54px;
+      border: 1px solid #572EE5;
+      border-radius: 50%;
+      display: inline-block;
+      float: right;
+      position: relative;
+      top: 18px;
+      margin-left: 59.5px; }
+      header .add-gifo .add-gifo-button {
+        width: 16px;
+        height: 16px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 19px; }
     header nav .menu {
       padding: 0; }
     header nav {
@@ -861,7 +1113,14 @@ footer {
           header nav .menu ul li {
             padding: 0;
             margin-left: 48px;
-            display: inline-block; }
+            display: inline-block;
+            /*a:hover
+             * //color: #00F3BB
+             * //font-weight: 500
+             * text-decoration: underline #00F3BB */
+            /*a:active
+             * text-decoration: none
+             * color: #9CAFC3 */ }
             header nav .menu ul li a {
               font-size: 13px;
               padding: unset;
@@ -870,25 +1129,12 @@ footer {
               color: #572EE5;
               padding: 0;
               text-transform: uppercase; }
-            header nav .menu ul li a:hover {
-              text-decoration: underline #00F3BB; }
-            header nav .menu ul li a:active {
-              text-decoration: none;
-              color: #9CAFC3; }
             header nav .menu ul li .option-divisor {
               display: none; }
+          header nav .menu ul .create-gifos-link {
+            display: none; }
         header nav .menu input {
           display: none; }
-    header .add-gifo {
-      width: 54px;
-      height: 54px;
-      border: 1px solid #572EE5;
-      border-radius: 50%;
-      display: inline-block;
-      float: right;
-      position: relative;
-      top: 18px;
-      margin-left: 59.5px; }
 
   main .banner {
     padding-top: 95px; }
@@ -960,15 +1206,112 @@ footer {
           position: absolute;
           width: 260px;
           min-height: 200px; }
-      main .search-results .results .search-result .gifo-options {
-        display: flex; }
-      main .search-results .results .search-result .gifo-user {
-        display: unset; }
-      main .search-results .results .search-result .gifo-title {
-        display: unset; }
   main .search-results .more-results:hover {
     background-color: #572EE5;
     color: #FFFFFF; }
+  main .maximized .maximized-close-button {
+    width: 15.2px;
+    height: 15.2px; }
+  main .maximized .maximized-frame {
+    width: 49%;
+    margin-left: auto;
+    margin-right: auto; }
+    main .maximized .maximized-frame .maximized-result-img {
+      margin-top: 78.4px;
+      max-height: 385px;
+      width: 100%; }
+    main .maximized .maximized-frame .maximized-result-user {
+      margin-top: 27px;
+      left: unset; }
+    main .maximized .maximized-frame .maximized-result-title {
+      left: unset; }
+    main .maximized .maximized-frame .maximized-like-button, main .maximized .maximized-frame .maximized-trash-button {
+      margin-right: 21px; }
+    main .maximized .maximized-frame .maximized-download-border {
+      right: unset; }
+  main .trending-gifos {
+    padding: 46px 0px 82px 0px;
+    width: 100%;
+    background: #F3F5F8; }
+    main .trending-gifos h2 {
+      width: 100%;
+      height: 30px;
+      font-family: Montserrat, "Times New Roman", Times, serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: #572EE5;
+      text-align: center;
+      line-height: 30px; }
+    main .trending-gifos p {
+      display: block;
+      max-width: 45%;
+      margin: 7px auto 32px auto;
+      font-family: Roboto, "Times New Roman", Times, serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: #000000;
+      text-align: center;
+      line-height: 23px; }
+    main .trending-gifos .trending-gallery {
+      padding: unset;
+      margin: auto;
+      width: 1129px;
+      display: flex;
+      overflow-x: scroll;
+      scroll-padding: 0 50%;
+      scroll-snap-type: x mandatory;
+      overflow: hidden;
+      margin-right: 156px;
+      margin-right: 156px; }
+    main .trending-gifos .trending-gallery-desktop {
+      width: 100%;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      padding: unset;
+      text-align: unset; }
+      main .trending-gifos .trending-gallery-desktop .arrow-border {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #572EE5;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        margin-right: 25px;
+        margin-left: 25px; }
+      main .trending-gifos .trending-gallery-desktop .carousel {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(357px, 1fr));
+        grid-gap: 29px;
+        width: 1129px;
+        height: 275px; }
+        main .trending-gifos .trending-gallery-desktop .carousel .gifo {
+          width: 357px;
+          height: 275px;
+          /*.search-result-container:after
+           * content: ""
+           * width: 100%
+           * height: 98%
+           * top: 0
+           * left: 0
+           * background-color: #572EE5
+           * opacity: 0.7
+           * position: absolute
+           * z-index: 2 */ }
+          main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-container {
+            width: 357px;
+            height: 275px; }
+            main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-container .gifo-container-img {
+              width: 357px;
+              min-height: 275px; }
+            main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-container .gifo-container-layer {
+              position: absolute;
+              width: 357px;
+              min-height: 275px; }
   main .favorites {
     margin-top: 95px; }
     main .favorites .favorites-icon {
@@ -998,19 +1341,43 @@ footer {
       height: 100%;
       object-fit: cover;
       object-position: center center; } }
+      main .favorites .favorites-results .gifo {
+        width: 260px;
+        height: 200px;
+        /*.search-result-container:after
+         * content: ""
+         * width: 100%
+         * height: 98%
+         * top: 0
+         * left: 0
+         * background-color: #572EE5
+         * opacity: 0.7
+         * position: absolute
+         * z-index: 2 */ }
+        main .favorites .favorites-results .gifo .gifo-container {
+          width: 260px;
+          height: 200px; }
+          main .favorites .favorites-results .gifo .gifo-container .gifo-container-img {
+            width: 260px;
+            min-height: 200px; }
+          main .favorites .favorites-results .gifo .gifo-container .gifo-container-layer {
+            position: absolute;
+            width: 260px;
+            min-height: 200px; }
     main .favorites .more-favorites:hover {
       background-color: #572EE5;
       color: #FFFFFF; }
   main .create-gifos {
     margin-top: 100px; }
     main .create-gifos .create-gifos-frame {
-      min-width: 356px;
-      min-height: 277px;
+      justify-content: center;
+      min-width: 688px;
+      min-height: 390px;
       border: 1px solid #572EE5; }
       main .create-gifos .create-gifos-frame .create-gifos-subframe {
         border: 1px solid #50E3C2;
-        min-height: 258px;
-        min-width: 338px;
+        height: 350px;
+        width: 648px;
         margin: 9px; }
         main .create-gifos .create-gifos-frame .create-gifos-subframe h2, main .create-gifos .create-gifos-frame .create-gifos-subframe p {
           text-align: center;
@@ -1019,35 +1386,46 @@ footer {
         main .create-gifos .create-gifos-frame .create-gifos-subframe h2 {
           font-family: Montserrat, "Times New Roman", Times, serif;
           font-weight: 700;
-          font-size: 20px;
+          font-size: 25px;
           color: #572EE5;
-          line-height: 30px; }
+          line-height: 35px; }
           main .create-gifos .create-gifos-frame .create-gifos-subframe h2 span {
             font-family: Montserrat, "Times New Roman", Times, serif;
             font-weight: 700;
-            font-size: 20px;
+            font-size: 25px;
             color: #5ED7C6;
-            line-height: 30px; }
+            line-height: 35px; }
         main .create-gifos .create-gifos-frame .create-gifos-subframe p {
           font-family: Roboto, "Times New Roman", Times, serif;
           font-weight: 400;
           font-size: 16px;
           color: #000000;
-          line-height: 23px; }
+          line-height: 29px; }
+        main .create-gifos .create-gifos-frame .create-gifos-subframe .camera {
+          width: 480px;
+          height: 320px; }
         main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container {
           position: absolute;
-          width: 320px;
-          min-height: 240px;
+          width: 480px;
+          min-height: 320px;
           margin: 9px; }
+          main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .gifo-preview {
+            width: 480px;
+            height: 320px; }
           main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container {
             margin: 9px;
             position: absolute;
             z-index: 1;
-            overflow: hidden; }
+            overflow: hidden;
+            width: 480px;
+            height: 320px; }
+            main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container .upload-gifo-preview {
+              width: 480px;
+              height: 320px; }
           main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-preview-container::after {
             content: "";
             width: 100%;
-            height: 98%;
+            height: 100%;
             top: 0;
             left: 0;
             background-color: #572EE5;
@@ -1079,12 +1457,12 @@ footer {
               background: #FFFFFF;
               border-radius: 6px;
               border-radius: 6px;
-              margin-top: 5px;
-              margin-right: 5px; }
+              margin-top: 12px;
+              margin-right: 12px; }
             main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link {
               z-index: 3;
-              margin-top: 5px;
-              margin-right: 5px; }
+              margin-top: 12px;
+              margin-right: 12px; }
               main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border {
                 width: 32px;
                 height: 32px;
@@ -1094,40 +1472,40 @@ footer {
     main .create-gifos .create-gifos-panel {
       margin-top: 24px;
       width: 100%; }
-      main .create-gifos .create-gifos-panel .step-icon-container {
-        width: 95%; }
-        main .create-gifos .create-gifos-panel .step-icon-container .step-icon {
-          margin-right: 13px;
-          margin-left: 13px;
-          width: 32px;
-          height: 32px;
-          font-family: Roboto;
-          font-size: 18px;
-          color: #572EE5;
-          text-align: center;
-          border: 1px solid #572EE5;
-          border-radius: 50%; }
-        main .create-gifos .create-gifos-panel .step-icon-container .hms, main .create-gifos .create-gifos-panel .step-icon-container .repeat-capture {
-          margin-left: auto;
-          font-family: Montserrat, "Times New Roman", Times, serif;
-          font-weight: 700;
-          color: #572EE5;
-          letter-spacing: 0;
-          text-align: center; }
-        main .create-gifos .create-gifos-panel .step-icon-container .hms {
-          font-size: 15px;
-          line-height: 22px; }
-        main .create-gifos .create-gifos-panel .step-icon-container .repeat-capture {
+      main .create-gifos .create-gifos-panel .menu-icons-container {
+        width: 688px; }
+        main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container {
+          grid-column: 2; }
+          main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container .step-icon {
+            margin-right: 13px;
+            margin-left: 13px;
+            width: 32px;
+            height: 32px;
+            font-family: Roboto;
+            font-size: 18px;
+            color: #572EE5;
+            text-align: center;
+            border: 1px solid #572EE5;
+            border-radius: 50%; }
+        main .create-gifos .create-gifos-panel .menu-icons-container .hms, main .create-gifos .create-gifos-panel .menu-icons-container .repeat-capture {
+          margin-left: unset;
+          justify-self: right;
+          align-self: center; }
+        main .create-gifos .create-gifos-panel .menu-icons-container .hms {
+          font-size: 15px; }
+        main .create-gifos .create-gifos-panel .menu-icons-container .repeat-capture {
           font-size: 13px;
-          line-height: 16px;
-          border-bottom: 2px solid #5ED7C6; }
+          border-bottom: 2px solid #5ED7C6;
+          width: 131px;
+          height: 16px; }
       main .create-gifos .create-gifos-panel .control-panel-separator {
         margin-top: 19px;
-        width: 98%;
+        width: 795.9px;
         height: 6.9px;
         background: #572EE5; }
       main .create-gifos .create-gifos-panel .control-panel-button {
         margin-top: 20.1px;
+        margin-bottom: 20.1px;
         min-width: 127px;
         border: 1px solid #572EE5;
         border-radius: 25px;
@@ -1166,6 +1544,29 @@ footer {
       height: 100%;
       object-fit: cover;
       object-position: center center; } }
+      main .my-gifos .my-gifos-results .gifo {
+        width: 260px;
+        height: 200px;
+        /*.search-result-container:after
+         * content: ""
+         * width: 100%
+         * height: 98%
+         * top: 0
+         * left: 0
+         * background-color: #572EE5
+         * opacity: 0.7
+         * position: absolute
+         * z-index: 2 */ }
+        main .my-gifos .my-gifos-results .gifo .gifo-container {
+          width: 260px;
+          height: 200px; }
+          main .my-gifos .my-gifos-results .gifo .gifo-container .gifo-container-img {
+            width: 260px;
+            min-height: 200px; }
+          main .my-gifos .my-gifos-results .gifo .gifo-container .gifo-container-layer {
+            position: absolute;
+            width: 260px;
+            min-height: 200px; }
     main .my-gifos .more-my-gifos:hover {
       background-color: #572EE5;
       color: #FFFFFF; }

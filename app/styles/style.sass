@@ -51,8 +51,17 @@
 %grid-justify-items-center  
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(156px, 1fr))
-    //grid-template-rows: 6
     grid-gap: 21px
+//%grid-justify-items-center-one-row
+    //display: grid
+    //grid-template-columns: repeat(auto-fit, minmax(156px, 1fr))
+    //grid-template-rows: 1
+    //grid-gap: 21px
+%grid-menu-container
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    grid-template-rows: 1
+    grid-gap: 0
 
 //@supports(object-fit: cover)
     //main .search-results .results .gif-card img
@@ -85,6 +94,10 @@ header svg
     float: left
     height: 48.8px
     width: 48.8px
+
+header .add-gifo
+    display: none
+    @extend %flex-row-justify-center
 
 header nav 
     float: right
@@ -471,70 +484,71 @@ main
             position: relative
             margin-top: 64px
             left: 85.84%
-        .maximized-result-img
-            display: block
-            margin: auto
-            margin-top: 78px
-            width: 85%
-            //min-width: 318px
-            //max-height: 245px
-        .maximized-result-user
-            position: relative
-            margin-top: 14px
-            left: 9.33%
-            font-family: Roboto, 'Times New Roman', Times, serif
-            font-weight: 400
-            font-size: 15px
-            font-weight: 400
-            line-height: 18px
-            color: #000000
-            //text-align: center
-        .maximized-result-title
-            position: relative
-            margin-top: 6px
-            left: 7.87%
-            font-family: Montserrat, 'Times New Roman', Times, serif
-            font-weight: 700
-            font-size: 16px
-            font-weight: 900
-            line-height: 19px
-            color: #000000
-            max-width: 50%
-            //text-align: center
-        .maximized-like-button, .maximized-trash-button
-            position: relative
-            width: 20px
-            height: 18px
-            float: right
-            top: -31px
-            margin-right: 17.33% 
-            opacity: 0.5
-        .maximized-like-button:hover
-            opacity: unset
-        .maximized-trash-button:hover
-            opacity: unset
-        .maximized-download-border
-            @extend %flex-row-justify-center
-            position: relative
-            width: 36px
-            height: 36px
-            float: right
-            top: -40px
-            right: 7.73%
-            opacity: 0.5
-            background: #FFFFFF
-            border: 1px solid #9CAFC3
-            border-radius: 6px
-            .maximized-download-button
-                width: 19.2px
-                height: 21.1px
-        .maximized-download-border:hover
-            opacity: unset
+        .maximized-frame
+            .maximized-result-img
+                display: block
+                margin: auto
+                margin-top: 78px
+                width: 85%
+                //min-width: 318px
+                //max-height: 245px
+            .maximized-result-user
+                position: relative
+                margin-top: 14px
+                left: 9.33%
+                font-family: Roboto, 'Times New Roman', Times, serif
+                font-weight: 400
+                font-size: 15px
+                font-weight: 400
+                line-height: 18px
+                color: #000000
+                //text-align: center
+            .maximized-result-title
+                position: relative
+                margin-top: 6px
+                left: 7.87%
+                font-family: Montserrat, 'Times New Roman', Times, serif
+                font-weight: 700
+                font-size: 16px
+                font-weight: 900
+                line-height: 19px
+                color: #000000
+                max-width: 50%
+                //text-align: center
+            .maximized-like-button, .maximized-trash-button
+                position: relative
+                width: 20px
+                height: 18px
+                float: right
+                top: -31px
+                margin-right: 17.33% 
+                opacity: 0.5
+            .maximized-like-button:hover
+                opacity: unset
+            .maximized-trash-button:hover
+                opacity: unset
+            .maximized-download-border
+                @extend %flex-row-justify-center
+                position: relative
+                width: 36px
+                height: 36px
+                float: right
+                top: -40px
+                right: 7.73%
+                opacity: 0.5
+                background: #FFFFFF
+                border: 1px solid #9CAFC3
+                border-radius: 6px
+                .maximized-download-button
+                    width: 19.2px
+                    height: 21.1px
+            .maximized-download-border:hover
+                opacity: unset
     .trending-gifos
         padding: 46px 0px 82px 0px
         width: 100%
         background: #F3F5F8
-        text-align: center
+        //text-align: center
         h2
             //margin: 46px 0 0 0
             width: 100%
@@ -554,8 +568,7 @@ main
             font-size: 16px
             color: #000000
             text-align: center
-            line-height: 23px
-            
+            line-height: 23px            
         .trending-gallery
             //border: 1px solid lightgray
             padding: 0 22px 0 22px
@@ -563,16 +576,97 @@ main
             overflow-x: scroll
             scroll-padding: 0 50%
             scroll-snap-type: x mandatory
-        .trending-item
-            scroll-snap-align: center
-            display: inline-block
-            //height: 83vh
-            max-height: 200px
-            //border-radius: 3px
-            font-size: 0
-            margin-right: 3rem
-            img
-                //max-width: 65%
+            .trending-item
+                scroll-snap-align: center
+                display: inline-block
+                //height: 83vh
+                max-height: 200px
+                //border-radius: 3px
+                font-size: 0
+                margin-right: 3rem
+                img
+                    //max-width: 65%
+        .trending-gallery-desktop
+            width: 100%
+            text-align: unset
+            .arrow-border
+            .arrow-lef
+            .carousel
+                .gifo
+                    padding: unset
+                    width: 156px
+                    height: 120px
+                    overflow: hidden
+                    margin: auto
+                    .gifo-container
+                        padding: unset
+                        width: 156px
+                        height: 120px
+                        overflow: hidden
+                        //margin: auto
+                        position: absolute                    
+                        .gifo-container-img
+                            position: absolute
+                            width: 156px
+                            min-height: 120px
+                            z-index: 0
+                        .gifo-container-layer
+                            position: absolute
+                            width: 156px
+                            min-height: 120px
+                            z-index: 1
+                        /*.gifo-container-layer:hover
+                            background: #572EE5
+                            opacity: 0.7*/
+                    .gifo-options
+                        width: 100%
+                        position: relative
+                        height: 37px
+                        display: none
+                        z-index: 3
+                        @extend %flex-row-justify-flex-end
+                        .gifo-border
+                            //position: absolute
+                            @extend %flex-row-justify-center                                             
+                            width: 32px
+                            height: 32px
+                            background: #FFFFFF
+                            border-radius: 6px
+                            border-radius: 6px
+                            margin-top: 10px
+                            margin-right: 10px
+                            opacity: 0.7
+                            .gifo-button
+                                width: 16.7px
+                                height: 16.7px
+                        .gifo-border:hover
+                            opacity: unset
+                    .gifo-user
+                        display: none
+                        max-width: 234px
+                        margin-left: 13px
+                        margin-right: 13px
+                        margin-top: 95px
+                        position: absolute
+                        font-family: Roboto, 'Times New Roman', Times, serif
+                        font-weight: 400
+                        font-size: 15px
+                        color: #FFFFFF
+                        line-height: 18px
+                        z-index: 3
+                    .gifo-title
+                        display: none
+                        max-width: 234px
+                        margin-left: 13px
+                        margin-right: 13px
+                        margin-top: 117px
+                        position: absolute
+                        font-family: Roboto, 'Times New Roman', Times, serif
+                        font-weight: 700
+                        font-size: 16px
+                        color: #FFFFFF
+                        line-height: 19px
+                        z-index: 3
     .favorites
         width: 100%
         @extend %flex-column-center
@@ -624,6 +718,81 @@ main
                         width: 100%
                         object-fit: cover
                         object-position: center center
+            .gifo
+                padding: unset
+                width: 156px
+                height: 120px
+                overflow: hidden
+                margin: auto
+                .gifo-container
+                    padding: unset
+                    width: 156px
+                    height: 120px
+                    overflow: hidden
+                    margin: auto
+                    position: absolute                    
+                    .gifo-container-img
+                        position: absolute
+                        width: 156px
+                        min-height: 120px
+                        z-index: 0
+                    .gifo-container-layer
+                        position: absolute
+                        width: 156px
+                        min-height: 120px
+                        z-index: 1
+                    /*.gifo-container-layer:hover
+                        background: #572EE5
+                        opacity: 0.7*/
+                .gifo-options
+                    width: 100%
+                    position: relative
+                    height: 37px
+                    display: none
+                    z-index: 3
+                    @extend %flex-row-justify-flex-end
+                    .gifo-border
+                        //position: absolute
+                        @extend %flex-row-justify-center                                             
+                        width: 32px
+                        height: 32px
+                        background: #FFFFFF
+                        border-radius: 6px
+                        border-radius: 6px
+                        margin-top: 10px
+                        margin-right: 10px
+                        opacity: 0.7
+                        .gifo-button
+                            width: 16.7px
+                            height: 16.7px
+                    .gifo-border:hover
+                        opacity: unset
+                .gifo-user
+                    display: none
+                    max-width: 234px
+                    margin-left: 13px
+                    margin-right: 13px
+                    margin-top: 95px
+                    position: absolute
+                    font-family: Roboto, 'Times New Roman', Times, serif
+                    font-weight: 400
+                    font-size: 15px
+                    color: #FFFFFF
+                    line-height: 18px
+                    z-index: 3
+                .gifo-title
+                    display: none
+                    max-width: 234px
+                    margin-left: 13px
+                    margin-right: 13px
+                    margin-top: 117px
+                    position: absolute
+                    font-family: Roboto, 'Times New Roman', Times, serif
+                    font-weight: 700
+                    font-size: 16px
+                    color: #FFFFFF
+                    line-height: 19px
+                    z-index: 3
         .more-favorites
             border: 1px solid #572EE5
             border-radius: 25px
@@ -759,22 +928,27 @@ main
             margin-top: 24px
             @extend %flex-column-center 
             width: 100%  
-            .step-icon-container
-                width: 95%
-                @extend %flex-row-justify-center
-                .step-icon
-                    margin-right: 13px
-                    margin-left: 13px
-                    @extend %flex-column-center-center
-                    width: 32px
-                    height: 32px
-                    font-family: Roboto
-                    font-size: 18px
-                    color: #572EE5
-                    text-align: center
-                    border: 1px solid #572EE5
-                    border-radius: 50%
+            .menu-icons-container
+                @extend %grid-menu-container
+                //width: 688px
+                .step-icon-container
+                    //width: 95%
+                    grid-column: 2
+                    @extend %flex-row-justify-center
+                    .step-icon
+                        margin-right: 2px
+                        margin-left: 2px
+                        @extend %flex-column-center-center
+                        width: 32px
+                        height: 32px
+                        font-family: Roboto
+                        font-size: 18px
+                        color: #572EE5
+                        text-align: center
+                        border: 1px solid #572EE5
+                        border-radius: 50%
                 .hms, .repeat-capture
+                    grid-column: 3
                     margin-left: auto
                     font-family: Montserrat, 'Times New Roman', Times, serif
                     font-weight: 700
@@ -784,10 +958,14 @@ main
                 .hms
                     font-size: 15px
                     line-height: 22px
+                    width: 73.4px
+                    height: 22px
                 .repeat-capture
                     font-size: 13px
                     line-height: 16px
                     border-bottom: 2px solid #5ED7C6
+                    width: 65px
+                    //height: 16px
             .control-panel-separator  
                 margin-top: 19px
                 width: 98%
@@ -855,6 +1033,87 @@ main
                         height: 100%
                         object-fit: cover
                         object-position: center center 
+                        .gifo
+                padding: unset
+                width: 156px
+                height: 120px
+                overflow: hidden
+                margin: auto
+            .gifo
+                padding: unset
+                width: 156px
+                height: 120px
+                overflow: hidden
+                margin: auto
+                .gifo-container
+                    padding: unset
+                    width: 156px
+                    height: 120px
+                    overflow: hidden
+                    margin: auto
+                    position: absolute                    
+                    .gifo-container-img
+                        position: absolute
+                        width: 156px
+                        min-height: 120px
+                        z-index: 0
+                    .gifo-container-layer
+                        position: absolute
+                        width: 156px
+                        min-height: 120px
+                        z-index: 1
+                    /*.gifo-container-layer:hover
+                        background: #572EE5
+                        opacity: 0.7*/
+                .gifo-options
+                    width: 100%
+                    position: relative
+                    height: 37px
+                    display: none
+                    z-index: 3
+                    @extend %flex-row-justify-flex-end
+                    .gifo-border
+                        //position: absolute
+                        @extend %flex-row-justify-center                                             
+                        width: 32px
+                        height: 32px
+                        background: #FFFFFF
+                        border-radius: 6px
+                        border-radius: 6px
+                        margin-top: 10px
+                        margin-right: 10px
+                        opacity: 0.7
+                        .gifo-button
+                            width: 16.7px
+                            height: 16.7px
+                    .gifo-border:hover
+                        opacity: unset
+                .gifo-user
+                    display: none
+                    max-width: 234px
+                    margin-left: 13px
+                    margin-right: 13px
+                    margin-top: 95px
+                    position: absolute
+                    font-family: Roboto, 'Times New Roman', Times, serif
+                    font-weight: 400
+                    font-size: 15px
+                    color: #FFFFFF
+                    line-height: 18px
+                    z-index: 3
+                .gifo-title
+                    display: none
+                    max-width: 234px
+                    margin-left: 13px
+                    margin-right: 13px
+                    margin-top: 117px
+                    position: absolute
+                    font-family: Roboto, 'Times New Roman', Times, serif
+                    font-weight: 700
+                    font-size: 16px
+                    color: #FFFFFF
+                    line-height: 19px
+                    z-index: 3
         .more-my-gifos
             border: 1px solid #572EE5
             border-radius: 25px
@@ -926,6 +1185,24 @@ footer
         .logo-mobile, .logo-mobile-dark
             position: relative
             top: 18px
+        .add-gifo
+            width: 54px
+            height: 54px
+            border: 1px solid #572EE5
+            border-radius: 50%
+            display: inline-block
+            float: right
+            position: relative
+            top: 18px
+            margin-left: 59.5px
+            .add-gifo-button
+                width: 16px
+                height: 16px
+                display: block
+                margin-left: auto
+                margin-right: auto
+                margin-top: 19px
+                
         nav .menu 
             padding: 0    
         nav 
@@ -957,27 +1234,19 @@ footer
                             color: #572EE5 
                             padding: 0
                             text-transform: uppercase
-                        a:hover 
+                        /*a:hover 
                             //color: #00F3BB
                             //font-weight: 500
-                            text-decoration: underline #00F3BB                        
-                        a:active 
+                            text-decoration: underline #00F3BB*/                    
+                        /*a:active 
                             text-decoration: none
-                            color: #9CAFC3
+                            color: #9CAFC3*/
                         .option-divisor
                             display: none
+                    .create-gifos-link
+                        display: none
                 input 
                     display: none
-        .add-gifo
-            width: 54px
-            height: 54px
-            border: 1px solid #572EE5
-            border-radius: 50%
-            display: inline-block
-            float: right
-            position: relative
-            top: 18px
-            margin-left: 59.5px
     main 
         .banner
             padding-top: 95px
@@ -1194,7 +1463,7 @@ footer
                         position: absolute
                         z-index: 2*/ 
                     .gifo-options
-                        display: flex
+                        //display: flex
                         .gifo-border                            
                             //@extend %flex-row-justify-center
                             //z-index: 3
@@ -1206,9 +1475,9 @@ footer
                             //margin-top: 5px
                             //margin-right: 5px
                     .gifo-user
-                        display: unset
+                        //display: unset
                     .gifo-title
-                        display: unset
+                        //display: unset
             .more-results
                 //border: 1px solid #572EE5
                 //border-radius: 25px
@@ -1233,8 +1502,204 @@ footer
                 color: #FFFFFF
                 //.p
                     //color: ##FFFFFF
+        .maximized
+            //width: 100%
+            .maximized-close-button
+                //position: relative
+                //margin-top: 64px
+                //left: 85.84%
+                width: 15.2px
+                height: 15.2px
+            .maximized-frame
+                width: 49%
+                margin-left: auto
+                margin-right: auto
+                .maximized-result-img
+                    //display: block
+                    //margin: auto
+                    //margin-top: 78px
+                    margin-top: 78.4px
+                    //width: 85%
+                    ////min-width: 318px
+                    max-height: 385px
+                    width: 100%
+                .maximized-result-user
+                    //position: relative
+                    //margin-top: 14px
+                    margin-top: 27px
+                    left: unset
+                    //font-family: Roboto, 'Times New Roman', Times, serif
+                    //font-weight: 400
+                    //font-size: 15px
+                    //font-weight: 400
+                    //line-height: 18px
+                    //color: #000000
+                    ////text-align: center
+                .maximized-result-title
+                    //position: relative
+                    //margin-top: 6px
+                    left: unset
+                    //font-family: Montserrat, 'Times New Roman', Times, serif
+                    //font-weight: 700
+                    //font-size: 16px
+                    //font-weight: 900
+                    //line-height: 19px
+                    //color: #000000
+                    //max-width: 50%
+                    ////text-align: center
+                .maximized-like-button, .maximized-trash-button
+                    //position: relative
+                    //width: 20px
+                    //height: 18px
+                    //float: right
+                    //top: -31px
+                    //margin-right: 17.33% 
+                    margin-right: 21px 
+                    //opacity: 0.5
+                .maximized-like-button:hover
+                    //opacity: unset
+                .maximized-trash-button:hover
+                    //opacity: unset
+                .maximized-download-border
+                    //@extend %flex-row-justify-center
+                    //position: relative
+                    //width: 36px
+                    //height: 36px
+                    //float: right
+                    //top: -40px
+                    //right: 7.73%
+                    right: unset
+                    //opacity: 0.5
+                    //background: #FFFFFF
+                    //border: 1px solid #9CAFC3
+                    //border-radius: 6px
+                    .maximized-download-button
+                        //width: 19.2px
+                        //height: 21.1px
+                .maximized-download-border:hover
+                    //opacity: unset
+
+        .trending-gifos
+            padding: 46px 0px 82px 0px
+            width: 100%
+            background: #F3F5F8
+            //text-align: center
+            h2
+                //margin: 46px 0 0 0
+                width: 100%
+                height: 30px
+                font-family: Montserrat, 'Times New Roman', Times, serif
+                font-weight: 700
+                font-size: 20px
+                color: #572EE5
+                text-align: center
+                line-height: 30px
+            p
+                display: block
+                max-width: 45%
+                margin: 7px auto 32px auto
+                font-family: Roboto, 'Times New Roman', Times, serif
+                font-weight: 400
+                font-size: 16px
+                color: #000000
+                text-align: center
+                line-height: 23px            
+            .trending-gallery
+                //border: 1px solid lightgray
+                padding: unset
+                margin: auto
+                width: 1129px
+                //display: flex
+                display: flex
+                //grid-template-columns: repeat(auto-fit, minmax(375px, 1fr))
+                //grid-template-rows: 1fr
+                //grid-gap: 29px
+                overflow-x: scroll
+                scroll-padding: 0 50%
+                scroll-snap-type: x mandatory
+                overflow: hidden
+                margin-right: 156px
+                margin-right: 156px    
+                //width: 100%            
+            .trending-gallery-desktop
+                width: 100%
+                display: flex
+                flex-flow: row wrap
+                align-items: center
+                justify-content: center
+                align-content: center
+                padding: unset
+                text-align: unset
+                .arrow-border
+                    width: 40px
+                    height: 40px
+                    border: 1px solid #572EE5
+                    display: flex
+                    flex-flow: column wrap
+                    align-items: center
+                    justify-content: center
+                    align-content: center
+                    margin-right: 25px
+                    margin-left: 25px
+                .arrow-lef
+                .carousel
+                    display: grid
+                    grid-template-columns: repeat(auto-fit, minmax(357px, 1fr))
+                    grid-gap: 29px
+                    width: 1129px
+                    //width: 100%
+                    height: 275px
+                    //background: blue
+                    .gifo
+                        //padding: unset
+                        width: 357px
+                        height: 275px
+                        //overflow: hidden
+                        //margin: auto
+                        .gifo-container
+                            //padding: unset
+                            width: 357px
+                            height: 275px
+                            //overflow: hidden
+                            //margin: auto
+                            //position: absolute
+                            //z-index: 1
+                            .gifo-container-img
+                                width: 357px
+                                min-height: 275px
+                            .gifo-container-layer
+                                position: absolute
+                                width: 357px
+                                min-height: 275px  
+                        /*.search-result-container:after
+                            content: ""
+                            width: 100%
+                            height: 98%
+                            top: 0
+                            left: 0
+                            background-color: #572EE5
+                            opacity: 0.7
+                            position: absolute
+                            z-index: 2*/ 
+                        .gifo-options
+                            //display: flex
+                            .gifo-border                            
+                                //@extend %flex-row-justify-center
+                                //z-index: 3
+                                //width: 32px
+                                //height: 32px
+                                //background: #FFFFFF
+                                //border-radius: 6px
+                                //border-radius: 6px
+                                //margin-top: 5px
+                                //margin-right: 5px
+                        .gifo-user
+                            //display: unset
+                        .gifo-title
+                            //display: unset
+                .arrow.right
         .favorites
-            //idth: 100%
+            //width: 100%
             //@extend %flex-column-center
             //margin-top: 100px
             margin-top: 95px
@@ -1290,6 +1755,53 @@ footer
                             height: 100%
                             object-fit: cover
                             object-position: center center 
+                .gifo
+                    //padding: unset
+                    width: 260px
+                    height: 200px
+                    //overflow: hidden
+                    //margin: auto
+                    .gifo-container
+                        //padding: unset
+                        width: 260px
+                        height: 200px
+                        //overflow: hidden
+                        //margin: auto
+                        //position: absolute
+                        //z-index: 1
+                        .gifo-container-img
+                            width: 260px
+                            min-height: 200px
+                        .gifo-container-layer
+                            position: absolute
+                            width: 260px
+                            min-height: 200px  
+                    /*.search-result-container:after
+                        content: ""
+                        width: 100%
+                        height: 98%
+                        top: 0
+                        left: 0
+                        background-color: #572EE5
+                        opacity: 0.7
+                        position: absolute
+                        z-index: 2*/ 
+                    .gifo-options
+                        //display: flex
+                        .gifo-border                            
+                            //@extend %flex-row-justify-center
+                            //z-index: 3
+                            //width: 32px
+                            //height: 32px
+                            //background: #FFFFFF
+                            //border-radius: 6px
+                            //border-radius: 6px
+                            //margin-top: 5px
+                            //margin-right: 5px
+                    .gifo-user
+                        //display: unset
+                    .gifo-title
+                        //display: unset
             .more-favorites
                 //border: 1px solid #572EE5
                 //border-radius: 25px
@@ -1317,16 +1829,17 @@ footer
             .create-gifos-frame
                 //@extend %flex-column-center
                 //width: 95%
-                min-width: 356px
-                min-height: 277px
+                justify-content: center
+                min-width: 688px
+                min-height: 390px
                 border: 1px solid #572EE5
                 .create-gifos-subframe
                     //@extend %flex-column-center-center
                     border: 1px solid #50E3C2
-                    min-height: 258px
+                    height: 350px
                     //width: 86%
                     //width: 90%
-                    min-width: 338px
+                    width: 648px
                     margin: 9px
                     h2, p
                         text-align: center
@@ -1335,39 +1848,48 @@ footer
                     h2
                         font-family: Montserrat, 'Times New Roman', Times, serif
                         font-weight: 700
-                        font-size: 20px
+                        font-size: 25px
                         color: #572EE5                    
-                        line-height: 30px
+                        line-height: 35px
                         span
                             font-family: Montserrat, 'Times New Roman', Times, serif
                             font-weight: 700
-                            font-size: 20px
+                            font-size: 25px
                             color: #5ED7C6                   
-                            line-height: 30px
+                            line-height: 35px
                     p
                         font-family: Roboto, 'Times New Roman', Times, serif
                         font-weight: 400
                         font-size: 16px
                         color: #000000
-                        line-height: 23px 
+                        line-height: 29px 
+                    .camera
+                        width: 480px
+                        height: 320px
                     .gifo-preview-container
                         position: absolute
-                        width: 320px
-                        min-height: 240px 
+                        width: 480px
+                        min-height: 320px 
                         margin: 9px
                         //@extend %flex-column-center-center
                         //@extend %flex-row-justify-center
-                        .gifo-preview                    
+                        .gifo-preview 
+                            width: 480px
+                            height: 320px                   
                         .upload-gifo-preview-container
                             margin: 9px
                             position: absolute
                             z-index: 1
-                            overflow: hidden                        
+                            overflow: hidden
+                            width: 480px
+                            height: 320px                  
                             .upload-gifo-preview
+                                width: 480px
+                                height: 320px
                         .upload-gifo-preview-container::after
                             content: ""
                             width: 100%
-                            height: 98%
+                            height: 100%
                             top: 0
                             left: 0
                             background-color: #572EE5
@@ -1404,12 +1926,12 @@ footer
                                 background: #FFFFFF
                                 border-radius: 6px
                                 border-radius: 6px
-                                margin-top: 5px
-                                margin-right: 5px
+                                margin-top: 12px
+                                margin-right: 12px
                             .cg-link
                                 z-index: 3
-                                margin-top: 5px
-                                margin-right: 5px
+                                margin-top: 12px
+                                margin-right: 12px
                                 .cg-link-border
                                     //@extend %flex-row-justify-center
                                     width: 32px
@@ -1421,43 +1943,55 @@ footer
                 margin-top: 24px
                 //@extend %flex-column-center 
                 width: 100%  
-                .step-icon-container
-                    width: 95%
-                    //@extend %flex-row-justify-center
-                    .step-icon
-                        margin-right: 13px
-                        margin-left: 13px
-                        //@extend %flex-column-center-center
-                        width: 32px
-                        height: 32px
-                        font-family: Roboto
-                        font-size: 18px
-                        color: #572EE5
-                        text-align: center
-                        border: 1px solid #572EE5
-                        border-radius: 50%
+                .menu-icons-container
+                    width: 688px
+                    .step-icon-container
+                        grid-column: 2
+                        //@extend %flex-row-justify-center
+                        .step-icon
+                            margin-right: 13px
+                            margin-left: 13px
+                            //@extend %flex-column-center-center
+                            width: 32px
+                            height: 32px
+                            font-family: Roboto
+                            font-size: 18px
+                            color: #572EE5
+                            text-align: center
+                            border: 1px solid #572EE5
+                            border-radius: 50%
                     .hms, .repeat-capture
-                        margin-left: auto
-                        font-family: Montserrat, 'Times New Roman', Times, serif
-                        font-weight: 700
-                        color: #572EE5
-                        letter-spacing: 0
-                        text-align: center
+                        //grid-column: 3
+                        margin-left: unset
+                        //font-family: Montserrat, 'Times New Roman', Times, serif
+                        //font-weight: 700
+                        //color: #572EE5
+                        //letter-spacing: 0                        
+                        //line-height: 30px
+                        justify-self: right
+                        align-self: center
                     .hms
                         font-size: 15px
-                        line-height: 22px
+                        //line-height: 22px
+                        //position: relative
+                        //width: 73.4px
+                        //height: 22px
                     .repeat-capture
                         font-size: 13px
-                        line-height: 16px
+                        //line-height: 16px
                         border-bottom: 2px solid #5ED7C6
+                        width: 131px
+                        height: 16px
+
                 .control-panel-separator  
                     margin-top: 19px
-                    width: 98%
+                    width: 795.9px
                     height: 6.9px
                     background: #572EE5 // *Adjust color border
     
                 .control-panel-button
                     margin-top: 20.1px
+                    margin-bottom: 20.1px
                     min-width: 127px
                     border: 1px solid #572EE5
                     border-radius: 25px
@@ -1526,7 +2060,54 @@ footer
                         @supports(object-fit: cover)
                             height: 100%
                             object-fit: cover
-                            object-position: center center 
+                            object-position: center center
+                .gifo
+                    //padding: unset
+                    width: 260px
+                    height: 200px
+                    //overflow: hidden
+                    //margin: auto
+                    .gifo-container
+                        //padding: unset
+                        width: 260px
+                        height: 200px
+                        //overflow: hidden
+                        //margin: auto
+                        //position: absolute
+                        //z-index: 1
+                        .gifo-container-img
+                            width: 260px
+                            min-height: 200px
+                        .gifo-container-layer
+                            position: absolute
+                            width: 260px
+                            min-height: 200px  
+                    /*.search-result-container:after
+                        content: ""
+                        width: 100%
+                        height: 98%
+                        top: 0
+                        left: 0
+                        background-color: #572EE5
+                        opacity: 0.7
+                        position: absolute
+                        z-index: 2*/ 
+                    .gifo-options
+                        //display: flex
+                        .gifo-border                            
+                            //@extend %flex-row-justify-center
+                            //z-index: 3
+                            //width: 32px
+                            //height: 32px
+                            //background: #FFFFFF
+                            //border-radius: 6px
+                            //border-radius: 6px
+                            //margin-top: 5px
+                            //margin-right: 5px
+                    .gifo-user
+                        //display: unset
+                    .gifo-title
+                        //display: unset
             .more-my-gifos
                 //border: 1px solid #572EE5
                 //border-radius: 25px

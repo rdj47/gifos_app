@@ -64,9 +64,10 @@
                 </g>
             </g>
         </svg>
-        <div id="add-gifo" class="add-gifo"></div> 
-        <nav>
-            
+        <div id="add-gifo" class="add-gifo">
+            <img id="add-gifo-button" class="add-gifo-button" src="images/button-crear-gifo.svg" alt="Bot+on crear GIFO">
+        </div> 
+        <nav>            
             <div class="menu">
                 <input id="sandwich" class="sandwich" type="checkbox" id="checkbox" />
                 <!--<span></span>
@@ -74,27 +75,26 @@
                 <span></span>-->
                 <img id="sandwich-icon" class="sandwich-icon" src="images/burger.svg" alt="Ícono de menú hamburguesa">
                 <ul id="menu-ul" class="menu-ul">
-                    <li id="light-mode-link" class="light-mode-link">
-                        <a id="next-light-mode" class="next-light-mode" href="#logo">Modo Nocturno</a>
+                    <li id="light-mode-link" class="light-mode-link section-link">
+                        <a id="next-light-mode" class="next-light-mode section-a" href="#logo">Modo Nocturno</a>
                         <span id="option-divisor" class="option-divisor"></span>
                     </li>
-                    <li id="favorites-link" class="favorites-link">
-                        <a href="#logo">Favoritos</a>
+                    <li id="favorites-link" class="favorites-link section-link">
+                        <a id="favorites-a" class="section-a" href="#logo">Favoritos</a>
                         <span id="option-divisor" class="option-divisor"></span>
                     </li>
-                    <li id="my-gifos-link" class="my-gifos-link">
-                        <a href="#logo">Mis GIFOS</a>
+                    <li id="my-gifos-link" class="my-gifos-link section-link">
+                        <a id="my-gifos-a" class="section-a" href="#logo">Mis GIFOS</a>
                         <span id="option-divisor" class="option-divisor"></span>
                     </li>                   
-                    <li id="create-gifos-link" class="create-gifos-link">
-                        <a href="#logo">Crear GIFO</a>
+                    <li id="create-gifos-link" class="create-gifos-link section-link">
+                        <a id="create-gifos-a" class="section-a" href="#logo">Crear GIFO</a>
                         <span id="option-divisor" class="option-divisor"></span>
                     </li>                    
                 </ul>                
             </div>
             
-        </nav> 
-          
+        </nav>           
     </header>
     <main>
         <div id="banner" class="banner">
@@ -116,7 +116,7 @@
         </div>
         <hr id ="search-results-separator" class="search-results-separator hide">         
         <div id="search-results" class="search-results hide">  
-            <h2 id="search-results-title" class="search-results-title section-title">vc</h2>
+            <h2 id="search-results-title" class="search-results-title section-title"></h2>
             <img src="images/icon-busqueda-sin-resultado.svg" id="no-results-icon" class="no-results-icon hide" alt="Ícono de OUCH!">
             <h3 id="no-results-text" class="no-results-text hide">Intenta con otra búsqueda</h3>
             <div id="results" class="results hide"></div>  
@@ -126,15 +126,16 @@
         </div>
         <div id="maximized" class="maximized hide">
             <img src="images/button-close.svg" id="maximized-close-button" class="maximized-close-button" alt="">
-            <img src="" id="maximized-result-img" class="maximized-result-img" id="maximized-result-img" alt="GIF maximizado">
-            <h2 id="maximized-result-user" class="maximized-result-user general-text">User</h2>
-            <h2 id="maximized-result-title" class="maximized-result-title general-text">Title</h2>
-            <div id="maximized-download-border" class="maximized-download-border">
-                <img src="images/icon-download.svg" id="maximized-download-button" class="maximized-download-button" alt="Botón De Descarga">
-            </div>            
-            <img src="images/icon-fav-hover.svg" id="maximized-like-button" class="maximized-like-button" alt="Botón Me Gusta">
-            <img src="images/icon_trash.svg" id="maximized-trash-button" class="maximized-trash-button hide" alt="Botón Eliminar Gifo">          
-            
+            <div id="maximized-frame" class="maximized-frame">
+                <img src="" id="maximized-result-img" class="maximized-result-img" id="maximized-result-img" alt="GIF maximizado">
+                <h2 id="maximized-result-user" class="maximized-result-user general-text">User</h2>
+                <h2 id="maximized-result-title" class="maximized-result-title general-text">Title</h2>
+                <div id="maximized-download-border" class="maximized-download-border">
+                    <img src="images/icon-download.svg" id="maximized-download-button" class="maximized-download-button" alt="Botón De Descarga">
+                </div>            
+                <img src="images/icon-fav-hover.svg" id="maximized-like-button" class="maximized-like-button" alt="Botón Me Gusta">
+                <img src="images/icon_trash.svg" id="maximized-trash-button" class="maximized-trash-button hide" alt="Botón Eliminar Gifo">
+            </div>   
         </div>
         <div id="favorites" class="favorites hide">
             <img id="favorites-icon" class="favorites-icon" src="images/icon-favoritos.svg" alt="Ícono Favoritos">
@@ -159,8 +160,16 @@
         <div id="trending-gifos" class="trending-gifos">
             <h2 id="trending-gifos-title" class="trending-gifos-title section-title">Trending GIFOS</h2>
             <p id="trending-gifos-text" class="trending-gifos-text general-text">Mira los últimos GIFOS de nuestra comunidad.</p>
-            <ul id="trending-gallery" class="trending-gallery">                
-            </ul>
+            <ul id="trending-gallery" class="trending-gallery"></ul>
+            <div id="trending-gallery-desktop" class="trending-gallery-desktop hide">
+                <div id="arrow-left-border" class="arrow-border">
+                    <img id="arrow-left-button" class="arrow-button" src="images/button-left.svg" alt="Ícono flecha izquierda">
+                </div>
+                <div id="carousel" class="carousel"></div>
+                <div id="arrow-right-border" class="arrow-border">
+                    <img id="arrow-right-button" class="arrow-button" src="images/button-right.svg" alt="Ícono flecha derecha">
+                </div>
+            </div>
         </div>
         <div id="create-gifos" class="create-gifos hide">
             <div id="create-gifos-frame" class="create-gifos-frame">
@@ -189,12 +198,14 @@
                 </div>                
             </div>
             <div id="create-gifos-panel" class="create-gifos-panel">
-                <div id="step-icon-container" class="step-icon-container">
-                    <div id="step-1-icon" class="step-icon">1</div>
-                    <div id="step-2-icon" class="step-icon">2</div>
-                    <div id="step-3-icon" class="step-icon">3</div>
-                    <div id="hms" class="hms hide">Repetir Captura</div>
-                    <div id="repeat-capture" class="repeat-capture hide">Repetir Captura</div>
+                <div id="menu-icons-container" class="menu-icons-container">
+                    <div id="step-icon-container" class="step-icon-container">
+                        <div id="step-1-icon" class="step-icon">1</div>
+                        <div id="step-2-icon" class="step-icon">2</div>
+                        <div id="step-3-icon" class="step-icon">3</div>
+                    </div>
+                    <div id="hms" class="hms hide"></div>
+                    <p id="repeat-capture" class="repeat-capture hide">REPETIR CAPTURA</p>                    
                 </div>
                 <hr id ="control-panel-separator" class="control-panel-separator">
                 <div id="initial-button" class="control-panel-button">COMENZAR</div>   
