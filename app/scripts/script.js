@@ -991,7 +991,7 @@ function drawMoreResults() {
 //let downloadFunction=0; 
 //let trashFunction=0;
 // maximizeSearchResult
-function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,resultOriginalUrl, trendingFlagArg) {
+function maximizeSearchResult(resultId, resultUser, resultName, resultUrl, resultOriginalUrl, trendingFlagArg) {
     console.log ("##f()## maximizeSearchResult function execution");
     maximizedResultImg.src="";
     maximizedLikeButton.src="images/icon-fav-hover.svg";  
@@ -1030,8 +1030,7 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     maximizedLikeButton.addEventListener('click', setFavoriteFunction, true);
     maximizedTrashButton.addEventListener('click', trashFunction, true);
 
-    console.log ("myGifosFlag: "+myGifosFlag);
-    console.log ("favoritesFlag: "+favoritesFlag);
+
     if(trendingFlagArg==true) {
         trendingFlag=true;
         console.log ("trendingFlag: "+trendingFlag);
@@ -1050,6 +1049,12 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl,result
     maximized.classList.remove('hide');
     favoritesPagination=0;
     myGifosPagination=0;
+    if(trendingFlagArg==true) {
+        trendingFlag=true;
+    }
+    console.log ("myGifosFlag: "+myGifosFlag);
+    console.log ("favoritesFlag: "+favoritesFlag);
+    console.log ("trendingFlag: "+trendingFlag);
 }
 
 // hideContentForMaximizing
@@ -1100,8 +1105,10 @@ function hideContentForMaximizingReverse (favoritesFlag,myGifosFlag) {
             searchResults.style.display = 'flex';
         }
     } else {
-        searchResultsSeparator.classList.remove('hide');
-        searchResults.style.display = 'flex';
+        if(document.getElementById('results').childNodes.length!=0) {
+            searchResultsSeparator.classList.remove('hide');
+            searchResults.style.display = 'flex';
+        }
     }
     trendingFlag=false;
 }
@@ -1569,11 +1576,7 @@ function showTrending () {
                     carousel.appendChild(createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"others")); 
                 }       
             }
-            console.log("Longitud de trendingGalleryDesktopItems: "+trendingGalleryDesktopItems.length);
-            //carousel.appendChild(trendingGalleryDesktopItems[0]);
-            //carousel.appendChild(trendingGalleryDesktopItems[1]);
-            //carousel.appendChild(trendingGalleryDesktopItems[2]);
-            //carouse        
+            console.log("Longitud de trendingGalleryDesktopItems: "+trendingGalleryDesktopItems.length);   
         }).catch(error => {
         console.log(error);
         })
@@ -1679,7 +1682,7 @@ function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle,
         //console.log("Genera vista escritorio"); 
     gifo.addEventListener('mouseover', function () { addGifoCardStyle (gifo) });
     gifo.addEventListener('mouseout', function () { removeGifoCardStyle (gifo) });
-    gifo.getElementsByClassName('gifo-maximize-border')[0].addEventListener('click', function() { maximizeSearchResult(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl); });
+    gifo.getElementsByClassName('gifo-maximize-border')[0].addEventListener('click', function() { maximizeSearchResult(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, true); });
     downloadFunction = function (e) { 
         console.log ("##f()##  downloadFunction var function execution");
         var x=new XMLHttpRequest();
