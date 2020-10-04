@@ -1369,6 +1369,21 @@ footer {
       color: #FFFFFF; }
   main .create-gifos {
     margin-top: 100px; }
+    main .create-gifos .camera-decoration {
+      position: absolute;
+      left: 0%;
+      top: 218px;
+      margin-left: 156px; }
+    main .create-gifos .camera-light-decoration {
+      position: absolute;
+      left: 0%;
+      top: 237px;
+      margin-left: 280px; }
+    main .create-gifos .tape-decoration {
+      position: absolute;
+      right: 0%;
+      top: 475px;
+      margin-right: 156px; }
     main .create-gifos .create-gifos-frame {
       justify-content: center;
       min-width: 688px;

@@ -2150,6 +2150,11 @@ function hideContentForCreateGifos() {
     favorites.style.display='none';
     myGifos.style.display='none';
     createGifos.style.display='flex';
+    if(bp1.matches) {
+        for (let i=0; i<document.getElementsByClassName('decoration').length; i++) {
+            document.getElementsByClassName('decoration')[i].classList.add('hide');
+        }
+    }
 }
 
 // goToStep1
