@@ -424,7 +424,10 @@ main .search-results {
     color: #572EE5;
     letter-spacing: 0;
     text-align: center;
-    line-height: 50px;
+    line-height: 50px; }
+  main .search-results .dark-general-more {
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
     /*p
      * font-family: Montserrat, 'Times New Roman', Times, serif
      * font-weight: 700
@@ -737,16 +740,10 @@ main .favorites {
     color: #572EE5;
     letter-spacing: 0;
     text-align: center;
-    line-height: 50px;
-    /*p
-     * font-family: Montserrat, 'Times New Roman', Times, serif
-     * font-weight: 700
-     * font-size: 13px
-     * color: #572EE5
-     * letter-spacing: 0
-     * text-align: center
-     * line-height: 16px
-     * margin: 18px 0px 16px 0px */ }
+    line-height: 50px; }
+  main .favorites .dark-general-more {
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF; }
 main .create-gifos {
   margin-top: 100px; }
   main .create-gifos .create-gifos-frame {
@@ -1024,15 +1021,10 @@ main .my-gifos {
     color: #572EE5;
     letter-spacing: 0;
     text-align: center;
-    line-height: 50px;
-    /*p
-     * font-family: Roboto
-     * font-size: 13px
-     * color: #572EE5
-     * letter-spacing: 0
-     * text-align: center
-     * font-weight: 900
-     * margin: 18px 0px 16px 0px */ }
+    line-height: 50px; }
+  main .my-gifos .dark-general-more {
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF; }
 
 footer {
   text-align: center;
@@ -1129,6 +1121,8 @@ footer {
               color: #572EE5;
               padding: 0;
               text-transform: uppercase; }
+            header nav .menu ul li .underline-deco:hover {
+              text-decoration: underline #00F3BB; }
             header nav .menu ul li .option-divisor {
               display: none; }
           header nav .menu ul .create-gifos-link {
@@ -1206,9 +1200,12 @@ footer {
           position: absolute;
           width: 260px;
           min-height: 200px; }
-  main .search-results .more-results:hover {
+  main .search-results .general-more:hover {
     background-color: #572EE5;
     color: #FFFFFF; }
+  main .search-results .dark-general-more:hover {
+    background-color: #FFFFFF;
+    color: #000000; }
   main .maximized .maximized-close-button {
     width: 15.2px;
     height: 15.2px; }
@@ -1312,6 +1309,9 @@ footer {
               position: absolute;
               width: 357px;
               min-height: 275px; }
+      main .trending-gifos .trending-gallery-desktop .dark {
+        border: 1px solid #FFFFFF;
+        background: #37383C; }
   main .favorites {
     margin-top: 95px; }
     main .favorites .favorites-icon {
@@ -1364,9 +1364,12 @@ footer {
             position: absolute;
             width: 260px;
             min-height: 200px; }
-    main .favorites .more-favorites:hover {
+    main .favorites .general-more:hover {
       background-color: #572EE5;
       color: #FFFFFF; }
+    main .favorites .dark-general-more:hover {
+      background-color: #FFFFFF;
+      color: #000000; }
   main .create-gifos {
     margin-top: 100px; }
     main .create-gifos .camera-decoration {
@@ -1511,8 +1514,7 @@ footer {
         main .create-gifos .create-gifos-panel .menu-icons-container .repeat-capture {
           font-size: 13px;
           border-bottom: 2px solid #5ED7C6;
-          width: 131px;
-          height: 16px; }
+          width: 131px; }
       main .create-gifos .create-gifos-panel .control-panel-separator {
         margin-top: 19px;
         width: 795.9px;
@@ -1582,9 +1584,12 @@ footer {
             position: absolute;
             width: 260px;
             min-height: 200px; }
-    main .my-gifos .more-my-gifos:hover {
+    main .my-gifos .general-more:hover {
       background-color: #572EE5;
       color: #FFFFFF; }
+    main .my-gifos .dark-general-more:hover {
+      background-color: #FFFFFF;
+      color: #000000; }
     main .my-gifos .trending-gifos {
       padding: 67px 0px 182px 0px; }
       main .my-gifos .trending-gifos h2 {

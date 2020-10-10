@@ -23,9 +23,11 @@ let logo = document.getElementById('logo-mobile');
 logo.addEventListener('click',initialize);
 let logoDark = document.getElementById('logo-mobile-dark');
 logoDark.addEventListener('click',initialize);
-document.getElementById('add-gifo').addEventListener('click', showCreateGifos);
-document.getElementById('add-gifo').addEventListener('mouseover', addGifoButtonStyle);
-document.getElementById('add-gifo').addEventListener('mouseout', removeGifoButtonStyle);
+let addGifo = document.getElementById('add-gifo');
+let addGifoButton = document.getElementById('add-gifo-button');
+addGifo.addEventListener('click', showCreateGifos);
+addGifo.addEventListener('mouseover', addGifoButtonStyle);
+addGifo.addEventListener('mouseout', removeGifoButtonStyle);
 let sandwich = document.getElementById('sandwich');
 sandwich.addEventListener('click', changeBurgerIcon);
 sandwich.checked= false;
@@ -33,13 +35,10 @@ let sandwichIcon = document.getElementById('sandwich-icon');
 sandwichIcon.src = "images/burger.svg";
 let menuUl = document.getElementById('menu-ul');
 let lightModeLink = document.getElementById('light-mode-link');
-lightModeLink.addEventListener('mouseover', addHoverStyle(lightModeLink));
-lightModeLink.addEventListener('mouseout', removeHoverStyle(lightModeLink));
+lightModeLink.addEventListener('click', changeLightMode);
 let nextLightMode = document.getElementById('next-light-mode');
 let favoritesLink = document.getElementById('favorites-link');
 favoritesLink.addEventListener('click', showFavorites);
-//favoritesLink.addEventListener('mouseover', function () { addHoverStyle(favoritesLink.getElementsByClassName('section-a')[0]); });
-//favoritesLink.addEventListener('mouseout', function () { removeHoverStyle(favoritesLink.getElementsByClassName('section-a')[0]); });
 let favoritesFlag=false;
 let favoritesPagination=0;
 let myGifosLink = document.getElementById('my-gifos-link');
@@ -71,6 +70,7 @@ searchBarInput.value="";
 searchPhraseMG.addEventListener('click', function() { gifSearch(searchBarInput.value); } );
 let searchPhraseClear = document.getElementById('search-phrase-clear');
 searchPhraseClear.addEventListener('click', clearSearchPhrase);
+let moreResults = document.getEl
 
 // trending-terms area tags
 let trendingTermsTitle = document.getElementById('trending-terms-title');
@@ -176,14 +176,23 @@ let rightsReservedText = document.getElementById('rights-reserved-text');
 
 // initial functions execution
 
-if (!bp1.matches) { // If media query matches
+/*if (!bp1.matches) { // If media query matches
     for (let i=0; i<document.getElementsByClassName('section-link').length; i++) {
-        let addHoverStyleFunction = function () { addHoverStyle(document.getElementsByClassName('section-link')[i].getElementsByClassName('section-a')[0]); }
-        let removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[i].getElementsByClassName('section-a')[0]); }
+        let addHoverStyleFunction = function () { addHoverStyle(document.getElementsByClassName('section-link')[i].getElementsByClassName('section-a')[0]); };
+        let removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[i].getElementsByClassName('section-a')[0]); };
         document.getElementsByClassName('section-link')[i].addEventListener('mouseover', addHoverStyleFunction );
         document.getElementsByClassName('section-link')[i].addEventListener('mouseout', removeHoverStyleFunction );
     }
-}    
+}*/
+if (!bp1.matches) { // If media query matches
+        console.log("Cantidad de elemntos section-link: "+document.getElementsByClassName('section-link').length);
+        let removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0]); };
+        document.getElementsByClassName('section-link')[0].addEventListener('click', removeHoverStyleFunction );
+        removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0]); };
+        document.getElementsByClassName('section-link')[1].addEventListener('click', removeHoverStyleFunction );
+        removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0]); };
+        document.getElementsByClassName('section-link')[2].addEventListener('click', removeHoverStyleFunction );
+}
 getTrendingTerms();
 showTrending();
 arrowRightBorder.addEventListener('click', nextGifo );
@@ -220,22 +229,33 @@ function addHoverStyle (sectionA) {
 }
 
 function removeHoverStyle (sectionA) {
-    sectionA.style.textDecoration ='none';
+    sectionA.classList.remove('underline-deco');
 }
 
 //++++ GIFO BUTTON STYLE FUNCTIONS ++++
 
 // addGifoButtonStyle
 function addGifoButtonStyle() {
-    if (!bp1.matches) { // If media query matches        
+    if(queryDarkMode()){ // If media query matches        
+        document.getElementById('add-gifo').style.border = '1px solid 37383C';
+        document.getElementById('add-gifo').style.background = '#FFFFFF';
+        document.getElementById('add-gifo-button').src = "images/button-crear-gifo-modo-noc-hover.svg";
+    } else {
+        document.getElementById('add-gifo').style.border = '1px solid #FFFFFF';
         document.getElementById('add-gifo').style.background = '#572EE5';
-        document.getElementById('add-gifo-button').src = 'images/button-crear-gifo-hover.svg'
+        document.getElementById('add-gifo-button').src = "images/button-crear-gifo-hover.svg";
+
     }    
 }
-function removeGifoButtonStyle() {
-    if (!bp1.matches) { // If media query matches        
+function removeGifoButtonStyle() {   
+    if(queryDarkMode()){ // If media query matches        
+        document.getElementById('add-gifo').style.border = '1px solid #FFFFFF';
+        document.getElementById('add-gifo').style.background = '#37383C';
+        document.getElementById('add-gifo-button').src = "images/button-crear-gifo-hover.svg";
+    } else {
+        document.getElementById('add-gifo').style.border = '1px solid #572EE5';
         document.getElementById('add-gifo').style.background = '#FFFFFF';
-        document.getElementById('add-gifo-button').src = 'images/button-crear-gifo.svg'
+        document.getElementById('add-gifo-button').src = "images/button-crear-gifo.svg";
     }    
 }
 
@@ -304,10 +324,12 @@ function queryDarkMode () {
     console.log("nextLightMode.textContent: "+nextLightMode.textContent);
     if (nextLightMode.textContent=="Modo Nocturno") {
         console.log("Ingreso en: nextLightMode.textContent==Modo Nocturno");
+        console.log("qDM: false");
         return false;
     }
     else if (nextLightMode.textContent=="Modo Diurno") {
         console.log("Ingreso en: nextLightMode.textContent==Modo Diurno");
+        console.log("qDM: true");
         return true;
     }   
 
@@ -326,7 +348,17 @@ function changeLightMode () {
         logo.classList.add('hide');
         logoDark.classList.remove('hide');
         sandwichIcon.src = 'images/close-modo-noc.svg';
-        menuUl.style.background = ' #000000';
+        if(bp1.matches) {
+            menuUl.style.background = ' #000000';
+        } else {
+            menuUl.style.background = 'unset';
+            document.getElementsByClassName('section-a')[0].style.color = '#FFFFFF';
+            document.getElementsByClassName('section-a')[1].style.color = '#FFFFFF';
+            document.getElementsByClassName('section-a')[2].style.color = '#FFFFFF';
+            addGifo.style.border = '1px solid #FFFFFF';
+            addGifo.style.background = '#37383C';
+            addGifoButton.src = "images/button-crear-gifo-hover.svg";
+        }    
         presentationTitle.style.color = '#FFFFFF';
         searchBar.style.border = '1px solid #FFFFFF';
         searchBar.style.background = '#37383C';
@@ -352,16 +384,19 @@ function changeLightMode () {
         }        
         console.log("Total botones VER MÁS: "+document.getElementsByClassName('general-more').length);
         for (let i=0;  i < document.getElementsByClassName('general-more').length; i++){
-            //document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#FFFFFF';
-            document.getElementsByClassName('general-more')[i].style.color = '#FFFFFF';
-            document.getElementsByClassName('general-more')[i].style.border = '1px solid #FFFFFF';
-        }
+            document.getElementsByClassName('general-more')[i].classList.add('dark-general-more');
+        }   
+        for (let i=0;  i < document.getElementsByClassName('dark-general-more').length; i++){
+            document.getElementsByClassName('dark-general-more')[i].classList.remove('general-more');
+        }   
         maximizedCloseButton.src = 'images/button-close-modo-noc.svg';   
         trendingGifos.style.background = '#222326';
         console.log("Total textos general-text: "+document.getElementsByClassName('general-text').length);
         for (let i=0;  i < document.getElementsByClassName('general-text').length; i++){
             document.getElementsByClassName('general-text')[i].style.color = '#FFFFFF';
         }   
+        document.getElementById('camera-decoration').src = 'images/camara-modo-noc.svg';
+        document.getElementById('tape-decoration').src = 'images/pelicula-modo-noc.svg';
         createGifosFrame.style.border = '1px solid #FFFFFF';
         cameraAccessComment.style.color = '#FFFFFF';
         /*var estilos = window.getComputedStyle(document.querySelector('.upload-gifo-preview-container', '::after'));
@@ -380,6 +415,10 @@ function changeLightMode () {
             document.getElementsByClassName('control-panel-button')[i].style.color = '#FFFFFF';
             document.getElementsByClassName('control-panel-button')[i].style.border = '1px solid #FFFFFF';            
         }   
+        arrowLeftBorder.classList.add('dark');
+        arrowLeftButton.src = 'images/button-left-hover.svg';
+        arrowRightBorder.classList.add('dark');
+        arrowRightButton.src = 'images/button-right-hover.svg';
         footer[0].style.borderBottom = '5px solid #000000';        
         socialNetworksText.style.color = '#FFFFFF';
         rightsReservedText.style.color = '#FFFFFF';
@@ -394,7 +433,17 @@ function changeLightMode () {
         logo.classList.remove('hide');
         logoDark.classList.add('hide');
         sandwichIcon.src = 'images/close.svg';
-        menuUl.style.background = 'rgba(87,46,229,0.90)';
+        if(bp1.matches) {
+            menuUl.style.background = 'rgba(87,46,229,0.90)';
+        } else {
+            menuUl.style.background = 'unset';
+            document.getElementsByClassName('section-a')[0].style.color = '#572EE5';
+            document.getElementsByClassName('section-a')[1].style.color = '#572EE5';
+            document.getElementsByClassName('section-a')[2].style.color = '#572EE5';
+            addGifo.style.border = '1px solid #572EE5';
+            addGifo.style.background = 'unset';
+            addGifoButton.src = "images/button-crear-gifo.svg";
+        }    
         presentationTitle.style.color = '#572EE5';
         searchBar.style.border = '1px solid #572EE5';
         searchBar.style.background = '#ffffff';
@@ -418,10 +467,12 @@ function changeLightMode () {
         for (let i=0;  i < document.getElementsByClassName('trending-term').length; i++){
             document.getElementsByClassName('trending-term')[i].style.color = '#572EE5';
         }        
-        console.log("Total botones VER MÁS: "+document.getElementsByClassName('general-more').length);
+        console.log("Total botones VER MÁS: "+document.getElementsByClassName('dark-general-more').length);
+        for (let i=0;  i < document.getElementsByClassName('dark-general-more').length; i++){
+            document.getElementsByClassName('dark-general-more')[i].classList.add('general-more');
+        }
         for (let i=0;  i < document.getElementsByClassName('general-more').length; i++){
-            document.getElementsByClassName('general-more')[i].getElementsByTagName('p')[0].style.color = '#572EE5';
-            document.getElementsByClassName('general-more')[i].style.border = '1px solid #572EE5';
+            document.getElementsByClassName('general-more')[i].classList.remove('dark-general-more');
         }
         maximizedCloseButton.src = 'images/button-close.svg';   
         trendingGifos.style.background = '#F3F5F8 100%';
@@ -429,6 +480,8 @@ function changeLightMode () {
         for (let i=0;  i < document.getElementsByClassName('general-text').length; i++){
             document.getElementsByClassName('general-text')[i].style.color = '#000000';
         }   
+        document.getElementById('camera-decoration').src = 'images/camara.svg';
+        document.getElementById('tape-decoration').src = 'images/pelicula.svg';
         createGifosFrame.style.border = '1px solid #572EE5';
         cameraAccessComment.style.color = '#000000';
         /*var estilos = window.getComputedStyle(document.querySelector('.upload-gifo-preview-container', '::after'));
@@ -1134,9 +1187,28 @@ function queryFavorite (resultId, context) {
             if(context=="maximized"){ 
                 maximizedLikeButton.src="images/icon-fav-active.svg";
                 maximizedDownloadBorder.style.opacity='unset';   
-            } else if (context=="results" || context=="favorites") {
-                document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
-                document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+            } else if (context=="results" || context=="favorites" || context=="trending") {
+                if(document.getElementById(resultId)!=null) {
+                    document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                    document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                }       
+                /*if(results.getElementById(resultId)!=null) {
+                    console.log("Actualizar resultados con queryFavorites");
+                    results.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                    results.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                }
+                if(favoritesResults.getElementById(resultId)!=null) {
+                    console.log("Actualizar favoritos con queryFavorites");
+                    //carousel.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                    //carousel.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                    favoritesResults.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                    favoritesResultsresults.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                }
+                if(carousel.getElementById(resultId)!=null) {
+                    console.log("Actualizar trending con queryFavorites");
+                    carousel.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                    carousel.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                }*/
             }
         }
     }
@@ -1404,16 +1476,13 @@ function showFavorites() {
         sandwichIcon.src = "images/burger-modo-noc.svg";
     }
     if (!bp1.matches) { // If media query matches
-        for (let i=0; i<document.getElementsByClassName('section-link').length; i++) {
-            let addHoverStyleFunction = function () { addHoverStyle(document.getElementsByClassName('section-link')[i].getElementsByClassName('section-a')[0]); }
-            let removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[i].getElementsByClassName('section-a')[0]); }
-            if (i==1) {
-                document.getElementsByClassName('section-link')[i].removeEventListener('mouseover', addHoverStyleFunction );
-                document.getElementsByClassName('section-link')[i].removeEventListener('mouseout', removeHoverStyleFunction );
-                document.getElementsByClassName('section-link')[i].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
-            }
-        }
-    }   
+        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
+        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
+        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+    }
     hideContentForFavorites();
     favoritesFlag=true;
     myGifosFlag=false;
@@ -1574,6 +1643,7 @@ function showTrending () {
                 }
                 if (i==0 || i==1 || i==2) {
                     carousel.appendChild(createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"others")); 
+                    queryFavorite(response.data[i].id, "trending");
                 }       
             }
             console.log("Longitud de trendingGalleryDesktopItems: "+trendingGalleryDesktopItems.length);   
@@ -1585,7 +1655,7 @@ function showTrending () {
 }
 
 
-function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, source ){
+function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, context ){
     console.log ("##f()## drawGifos function execution");
     let gifoModel= document.createElement('div');
     gifoModel.classList.add('gifo');
@@ -1626,7 +1696,7 @@ function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle,
     gifoModel.appendChild(gifoUser);
     gifoModel.appendChild(gifoTitle);
 
-    if (source=="others") {
+    if (context!="mygifos" ) {
         let gifoLikeBorder = document.createElement('div');
         gifoLikeBorder.classList.add('gifo-like-border', 'gifo-border');
         let likeButton = document.createElement('img');
@@ -1693,14 +1763,14 @@ function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle,
         x.send(); 
     }
     gifo.getElementsByClassName('gifo-download-border')[0].addEventListener("click", downloadFunction, true);
-    if (source=="others") {
+    if (context!="mygifos") {
         setFavoriteFunction = function (e) { 
             setFavorite(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, "favorites"); 
         }
         gifo.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
         //favoritesResults.appendChild(gifo);
-        //queryFavorite(gifoDataId,"favorites");
-    } else if (source=="own") {
+        //queryFavorite(gifoDataId,"trending");
+    } else if (context=="mygifos") {
         trashFunction = function (e) { 
             trash (gifoDataId);
         }
@@ -1749,6 +1819,12 @@ function nextGifo() {
         carousel.appendChild(trendingGalleryDesktopItems[2]);
         trendingGalleryDesktopIndex=0;
     }
+    console.log("Aplicar query para nuevos gifos en el carrusel");
+    console.log(carousel.getElementsByClassName('gifo').length);
+    for (let i=0; carousel.getElementsByClassName('gifo').length; i++) {
+        console.log("Id obtenido con getAttribute: "+carousel.getElementsByClassName('gifo')[i].getAttribute('id'));
+        queryFavorite(carousel.getElementsByClassName('gifo')[i].getAttribute('id'),"trending");
+    }
 }
 
 function previousGifo() {
@@ -1782,35 +1858,60 @@ function previousGifo() {
         //carousel.appendChild(trendingGalleryDesktopItems[2]);
         //trendingGalleryDesktopIndex=0;
     //}
+    console.log("Aplicar query para nuevos gifos en el carrusel");
+    console.log(carousel.getElementsByClassName('gifo').length);
+    for (let i=0; carousel.getElementsByClassName('gifo').length; i++) {
+        console.log("Id obtenido con getAttribute: "+carousel.getElementsByClassName('gifo')[i].getAttribute('id'));
+        queryFavorite(carousel.getElementsByClassName('gifo')[i].getAttribute('id'),"trending");
+    }
 }
-
 
 // addArrowLeftButtonStyle
 function addArrowLeftButtonStyle () {
-    console.log ("##f()## drawFavorites function execution");
-    arrowLeftBorder.style.background = '#572EE5';    
-    arrowLeftButton.src = 'images/button-left-hover.svg';
+    console.log ("##f()## addArrowLeftButtonStyle function execution");
+    if(!queryDarkMode()) {
+        arrowLeftBorder.style.background = '#572EE5';    
+        arrowLeftButton.src = 'images/button-left-hover.svg';
+    } else {
+        arrowLeftBorder.style.background = '#FFFFFF';    
+        arrowLeftButton.src = 'images/button-left-modo-noc-hover.svg';
+    }
 }
 
 // removeArrowLeftButtonStyle
 function removeArrowLeftButtonStyle () {
     console.log ("##f()## removeArrowLeftButtonStyle function execution");
-    arrowLeftBorder.style.background = 'unset';
-    arrowLeftButton.src = 'images/button-left.svg';
+    if(!queryDarkMode()) {
+        arrowLeftBorder.style.background = 'unset';
+        arrowLeftButton.src = 'images/button-left.svg';
+    } else {
+        arrowLeftBorder.style.background = '#37383C';
+        arrowLeftButton.src = 'images/button-left-hover.svg';
+    }
 }
 
 // addArrowRightButtonStyle
 function addArrowRightButtonStyle () {
     console.log ("##f()## addArrowRightButtonStyle function execution");
-    arrowRightBorder.style.background = '#572EE5';    
-    arrowRightButton.src = 'images/button-right-hover.svg';
+    if(!queryDarkMode()) {
+        arrowRightBorder.style.background = '#572EE5';    
+        arrowRightButton.src = 'images/button-right-hover.svg';
+    } else {
+        arrowRightBorder.style.background = '#FFFFFF';    
+        arrowRightButton.src = 'images/button-right-modo-noc-hover.svg';
+    }
 }
 
 // addArrowRightButtonStyle
 function removeArrowRightButtonStyle () {
-    console.log ("##f()## addArrowRightButtonStyle function execution");
-    arrowRightBorder.style.background = 'unset';
-    arrowRightButton.src = 'images/button-right.svg';
+    console.log ("##f()## removeArrowRightButtonStyle function execution");
+    if(!queryDarkMode()) {
+        arrowRightBorder.style.background = 'unset';
+        arrowRightButton.src = 'images/button-left.svg';
+    } else {
+        arrowRightBorder.style.background = '#37383C';
+        arrowRightButton.src = 'images/button-right-hover.svg';
+    }
 }
 
 //++++ FAVORITES FUNCTIONS ++++
@@ -2573,6 +2674,14 @@ function showMyGifos() {
         sandwichIcon.src = "images/burger.svg";
     } else {
         sandwichIcon.src = "images/burger-modo-noc.svg";
+    }
+    if (!bp1.matches) { // If media query matches
+        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');     
+        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
+        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
     }
     favoritesFlag=false;
     myGifosFlag=true;

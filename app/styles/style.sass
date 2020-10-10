@@ -469,6 +469,9 @@ main
             letter-spacing: 0
             text-align: center
             line-height: 50px
+        .dark-general-more
+            color: #FFFFFF
+            border: 1px solid #FFFFFF
             /*p
                 font-family: Montserrat, 'Times New Roman', Times, serif
                 font-weight: 700
@@ -591,6 +594,7 @@ main
             text-align: unset
             .arrow-border
             .arrow-lef
+            .dark
             .carousel
                 .gifo
                     padding: unset
@@ -809,15 +813,9 @@ main
             letter-spacing: 0
             text-align: center
             line-height: 50px
-            /*p
-                font-family: Montserrat, 'Times New Roman', Times, serif
-                font-weight: 700
-                font-size: 13px
-                color: #572EE5
-                letter-spacing: 0
-                text-align: center
-                line-height: 16px
-                margin: 18px 0px 16px 0px*/    
+        .dark-general-more
+            color: #FFFFFF
+            border: 1px solid #FFFFFF
     .create-gifos
         @extend %flex-column-center
         margin-top: 100px
@@ -1129,14 +1127,9 @@ main
             letter-spacing: 0
             text-align: center
             line-height: 50px
-            /*p
-                font-family: Roboto
-                font-size: 13px
-                color: #572EE5
-                letter-spacing: 0
-                text-align: center
-                font-weight: 900
-                margin: 18px 0px 16px 0px*/            
+        .dark-general-more
+            color: #FFFFFF
+            border: 1px solid #FFFFFF
 footer
     text-align: center
     border-bottom: 5px solid #572EE5
@@ -1234,6 +1227,9 @@ footer
                             color: #572EE5 
                             padding: 0
                             text-transform: uppercase
+                        .underline-deco
+                        .underline-deco:hover
+                            text-decoration: underline #00F3BB
                         /*a:hover 
                             //color: #00F3BB
                             //font-weight: 500
@@ -1478,7 +1474,7 @@ footer
                         //display: unset
                     .gifo-title
                         //display: unset
-            .more-results
+            .more-results, .general-more-dark
                 //border: 1px solid #572EE5
                 //border-radius: 25px
                 //border-radius: 25px
@@ -1497,9 +1493,12 @@ footer
                     //text-align: center
                     //line-height: 16px
                     //margin: 18px 0px 16px 0px
-            .more-results:hover
+            .general-more:hover
                 background-color: #572EE5
                 color: #FFFFFF
+            .dark-general-more:hover
+                background-color: #FFFFFF
+                color: #000000
                 //.p
                     //color: ##FFFFFF
         .maximized
@@ -1698,6 +1697,9 @@ footer
                         .gifo-title
                             //display: unset
                 .arrow.right
+                .dark
+                    border: 1px solid #FFFFFF
+                    background: #37383C
         .favorites
             //width: 100%
             //@extend %flex-column-center
@@ -1820,9 +1822,12 @@ footer
                     //text-align: center
                     //line-height: 16px
                     //margin: 18px 0px 16px 0px
-            .more-favorites:hover
+            .general-more:hover
                 background-color: #572EE5
                 color: #FFFFFF
+            .dark-general-more:hover
+                background-color: #FFFFFF
+                color: #000000
         .create-gifos
             //@extend %flex-column-center
             margin-top: 100px
@@ -1996,7 +2001,7 @@ footer
                         //line-height: 16px
                         border-bottom: 2px solid #5ED7C6
                         width: 131px
-                        height: 16px
+                        //height: 16px
 
                 .control-panel-separator  
                     margin-top: 19px
@@ -2123,25 +2128,12 @@ footer
                         //display: unset
                     .gifo-title
                         //display: unset
-            .more-my-gifos
-                //border: 1px solid #572EE5
-                //border-radius: 25px
-                //width: 127px
-                //height: 50px
-                //margin-bottom: 76px
-                //margin-left: auto
-                //margin-right: auto
-                //p
-                    //font-family: Roboto
-                    //font-size: 13px
-                    //color: #572EE5
-                    //letter-spacing: 0
-                    //text-align: center
-                    //font-weight: 900
-                    //margin: 18px 0px 16px 0px  
-            .more-my-gifos:hover
+            .general-more:hover
                 background-color: #572EE5
-                color: #FFFFFF    
+                color: #FFFFFF
+            .dark-general-more:hover
+                background-color: #FFFFFF
+                color: #000000
             .trending-gifos
                 padding: 67px 0px 182px 0px
                 //width: 100%
