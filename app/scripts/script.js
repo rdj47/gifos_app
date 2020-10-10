@@ -87,7 +87,9 @@ let maximizedResultImg = document.getElementById('maximized-result-img');
 let maximizedResultUser = document.getElementById('maximized-result-user');
 let maximizedResultTitle = document.getElementById('maximized-result-title');
 let maximizedDownloadBorder = document.getElementById('maximized-download-border');
+let maximizedLikeBorder = document.getElementById('maximized-like-border');
 let maximizedLikeButton = document.getElementById('maximized-like-button');
+let maximizedTrashBorder = document.getElementById('maximized-trash-border');
 let maximizedTrashButton = document.getElementById('maximized-trash-button');
 
 // trending-gifos area tags
@@ -184,7 +186,7 @@ let rightsReservedText = document.getElementById('rights-reserved-text');
         document.getElementsByClassName('section-link')[i].addEventListener('mouseout', removeHoverStyleFunction );
     }
 }*/
-if (!bp1.matches) { // If media query matches
+/*if (!bp1.matches) { // If media query matches
         console.log("Cantidad de elemntos section-link: "+document.getElementsByClassName('section-link').length);
         let removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0]); };
         document.getElementsByClassName('section-link')[0].addEventListener('click', removeHoverStyleFunction );
@@ -192,7 +194,7 @@ if (!bp1.matches) { // If media query matches
         document.getElementsByClassName('section-link')[1].addEventListener('click', removeHoverStyleFunction );
         removeHoverStyleFunction = function () { removeHoverStyle(document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0]); };
         document.getElementsByClassName('section-link')[2].addEventListener('click', removeHoverStyleFunction );
-}
+}*/
 getTrendingTerms();
 showTrending();
 arrowRightBorder.addEventListener('click', nextGifo );
@@ -351,10 +353,14 @@ function changeLightMode () {
         if(bp1.matches) {
             menuUl.style.background = ' #000000';
         } else {
-            menuUl.style.background = 'unset';
+            menuUl.style.background = 'unset';            
             document.getElementsByClassName('section-a')[0].style.color = '#FFFFFF';
-            document.getElementsByClassName('section-a')[1].style.color = '#FFFFFF';
-            document.getElementsByClassName('section-a')[2].style.color = '#FFFFFF';
+            if(!favoritesFlag) {
+                document.getElementsByClassName('section-a')[1].style.color = '#FFFFFF';
+            }
+            if (!myGifosFlag) {
+                document.getElementsByClassName('section-a')[2].style.color = '#FFFFFF';
+            }
             addGifo.style.border = '1px solid #FFFFFF';
             addGifo.style.background = '#37383C';
             addGifoButton.src = "images/button-crear-gifo-hover.svg";
@@ -438,8 +444,12 @@ function changeLightMode () {
         } else {
             menuUl.style.background = 'unset';
             document.getElementsByClassName('section-a')[0].style.color = '#572EE5';
-            document.getElementsByClassName('section-a')[1].style.color = '#572EE5';
-            document.getElementsByClassName('section-a')[2].style.color = '#572EE5';
+            if(!favoritesFlag) {
+                document.getElementsByClassName('section-a')[1].style.color = '#572EE5';
+            }
+            if(!myGifosFlag) {
+                document.getElementsByClassName('section-a')[2].style.color = '#572EE5';
+            }
             addGifo.style.border = '1px solid #572EE5';
             addGifo.style.background = 'unset';
             addGifoButton.src = "images/button-crear-gifo.svg";
@@ -1080,24 +1090,25 @@ function maximizeSearchResult(resultId, resultUser, resultName, resultUrl, resul
         maximizedTrashButton.removeEventListener('click', trashFunction, true); 
     }
     queryFavorite(resultId,"maximized");
-    maximizedLikeButton.addEventListener('click', setFavoriteFunction, true);
-    maximizedTrashButton.addEventListener('click', trashFunction, true);
+    maximizedLikeBorder.addEventListener('click', setFavoriteFunction, true);
+    maximizedTrashBorder.addEventListener('click', trashFunction, true);
 
 
     if(trendingFlagArg==true) {
         trendingFlag=true;
         console.log ("trendingFlag: "+trendingFlag);
-        maximizedTrashButton.classList.add('hide');
-        maximizedLikeButton.classList.remove('hide');
+        maximizedTrashBorder.style.display = 'none';
+        //maximizedTrashBorder.classList.add('hide');
+        maximizedLikeBorder.style.display = 'flex';
     } else if(myGifosFlag==true) {
-            maximizedLikeButton.classList.add('hide');
-            maximizedTrashButton.classList.remove('hide');
+            maximizedLikeBorder.style.display = 'none';
+            maximizedTrashBorder.style.display = 'flex';
     } else if (favoritesFlag==true) {
-            maximizedTrashButton.classList.add('hide');
-            maximizedLikeButton.classList.remove('hide');
+            maximizedTrashBorder.style.display = 'none';
+            maximizedLikeBorder.style.display = 'flex';
     } else {
-        maximizedTrashButton.classList.add('hide');
-        maximizedLikeButton.classList.remove('hide');
+        maximizedTrashBorder.style.display = 'none';
+        maximizedLikeBorder.style.display = 'flex';
     }
     maximized.classList.remove('hide');
     favoritesPagination=0;
@@ -1137,7 +1148,7 @@ function hideContentForMaximizingReverse (favoritesFlag,myGifosFlag) {
     footer[0].classList.remove('hide');
     //let setFavoriteFunction = function (e) { setFavorite(resultId, resultUser, resultName, resultUrl, resultOriginalUrl); }
     maximizedDownloadBorder.removeEventListener("click", downloadFunction, true);
-    maximizedLikeButton.removeEventListener('click', setFavoriteFunction, true);
+    maximizedLikeBorder.removeEventListener('click', setFavoriteFunction, true);
     //maximizedTrashButton.removeEventListener('click', trashFunction, true);
     console.log("Flag favorites: "+favoritesFlag);
     console.log ("Flag myGifos: "+myGifosFlag);
@@ -1180,13 +1191,15 @@ function queryFavorite (resultId, context) {
         console.log("JSON.parse(localStorage.getItem('favorites')).length failed", err);
         savedFavoritesObject= JSON.parse(localStorage.getItem('favorites'));
     }
-    //let savedFavoritesString = localStorage.getItem('favorites')
-    //let savedFavoritesObject = JSON.parse(savedFavoritesString);
+    maximizedLikeBorder.classList.add('maximized-like-border');
+    maximizedLikeBorder.classList.remove('maximized-like-border-no-hover');
     if (savedFavoritesObject!=null) { 
         if((savedFavoritesObject.findIndex(element => element.Id==resultId))!==-1) {
             if(context=="maximized"){ 
                 maximizedLikeButton.src="images/icon-fav-active.svg";
-                maximizedDownloadBorder.style.opacity='unset';   
+                //maximizedLikeBorder.style.opacity='unset';   
+                maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
+                maximizedLikeBorder.classList.remove('maximized-like-border');
             } else if (context=="results" || context=="favorites" || context=="trending") {
                 if(document.getElementById(resultId)!=null) {
                     document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
@@ -1256,7 +1269,9 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
             console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
             if (context=='maximized') {
                 maximizedLikeButton.src="images/icon-fav-active.svg";
-                maximizedLikeButton.style.opacity='unset';   
+                //maximizedLikeBorder.style.opacity='unset';
+                maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
+                maximizedLikeBorder.classList.remove('maximized-like-border');   
             } else if (context=='results' || context=='favorites') {
                 document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
                 document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';                
@@ -1278,7 +1293,9 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
             console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
             if (context=='maximized') {
                 maximizedLikeButton.src="images/icon-fav-hover.svg";  
-                maximizedLikeButton.style.opacity='0.7'; 
+                //maximizedLikeButton.style.opacity='0.7'; 
+                maximizedLikeBorder.classList.add('maximized-like-border');
+                maximizedLikeBorder.classList.remove('maximized-like-border-no-hover');   
             } else if (context=='results') {
                 document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-hover.svg";
                 document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='0.7';
@@ -1314,7 +1331,9 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
         console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
         if (context=='maximized') {
             maximizedLikeButton.src="images/icon-fav-active.svg";   
-            maximizedLikeButton.style.opacity='unset';
+            //maximizedLikeBorder.style.opacity='unset';
+            maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
+            maximizedLikeBorder.classList.remove('maximized-like-border');   
         } else if (context=='results') {
             document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
             document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
@@ -1472,16 +1491,24 @@ function showFavorites() {
     sandwich.checked= false;
     if(!queryDarkMode()) {
         sandwichIcon.src = "images/burger.svg";
+        if (!bp1.matches) { // If media query matches
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+        }
     } else {
-        sandwichIcon.src = "images/burger-modo-noc.svg";
-    }
-    if (!bp1.matches) { // If media query matches
-        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');
-        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#572EE5';
-        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
-        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
-        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.add('underline-deco');
-        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+        sandwichIcon.src = "images/burger-modo-noc.svg";    
+        if (!bp1.matches) { // If media query matches
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#FFFFFF';
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#FFFFFF';
+        }
     }
     hideContentForFavorites();
     favoritesFlag=true;
@@ -2672,16 +2699,24 @@ function showMyGifos() {
     sandwich.checked= false;
     if(!queryDarkMode()) {
         sandwichIcon.src = "images/burger.svg";
+        if (!bp1.matches) { // If media query matches
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');     
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#572EE5';
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
+        }
     } else {
         sandwichIcon.src = "images/burger-modo-noc.svg";
-    }
-    if (!bp1.matches) { // If media query matches
-        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');     
-        document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#572EE5';
-        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.add('underline-deco');
-        document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#572EE5';
-        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
-        document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
+        if (!bp1.matches) { // If media query matches
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].classList.add('underline-deco');     
+            document.getElementsByClassName('section-link')[0].getElementsByClassName('section-a')[0].style.color = '#FFFFFF';
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].classList.add('underline-deco');
+            document.getElementsByClassName('section-link')[1].getElementsByClassName('section-a')[0].style.color = '#FFFFFF';
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].classList.remove('underline-deco');
+            document.getElementsByClassName('section-link')[2].getElementsByClassName('section-a')[0].style.color = '#9CAFC3';
+        }
     }
     favoritesFlag=false;
     myGifosFlag=true;

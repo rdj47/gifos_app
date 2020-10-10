@@ -33,7 +33,7 @@ footer .social-networks-icons {
   justify-content: space-between;
   align-content: center; }
 
-header .add-gifo, main .search-results .results .search-result .gifo-options .gifo-border, main .maximized .maximized-frame .maximized-download-border, main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options .gifo-border, main .favorites .favorites-results .gifo .gifo-options .gifo-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container, main .my-gifos .my-gifos-results .gifo .gifo-options .gifo-border {
+header .add-gifo, main .search-results .results .search-result .gifo-options .gifo-border, main .maximized .maximized-frame .maximized-like-border, main .maximized .maximized-frame .maximized-like-border-no-hover, main .maximized .maximized-frame .maximized-trash-border, main .maximized .maximized-frame .maximized-trash-border-no-hover, main .maximized .maximized-frame .maximized-download-border, main .trending-gifos .trending-gallery-desktop .carousel .gifo .gifo-options .gifo-border, main .favorites .favorites-results .gifo .gifo-options .gifo-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-download-border, main .create-gifos .create-gifos-frame .create-gifos-subframe .gifo-preview-container .upload-gifo-options .cg-link .cg-link-border, main .create-gifos .create-gifos-panel .menu-icons-container .step-icon-container, main .my-gifos .my-gifos-results .gifo .gifo-options .gifo-border {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -469,17 +469,49 @@ main .maximized {
     line-height: 19px;
     color: #000000;
     max-width: 50%; }
-  main .maximized .maximized-frame .maximized-like-button, main .maximized .maximized-frame .maximized-trash-button {
+  main .maximized .maximized-frame .maximized-like-border, main .maximized .maximized-frame .maximized-like-border-no-hover {
     position: relative;
-    width: 20px;
-    height: 18px;
+    width: 36px;
+    height: 36px;
     float: right;
-    top: -31px;
+    top: -40px;
     margin-right: 17.33%;
-    opacity: 0.5; }
-  main .maximized .maximized-frame .maximized-like-button:hover {
+    opacity: 0.5;
+    background: #FFFFFF;
+    border: 1px solid #9CAFC3;
+    border-radius: 6px; }
+    main .maximized .maximized-frame .maximized-like-border .maximized-like-button, main .maximized .maximized-frame .maximized-like-border-no-hover .maximized-like-button {
+      position: relative;
+      width: 20px;
+      height: 18px;
+      float: unset;
+      top: unset;
+      margin-right: unset;
+      opacity: unset; }
+  main .maximized .maximized-frame .maximized-like-border-no-hover {
     opacity: unset; }
-  main .maximized .maximized-frame .maximized-trash-button:hover {
+  main .maximized .maximized-frame .maximized-like-border:hover {
+    opacity: unset; }
+  main .maximized .maximized-frame .maximized-trash-border, main .maximized .maximized-frame .maximized-trash-border-no-hover {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    float: right;
+    top: -40px;
+    margin-right: 17.33%;
+    opacity: 0.5;
+    background: #FFFFFF;
+    border: 1px solid #9CAFC3;
+    border-radius: 6px; }
+    main .maximized .maximized-frame .maximized-trash-border .maximized-trash-button, main .maximized .maximized-frame .maximized-trash-border-no-hover .maximized-trash-button {
+      position: relative;
+      width: 20px;
+      height: 18px;
+      float: unset;
+      top: unset;
+      margin-right: unset;
+      opacity: unset; }
+  main .maximized .maximized-frame .maximized-trash-border:hover {
     opacity: unset; }
   main .maximized .maximized-frame .maximized-download-border {
     position: relative;

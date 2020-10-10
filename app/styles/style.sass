@@ -518,18 +518,52 @@ main
                 color: #000000
                 max-width: 50%
                 //text-align: center
-            .maximized-like-button, .maximized-trash-button
+            .maximized-like-border, .maximized-like-border-no-hover
+                @extend %flex-row-justify-center
                 position: relative
-                width: 20px
-                height: 18px
+                width: 36px
+                height: 36px
                 float: right
-                top: -31px
+                top: -40px
                 margin-right: 17.33% 
                 opacity: 0.5
-            .maximized-like-button:hover
+                background: #FFFFFF
+                border: 1px solid #9CAFC3
+                border-radius: 6px
+                .maximized-like-button
+                    position: relative
+                    width: 20px
+                    height: 18px
+                    float: unset
+                    top: unset
+                    margin-right: unset
+                    opacity: unset
+            .maximized-like-border-no-hover
                 opacity: unset
-            .maximized-trash-button:hover
+            .maximized-like-border:hover
                 opacity: unset
+            .maximized-trash-border, .maximized-trash-border-no-hover
+                @extend %flex-row-justify-center
+                position: relative
+                width: 36px
+                height: 36px
+                float: right
+                top: -40px
+                margin-right: 17.33% 
+                opacity: 0.5
+                background: #FFFFFF
+                border: 1px solid #9CAFC3
+                border-radius: 6px
+                .maximized-trash-button
+                    position: relative
+                    width: 20px
+                    height: 18px
+                    float: unset
+                    top: unset
+                    margin-right: unset
+                    opacity: unset
+            .maximized-trash-border:hover
+                    opacity: unset
             .maximized-download-border
                 @extend %flex-row-justify-center
                 position: relative
