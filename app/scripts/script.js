@@ -70,7 +70,7 @@ searchBarInput.value="";
 searchPhraseMG.addEventListener('click', function() { gifSearch(searchBarInput.value); } );
 let searchPhraseClear = document.getElementById('search-phrase-clear');
 searchPhraseClear.addEventListener('click', clearSearchPhrase);
-let moreResults = document.getEl
+
 
 // trending-terms area tags
 let trendingTermsTitle = document.getElementById('trending-terms-title');
@@ -427,7 +427,11 @@ function changeLightMode () {
         arrowRightButton.src = 'images/button-right-hover.svg';
         footer[0].style.borderBottom = '5px solid #000000';        
         socialNetworksText.style.color = '#FFFFFF';
+        for (let i=0;  i < document.getElementsByClassName('fab').length; i++){
+            document.getElementsByClassName('fab')[i].classList.add('dark-i');
+        }
         rightsReservedText.style.color = '#FFFFFF';
+
     }
     else {
         console.log("Ingreso en: !queryDarkMode()=false");
@@ -510,7 +514,10 @@ function changeLightMode () {
             document.getElementsByClassName('control-panel-button')[i].style.color = '#572EE5';
             document.getElementsByClassName('control-panel-button')[i].style.border = '1px solid #572EE5';            
         }   
-        footer[0].style.borderBottom = '5px solid #572EE5';        
+        footer[0].style.borderBottom = '5px solid #572EE5';   
+        for (let i=0;  i < document.getElementsByClassName('fab').length; i++){
+            document.getElementsByClassName('fab')[i].remove.add('dark-i');
+        }     
         //socialNetworksText.style.color = '#FFFFFF';
         //rightsReservedText.style.color = '#FFFFFF';
     }   
@@ -814,6 +821,28 @@ function drawSearchResultsAreaTitle (searchResults) {
     searchResultsTitle.textContent=searchInput.value;
 }
 
+//
+function normalizeResponse (response){
+    let normalizeResponse;
+    let reponseObject;
+    for (let i=0; i<response.data.length; i++) {
+        reponseObject = {
+            "Id": searchResults.data[i].id,
+            "user": searchResults.data[i].username,
+            "title": searchResults.data[i].title,
+            "url": searchResults.data[i].images.fixed_height.url,
+            "originalUrl": searchResults.data[i].images.original.url,
+        }
+        if(i==0) {
+            normalizeResponse = [ responseObject ];
+        } else {
+            normalizeResponse.push(responseObject);
+        }
+    }   
+    return normalizedResponse;
+}
+
+
 // drawSuggestions modifies DOM to include GIFs in results area.
 function drawSearchResults (searchResults) {
     console.log ("##f()## drawSearchResults function execution");
@@ -857,7 +886,7 @@ function drawSearchResults (searchResults) {
         results.appendChild(searchResult);
     }*/
     //function based on tags creation (after desktop desing)
-    let searchResultModel= document.createElement('div');
+    /*let searchResultModel= document.createElement('div');
     searchResultModel.classList.add('search-result');
     let searchResultContainerModel= document.createElement('div');    
     searchResultContainerModel.classList.add('search-result-container');
@@ -909,16 +938,17 @@ function drawSearchResults (searchResults) {
     gifoOptions.appendChild(gifoTrashBorder);*/
        
 
-    searchResultModel.appendChild(searchResultContainerModel);
+    /*searchResultModel.appendChild(searchResultContainerModel);
     searchResultModel.appendChild(gifoOptions);
     searchResultModel.appendChild(gifoUser);
-    searchResultModel.appendChild(gifoTitle);
+    searchResultModel.appendChild(gifoTitle);*/
 
     let results = document.getElementById('results');
     results.classList.remove('hide');
     console.log ("Start iteration for drawing results");
     for (let i=0; i<searchResults.data.length; i++) {
-        let searchResult = searchResultModel.cloneNode(true);
+        //createGifoCard(1+searchResults.pagination.offset+i, searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url, "results");
+        /*let searchResult = searchResultModel.cloneNode(true);
         searchResult.setAttribute("order",1+searchResults.pagination.offset+i);
         searchResult.setAttribute("id",searchResults.data[i].id);
         searchResult.setAttribute("user",searchResults.data[i].username);
@@ -966,10 +996,11 @@ function drawSearchResults (searchResults) {
         searchResult.getElementsByClassName('gifo-download-border')[0].addEventListener("click", downloadFunction, true);
         setFavoriteFunction = function (e) { 
             setFavorite(searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url, "results"); 
-        }
-        queryFavorite(searchResults.data[i].id,"results");
-        searchResult.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
-        results.appendChild(searchResult);
+        }*/
+        results.appendChild(createGifoCard(1+searchResults.pagination.offset+i, searchResults.data[i].id, searchResults.data[i].username, searchResults.data[i].title, searchResults.data[i].images.fixed_height.url, searchResults.data[i].images.original.url, "results"));
+        queryFavorite(searchResults.data[i].id, "results");
+        //searchResult.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
+        
     }
 }
 
@@ -1195,16 +1226,34 @@ function queryFavorite (resultId, context) {
     maximizedLikeBorder.classList.remove('maximized-like-border-no-hover');
     if (savedFavoritesObject!=null) { 
         if((savedFavoritesObject.findIndex(element => element.Id==resultId))!==-1) {
-            if(context=="maximized"){ 
-                maximizedLikeButton.src="images/icon-fav-active.svg";
-                //maximizedLikeBorder.style.opacity='unset';   
-                maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
-                maximizedLikeBorder.classList.remove('maximized-like-border');
-            } else if (context=="results" || context=="favorites" || context=="trending") {
-                if(document.getElementById(resultId)!=null) {
-                    document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
-                    document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
-                }       
+            console.log("queryFavorite: context=> "+context);
+            switch(context) {
+                case "results":
+                    if(results.getElementsByClassName("r_"+resultId).length!=0) {
+                        results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                        results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                    }
+                    break;
+                case "maximized":
+                    maximizedLikeButton.src="images/icon-fav-active.svg";
+                    maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
+                    maximizedLikeBorder.classList.remove('maximized-like-border');
+                    break;
+                case "favorites":
+                    if(favoritesResults.getElementsByClassName("f_"+resultId).length!=0) {
+                        favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                        favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                    }
+                    break;
+                case "trending":
+                    if(carousel.getElementsByClassName("t_"+resultId).length!=0) {
+                        carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                        carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+                    }
+                    break;
+                default:
+                    break;
+            
                 /*if(results.getElementById(resultId)!=null) {
                     console.log("Actualizar resultados con queryFavorites");
                     results.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
@@ -1253,7 +1302,7 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
         console.log("resultId: "+resultId);
         console.log("Índice del maximizado: "+savedFavoritesObject.findIndex(element => element.Id==resultId));
         if((savedFavoritesObject.findIndex(element => element.Id==resultId))==-1) {
-            console.log ("No era favorito, ahora lo es."); 
+            console.log ("No era favorito, ahora lo será."); 
             let newFavorite = {
                 "Id": resultId,
                 "user": resultUser,
@@ -1267,17 +1316,23 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
             localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
             console.log("Array Favorites: "+savedFavoritesObject);
             console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
-            if (context=='maximized') {
-                maximizedLikeButton.src="images/icon-fav-active.svg";
-                //maximizedLikeBorder.style.opacity='unset';
-                maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
-                maximizedLikeBorder.classList.remove('maximized-like-border');   
-            } else if (context=='results' || context=='favorites') {
-                document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
-                document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';                
+            maximizedLikeButton.src="images/icon-fav-active.svg";
+            maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
+            maximizedLikeBorder.classList.remove('maximized-like-border'); 
+            if(results.getElementsByClassName("r_"+resultId).length!=0) {
+                results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+            } 
+            if(favoritesResults.getElementsByClassName("f_"+resultId).length!=0) {
+                favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+            }
+            if(carousel.getElementsByClassName("t_"+resultId).length!=0) {
+                carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+                carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
             }
         } else {
-            console.log ("Era favorito, ahora ya no lo es."); 
+            console.log ("Era favorito, ahora ya no lo será."); 
             let newFavorite = {
                 "Id": resultId,
                 "user": resultUser,
@@ -1291,26 +1346,24 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
             localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
             console.log("Array Favorites: "+savedFavoritesObject);
             console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
-            if (context=='maximized') {
-                maximizedLikeButton.src="images/icon-fav-hover.svg";  
-                //maximizedLikeButton.style.opacity='0.7'; 
-                maximizedLikeBorder.classList.add('maximized-like-border');
-                maximizedLikeBorder.classList.remove('maximized-like-border-no-hover');   
-            } else if (context=='results') {
-                document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-hover.svg";
-                document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='0.7';
-  
-            } else if (context=='favorites') {
-                document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-hover.svg";
-                document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='0.7';
-                if (!bp1.matches) { // If media query matches
-                    showFavorites();
-                }    
+            maximizedLikeButton.src="images/icon-fav-hover.svg";  
+            maximizedLikeBorder.classList.add('maximized-like-border');
+            maximizedLikeBorder.classList.remove('maximized-like-border-no-hover');  
+            if(results.getElementsByClassName("r_"+resultId).length!=0) {
+                results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-hover.svg";
+                results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='0.7';
             }
-         
+            if(favoritesResults.getElementsByClassName("f_"+resultId).length!=0) {
+                favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-hover.svg";
+                favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='0.7';
+            }
+            if(carousel.getElementsByClassName("t_"+resultId).length!=0) {
+                carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-hover.svg";
+                carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='0.7';
+            }
         }    
     } else {
-        console.log ("No hay favoritos. Ahora es favorito"); 
+        console.log ("No hay favoritos. Ahora habrá un favorito"); 
         let newFavorite = {
             "Id": resultId,
             "user": resultUser,
@@ -1329,14 +1382,25 @@ function setFavorite (resultId, resultUser, resultName, resultUrl, resultOrigina
         localStorage.setItem('favorites',JSON.stringify(savedFavoritesObject));
         console.log("Array Favorites: "+savedFavoritesObject);
         console.log("Item Listado de favoritos: "+localStorage.getItem('favorites'));
-        if (context=='maximized') {
-            maximizedLikeButton.src="images/icon-fav-active.svg";   
-            //maximizedLikeBorder.style.opacity='unset';
-            maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
-            maximizedLikeBorder.classList.remove('maximized-like-border');   
-        } else if (context=='results') {
-            document.getElementById(resultId).getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
-            document.getElementById(resultId).getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+        maximizedLikeButton.src="images/icon-fav-active.svg";
+        maximizedLikeBorder.classList.add('maximized-like-border-no-hover');
+        maximizedLikeBorder.classList.remove('maximized-like-border'); 
+        if(results.getElementsByClassName("r_"+resultId).length!=0) {
+            results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+            results.getElementsByClassName("r_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+        } 
+        if(favoritesResults.getElementsByClassName("f_"+resultId).length!=0) {
+            favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+            favoritesResults.getElementsByClassName("f_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+        }
+        if(carousel.getElementsByClassName("t_"+resultId).length!=0) {
+            carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('like-button')[0].src="images/icon-fav-active.svg";
+            carousel.getElementsByClassName("t_"+resultId)[0].getElementsByClassName('gifo-like-border')[0].style.opacity='unset';
+        }
+    }
+    if(context!="maximized") { 
+        if(favoritesFlag==true) {
+            showFavorites();                
         }
     }
 }
@@ -1664,12 +1728,12 @@ function showTrending () {
             console.log ("Start iteration for drawing trending");
             for (let i=0; i<response.data.length; i++) {
                 if(i==0){
-                    trendingGalleryDesktopItems = [ createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"others") ];
+                    trendingGalleryDesktopItems = [ createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"trending") ];
                 } else {
-                    trendingGalleryDesktopItems.push(createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"others"));
+                    trendingGalleryDesktopItems.push(createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"trending"));
                 }
                 if (i==0 || i==1 || i==2) {
-                    carousel.appendChild(createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"others")); 
+                    carousel.appendChild(createGifoCard(i+1,response.data[i].id, response.data[i].username, response.data[i].title, response.data[i].images.fixed_height.url, response.data[i].images.original.url,"trending")); 
                     queryFavorite(response.data[i].id, "trending");
                 }       
             }
@@ -1682,8 +1746,8 @@ function showTrending () {
 }
 
 
-function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, context ){
-    console.log ("##f()## drawGifos function execution");
+function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, context ) {
+    console.log ("##f()## createGifoCard function execution");
     let gifoModel= document.createElement('div');
     gifoModel.classList.add('gifo');
     let gifoContainerModel= document.createElement('div');    
@@ -1732,7 +1796,7 @@ function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle,
         gifoLikeBorder.appendChild(likeButton);
         gifoOptions.appendChild(gifoLikeBorder);
     }
-    /*if (context=="mygifos") {
+    if (context=="mygifos") {
         let gifoTrashBorder = document.createElement('div');
         gifoTrashBorder.classList.add('gifo-trash-border', 'gifo-border');
         let trashButton = document.createElement('img');
@@ -1740,7 +1804,7 @@ function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle,
         trashButton.src = 'images/icon_trash.svg';
         gifoTrashBorder.appendChild(trashButton);
         gifoOptions.appendChild(gifoTrashBorder);
-    } */ 
+    }
     gifoOptions.appendChild(gifoDownloadBorder);
     gifoOptions.appendChild(gifoMaximizeBorder);
     let gifo = gifoModel.cloneNode(true);
@@ -1748,15 +1812,26 @@ function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle,
     gifo.setAttribute("id",gifoDataId);
     gifo.setAttribute("user",gifoDataUser);
     gifo.setAttribute("title",gifoDataTitle);
+    switch(context) {
+        case "results":
+            gifo.classList.add("r_"+gifoDataId);
+        break;
+        case "favorites":
+            gifo.classList.add("f_"+gifoDataId);
+        break;
+        case "mygifos":
+            gifo.classList.add("m_"+gifoDataId);
+        break;
+        case "trending":
+            gifo.classList.add("t_"+gifoDataId);
+        break;
+    }
     console.log(gifo);  
     console.log("searchResultContainerModel: ");
     console.log(gifo.getElementsByTagName('div')[0]);
     console.log("searchResultContainerImgModel: ");
     console.log(gifo.getElementsByTagName('div')[0].getElementsByTagName('img')[0]);
-    //searchResultContainerImg = searchResult.getElementsByTagName('div')[0].getElementsByTagName('img')[0];
-    //searchResultContainerImg[0].src=searchResults.data[i].images.fixed_height.url;
     gifo.getElementsByTagName('div')[0].getElementsByTagName('img')[0].src = gifoDataUrl;
-    //searchResult.getElementsByClassName('gifo-user')[0].textContent = searchResults.data[i].username;
     if(gifoDataUser) {
         gifo.getElementsByClassName('gifo-user')[0].textContent = gifoDataUser;
     } else {
@@ -1767,52 +1842,57 @@ function createGifoCard (gifoDataOrder, gifoDataId, gifoDataUser, gifoDataTitle,
     } else {
         gifo.getElementsByClassName('gifo-title')[0].textContent = "Título no registrado"
     }        
-    /*if (bp1.matches) { // If media query matches
+    if(bp1.matches) { // If media query matches
         console.log("Genera vista móvil"); 
-        gifo.addEventListener('click', function() { maximizeSearchResult(gifosObject[i].Id, gifosObject[i].user, gifosObject[i].title, gifosObject[i].url, gifosObject[i].originalUrl); });
-        if (context=="favorites") {
+        gifo.addEventListener('click', function() { maximizeSearchResult(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, true); });
+        /*if (context=="favorites") {
             favoritesResults.appendChild(gifo);
         } else if (context=="mygifos") {
             myGifosResults.appendChild(gifo);
+        }*/
+    } else {
+        console.log("Genera vista escritorio"); 
+        gifo.addEventListener('mouseover', function () { addGifoCardStyle (gifo) });
+        gifo.addEventListener('mouseout', function () { removeGifoCardStyle (gifo) });
+        gifo.getElementsByClassName('gifo-maximize-border')[0].addEventListener('click', function() { maximizeSearchResult(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, true); });
+        downloadFunction = function (e) { 
+            console.log ("##f()##  downloadFunction var function execution");
+            var x=new XMLHttpRequest();
+            console.log ("URL de descarga: "+gifoDataOriginalUrl);
+            x.open("GET", gifoDataOriginalUrl, true);
+            x.responseType = 'blob';
+            x.onload=function(e){download(x.response, "GIFOS_"+gifoDataId+".gif", "image/gif" ); }
+            x.send(); 
         }
-    } else {*/
-        //console.log("Genera vista escritorio"); 
-    gifo.addEventListener('mouseover', function () { addGifoCardStyle (gifo) });
-    gifo.addEventListener('mouseout', function () { removeGifoCardStyle (gifo) });
-    gifo.getElementsByClassName('gifo-maximize-border')[0].addEventListener('click', function() { maximizeSearchResult(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, true); });
-    downloadFunction = function (e) { 
-        console.log ("##f()##  downloadFunction var function execution");
-        var x=new XMLHttpRequest();
-        console.log ("URL de descarga: "+gifoDataOriginalUrl);
-        x.open("GET", gifoDataOriginalUrl, true);
-        x.responseType = 'blob';
-        x.onload=function(e){download(x.response, "GIFOS_"+gifoDataId+".gif", "image/gif" ); }
-        x.send(); 
-    }
-    gifo.getElementsByClassName('gifo-download-border')[0].addEventListener("click", downloadFunction, true);
-    if (context!="mygifos") {
-        setFavoriteFunction = function (e) { 
-            setFavorite(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, "favorites"); 
+        gifo.getElementsByClassName('gifo-download-border')[0].addEventListener("click", downloadFunction, true);
+        switch(context) {
+            case "results":
+                setFavoriteFunction = function (e) { 
+                    setFavorite(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, "results"); 
+                }
+                gifo.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
+            break;
+            case "favorites":
+                setFavoriteFunction = function (e) { 
+                    setFavorite(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, "favorites"); 
+                }
+                gifo.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
+            break;
+            case "mygifos":
+                trashFunction = function (e) { 
+                    trash (gifoDataId);
+                }
+                gifo.getElementsByClassName('gifo-trash-border')[0].addEventListener('click', trashFunction, true); 
+            break;
+            case "trending":
+                setFavoriteFunction = function (e) { 
+                    setFavorite(gifoDataId, gifoDataUser, gifoDataTitle, gifoDataUrl, gifoDataOriginalUrl, "trending"); 
+                }
+                gifo.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
+            break;
         }
-        gifo.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
-        //favoritesResults.appendChild(gifo);
-        //queryFavorite(gifoDataId,"trending");
-    } else if (context=="mygifos") {
-        trashFunction = function (e) { 
-            trash (gifoDataId);
-        }
-        gifo.getElementsByClassName('gifo-trash-border')[0].addEventListener('click', trashFunction, true); 
-        ///myGifosResults.appendChild(gifo);
     }
     return gifo;
-        //console.log("gifosObject.length: "+gifosObject.length+". "+"i: "+i+".");
-        //if (i==(gifosObject.length-1))
-        //{
-            //console.log("Stop iteration for drawing gifos");
-            //i=favoritesPagination+12;  
-            //break;
-            //console.log("favoritesPagination+12 final: "+i);          
-        //}
 } 
 
 function nextGifo() {
@@ -1827,12 +1907,16 @@ function nextGifo() {
         trendingGalleryDesktopIndex++;
         for (let i=0; i<3; i++) {
             carousel.appendChild(trendingGalleryDesktopItems[trendingGalleryDesktopIndex+i]);
+            //queryFavorite(trendingGalleryDesktopItems[trendingGalleryDesktopIndex+i].Id, "trending");
         }
     } else if ((trendingGalleryDesktopIndex+3)==trendingGalleryDesktopItems.length)  {
             trendingGalleryDesktopIndex++;
             carousel.appendChild(trendingGalleryDesktopItems[trendingGalleryDesktopIndex]);
+            //queryFavorite(trendingGalleryDesktopItems[trendingGalleryDesktopIndex].Id, "trending");
             carousel.appendChild(trendingGalleryDesktopItems[trendingGalleryDesktopIndex+1]);
+            //queryFavorite(trendingGalleryDesktopItems[trendingGalleryDesktopIndex+1].Id, "trending");
             carousel.appendChild(trendingGalleryDesktopItems[0]);
+            //queryFavorite(trendingGalleryDesktopItems[0].Id, "trending");
     } else if ((trendingGalleryDesktopIndex+3)==(trendingGalleryDesktopItems.length+1)) {
         trendingGalleryDesktopIndex++;
         carousel.appendChild(trendingGalleryDesktopItems[trendingGalleryDesktopIndex]);
@@ -1847,8 +1931,8 @@ function nextGifo() {
         trendingGalleryDesktopIndex=0;
     }
     console.log("Aplicar query para nuevos gifos en el carrusel");
-    console.log(carousel.getElementsByClassName('gifo').length);
-    for (let i=0; carousel.getElementsByClassName('gifo').length; i++) {
+    console.log("Elementos del carousel: "+carousel.getElementsByClassName('gifo').length);
+    for (let i=0; i<carousel.getElementsByClassName('gifo').length; i++) {
         console.log("Id obtenido con getAttribute: "+carousel.getElementsByClassName('gifo')[i].getAttribute('id'));
         queryFavorite(carousel.getElementsByClassName('gifo')[i].getAttribute('id'),"trending");
     }
@@ -1934,7 +2018,7 @@ function removeArrowRightButtonStyle () {
     console.log ("##f()## removeArrowRightButtonStyle function execution");
     if(!queryDarkMode()) {
         arrowRightBorder.style.background = 'unset';
-        arrowRightButton.src = 'images/button-left.svg';
+        arrowRightButton.src = 'images/button-right.svg';
     } else {
         arrowRightBorder.style.background = '#37383C';
         arrowRightButton.src = 'images/button-right-hover.svg';
@@ -1987,7 +2071,7 @@ function drawFavorites (favoritesObject) {
 //drawGifos
 function drawGifos(gifosObject,context) {
     console.log ("##f()## drawGifos function execution");
-    let gifoModel= document.createElement('div');
+    /*let gifoModel= document.createElement('div');
     gifoModel.classList.add('gifo');
     let gifoContainerModel= document.createElement('div');    
     gifoContainerModel.classList.add('gifo-container');
@@ -2026,7 +2110,7 @@ function drawGifos(gifosObject,context) {
     gifoModel.appendChild(gifoUser);
     gifoModel.appendChild(gifoTitle);
 
-    if (context=="favorites") {
+    if (context=='results' || context=="favorites") {
         let gifoLikeBorder = document.createElement('div');
         gifoLikeBorder.classList.add('gifo-like-border', 'gifo-border');
         let likeButton = document.createElement('img');
@@ -2049,7 +2133,7 @@ function drawGifos(gifosObject,context) {
     gifoOptions.appendChild(gifoMaximizeBorder);
 
     //let results = document.getElementById('results');
-    //results.classList.remove('hide');
+    //results.classList.remove('hide');*/
     console.log ("Start iteration for drawing results");
     let pagination = 0;
     if (context=="favorites") {
@@ -2058,7 +2142,7 @@ function drawGifos(gifosObject,context) {
         pagination = myGifosPagination;
     }
     for (let i=pagination; i<pagination+12; i++) {
-        let gifo = gifoModel.cloneNode(true);
+        /*let gifo = gifoModel.cloneNode(true);
         gifo.setAttribute("order",1+i);
         gifo.setAttribute("id",gifosObject[i].Id);
         gifo.setAttribute("user",gifosObject[i].user);
@@ -2081,16 +2165,18 @@ function drawGifos(gifosObject,context) {
             gifo.getElementsByClassName('gifo-title')[0].textContent = gifosObject[i].title;
         } else {
             gifo.getElementsByClassName('gifo-title')[0].textContent = "Título no registrado"
-        }        
-        if (bp1.matches) { // If media query matches
+        }*/   
+        createGifoCard(i+1, gifosObject[i].Id, gifosObject[i].user,gifosObject[i].title, gifosObject[i].url,  gifosObject[i].originalUrl, context);
+        /*if (bp1.matches) { // If media query matches
             console.log("Genera vista móvil"); 
-            gifo.addEventListener('click', function() { maximizeSearchResult(gifosObject[i].Id, gifosObject[i].user, gifosObject[i].title, gifosObject[i].url, gifosObject[i].originalUrl); });
+            gifo.addEventListener('click', function() { maximizeSearchResult(gifosObject[i].Id, gifosObject[i].user, gifosObject[i].title, gifosObject[i].url, gifosObject[i].originalUrl); });*/
             if (context=="favorites") {
-                favoritesResults.appendChild(gifo);
+                favoritesResults.appendChild(createGifoCard(i+1, gifosObject[i].Id, gifosObject[i].user,gifosObject[i].title, gifosObject[i].url,  gifosObject[i].originalUrl, context));
+                queryFavorite(gifosObject[i].Id,"favorites");
             } else if (context=="mygifos") {
-                myGifosResults.appendChild(gifo);
+                myGifosResults.appendChild(createGifoCard(i+1, gifosObject[i].Id, gifosObject[i].user,gifosObject[i].title, gifosObject[i].url,  gifosObject[i].originalUrl, context));
             }
-        } else {
+        /*} else {
             console.log("Genera vista escritorio"); 
             gifo.addEventListener('mouseover', function () { addGifoCardStyle (gifo) });
             gifo.addEventListener('mouseout', function () { removeGifoCardStyle (gifo) });
@@ -2105,13 +2191,18 @@ function drawGifos(gifosObject,context) {
                 x.send(); 
             }
             gifo.getElementsByClassName('gifo-download-border')[0].addEventListener("click", downloadFunction, true);
-            if (context=="favorites") {
+             if (context=="results" || context=="favorites") {
                 setFavoriteFunction = function (e) { 
                     setFavorite(gifosObject[i].Id, gifosObject[i].user, gifosObject[i].title, gifosObject[i].url, gifosObject[i].originalUrl, "favorites"); 
                 }
                 gifo.getElementsByClassName('gifo-like-border')[0].addEventListener('click', setFavoriteFunction, true);
-                favoritesResults.appendChild(gifo);
-                queryFavorite(gifosObject[i].Id,"favorites");
+                if (context=='results') {
+                    results.appendChild(gifo);
+                    queryFavorite(gifosObject[i].Id,"results");
+                } else if (context == 'favorites') {
+                    favoritesResults.appendChild(gifo);
+                    queryFavorite(gifosObject[i].Id,"favorites");
+                }
             } else if (context=="mygifos") {
                 trashFunction = function (e) { 
                     trash (gifosObject[i].Id);
@@ -2119,7 +2210,7 @@ function drawGifos(gifosObject,context) {
                 gifo.getElementsByClassName('gifo-trash-border')[0].addEventListener('click', trashFunction, true); 
                 myGifosResults.appendChild(gifo);
             }
-        }
+        }*/
         console.log("gifosObject.length: "+gifosObject.length+". "+"i: "+i+".");
         if (i==(gifosObject.length-1))
         {
@@ -2226,7 +2317,7 @@ function drawMoreFavorites () {
     drawGifos(favoritesObject,"favorites");
     drawMoreFavoritesButton(favoritesObject,favoritesPagination);
     moreFavoritesButton.setAttribute('offset', favoritesPagination);
-    favoritesPagination=+12;
+    //favoritesPagination=+12;
     console.log("Offset después solicitar más resultados: "+moreFavoritesButton.getAttribute('offset'));
 }
 
