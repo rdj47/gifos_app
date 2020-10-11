@@ -516,7 +516,7 @@ function changeLightMode () {
         }   
         footer[0].style.borderBottom = '5px solid #572EE5';   
         for (let i=0;  i < document.getElementsByClassName('fab').length; i++){
-            document.getElementsByClassName('fab')[i].remove.add('dark-i');
+            document.getElementsByClassName('fab')[i].classList.remove('dark-i');
         }     
         //socialNetworksText.style.color = '#FFFFFF';
         //rightsReservedText.style.color = '#FFFFFF';
