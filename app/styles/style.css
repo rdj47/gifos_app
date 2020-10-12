@@ -1251,7 +1251,7 @@ footer {
       margin-top: 24px; }
     main .banner .search-bar {
       padding-top: unset;
-      width: 48.33%; }
+      width: 38.26%; }
       main .banner .search-bar .search-phrase {
         width: 100%; }
   main .trending-terms {
@@ -1407,6 +1407,8 @@ footer {
         align-content: center;
         margin-right: 25px;
         margin-left: 25px; }
+      main .trending-gifos .trending-gallery-desktop .arrow-border:hover {
+        background: #572EE5; }
       main .trending-gifos .trending-gallery-desktop .carousel {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(357px, 1fr));
@@ -1439,6 +1441,8 @@ footer {
       main .trending-gifos .trending-gallery-desktop .dark {
         border: 1px solid #FFFFFF;
         background: #37383C; }
+      main .trending-gifos .trending-gallery-desktop .dark:hover {
+        background: #FFFFFF; }
   main .favorites {
     margin-top: 95px; }
     main .favorites .favorites-icon {

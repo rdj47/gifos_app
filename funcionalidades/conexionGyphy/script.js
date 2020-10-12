@@ -58,6 +58,21 @@ gifAutocomplete.then (response => {
 }).catch(error => {
 console.log(error);
 })
+
+//  Test function for Gyphy TrendingSearch Terms suggestions
+
+let gifTrendingSearchTerms = giphyConnection (`https://api.giphy.com/v1/trending/searches?api_key=${api_key}`);
+gifTrendingSearchTerms.then (response => {
+    console.log ("Gyphy TrendingSearch Terms suggestions");
+    console.log (response.data[0]);
+    console.log ("Longitud Array Objetos: "+ response.data.length);
+    for (let i=0; i<response.data.length; i++) {
+        console.log("Name: "+response.data[i]);
+    }
+}).catch(error => {
+console.log(error);
+})
+
 //  Test function for Gyphy Search by ID
 let s = "qhlTLYwGbMaapt8F0S";
 console.log (`https://api.giphy.com/v1/gifs/${s}?api_key=${api_key}`);
